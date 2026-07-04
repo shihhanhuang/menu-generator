@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu Generator</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Household planner</p>
+          <h1>Menu Generator</h1>
+        </div>
+        <nav class="view-tabs" aria-label="App views">
+          <button class="tab-button is-active" type="button" data-view-tab="plan">Plan</button>
+          <button class="tab-button" type="button" data-view-tab="recipes">Recipes</button>
+          <button class="tab-button" type="button" data-view-tab="history">History</button>
+          <button class="tab-button" type="button" data-view-tab="import">Import</button>
+        </nav>
+      </header>
+
+      <section id="planView" class="planner-layout app-view" aria-label="Weekly planner controls and results">
+        <aside class="control-panel" aria-label="Planning settings">
+          <div class="field-group">
+            <label for="inspiration">Inspiration</label>
+            <select id="inspiration">
+              <option value="none">No special inspiration</option>
+              <option value="seasonal">Seasonal nudge</option>
+              <option value="weather">Weather-aware nudge</option>
+              <option value="seasonalWeather">Seasonal + weather-aware</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="weekMood">Weekly mood</label>
+            <select id="weekMood">
+              <option value="balanced">Balanced</option>
+              <option value="easy">Easy mode</option>
+              <option value="creative">Creative</option>
+              <option value="favorites">Use favorites</option>
+              <option value="asian">Asian</option>
+              <option value="western">Western</option>
+              <option value="healthy">Healthy</option>
+              <option value="light">Light & fresh</option>
+              <option value="minimal">Minimal cooking</option>
+              <option value="cozy">Cozy</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <span class="label">No dinner needed</span>
+            <div id="noCookDays" class="toggle-grid"></div>
+          </div>
+
+          <div class="field-group">
+            <span class="label">Busy dinner days</span>
+            <div id="busyDays" class="toggle-grid"></div>
+          </div>
+
+          <div class="field-group">
+            <span class="label">Lunch needed</span>
+            <div id="lunchDays" class="toggle-grid"></div>
+          </div>
+
+          <div class="field-group">
+            <span class="label">Snacks / dessert needed</span>
+            <div id="snackDessertDays" class="toggle-grid"></div>
+          </div>
+
+          <button id="startFreshWeekButton" class="secondary-button" type="button">Start fresh week</button>
+        </aside>
+
+        <section class="results-panel" aria-label="Generated menu">
+          <div class="section-heading">
+            <h2>Plan</h2>
+            <p id="planningWeekLabel">Planning week</p>
+          </div>
+          <div id="menuPlan" class="menu-grid"></div>
+          <div class="save-week-footer">
+            <button id="saveWeekButton" class="secondary-button" type="button">Save this week</button>
+          </div>
+        </section>
+
+        <section class="shopping-panel is-collapsed" aria-label="Shopping list">
+          <div class="section-heading">
+            <h2>Shopping</h2>
+            <p>Tabled for now</p>
+          </div>
+          <div id="shoppingList" class="shopping-list"></div>
+        </section>
+      </section>
+
+      <section id="recipesView" class="recipes-layout app-view is-hidden" aria-label="Recipe library">
+        <aside class="recipe-browser" aria-label="Recipe search and filters">
+          <div class="section-heading">
+            <h2>Recipes</h2>
+            <p>Search and filter your library</p>
+          </div>
+          <div class="recipe-filter-bar">
+            <label>
+              <span>Search</span>
+              <input id="recipeLibrarySearch" type="search" placeholder="Recipe, ingredient, category" />
+            </label>
+            <label>
+              <span>Filter</span>
+              <select id="recipeLibraryFilter" aria-label="Filter recipes">
+                <option value="all">All recipes</option>
+                <option value="needsReview">Needs review</option>
+                <option value="often">Often</option>
+                <option value="rare">Rarely</option>
+                <option value="avoid">Avoid</option>
+                <option value="hidden">Hidden</option>
+                <option value="healthy">Healthy</option>
+                <option value="snackDessert">Snack/dessert</option>
+              </select>
+            </label>
+          </div>
+          <div id="recipeLibraryCount" class="recipe-result-count"></div>
+          <div id="recipeLibraryList" class="recipe-list"></div>
+        </aside>
+
+        <section class="recipe-detail-panel" aria-label="Selected recipe">
+          <div id="recipeLibraryDetail"></div>
+        </section>
+      </section>
+
+      <section id="historyView" class="history-layout app-view is-hidden" aria-label="Saved menu history">
+        <section class="history-workspace">
+          <div class="section-heading">
+            <h2>History</h2>
+            <p>Saved weeks for reference and reuse</p>
+          </div>
+          <section class="saved-weeks-panel" aria-label="Saved weeks">
+            <div class="saved-weeks-heading">
+              <strong>Saved weeks</strong>
+              <p>Reference older plans while building a new one</p>
+            </div>
+            <div id="savedWeeksList" class="saved-weeks-list"></div>
+          </section>
+        </section>
+      </section>
+
+      <section id="importView" class="import-layout app-view is-hidden" aria-label="Paprika import">
+        <section class="import-workspace">
+          <div class="section-heading">
+            <h2>Import</h2>
+            <p>Occasional Paprika recipe updates</p>
+          </div>
+          <section class="import-panel" aria-label="Paprika import">
+            <div>
+              <strong>Paprika import</strong>
+              <p>Uses `.paprikarecipes` files in the imports folder</p>
+            </div>
+            <div class="import-guidance">
+              <strong>What should I select?</strong>
+              <p>First place the Paprika export in the app's `imports` folder. Newest files appear first here.</p>
+              <p>Select the file, or files, that together represent the recipe library you want active in the app.</p>
+              <ul>
+                <li>If your new export contains all current favorites, select only that new export.</li>
+                <li>If your new export is just a small batch, select it together with your main/full export.</li>
+                <li>Your planner attributes and tags are stored separately and should carry over when the same recipe appears again.</li>
+              </ul>
+            </div>
+            <div id="importFileList" class="import-file-list"></div>
+            <button id="importButton" class="secondary-button" type="button">Update recipes</button>
+            <p id="importStatus" class="import-status"></p>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="sourceOverlay" class="source-overlay is-hidden" aria-hidden="true">
+      <section class="source-dialog" aria-label="Recipe source">
+        <header class="source-dialog-header">
+          <div>
+            <p class="eyebrow">Recipe source</p>
+            <h2 id="sourceDialogTitle">Source</h2>
+          </div>
+          <button id="closeSourceOverlay" class="small-button" type="button">Close</button>
+        </header>
+        <iframe id="sourceFrame" title="Recipe source preview"></iframe>
+        <div class="source-dialog-footer">
+          <a id="sourceExternalLink" class="small-button subtle-button" href="#" target="_blank" rel="noreferrer">Open in new tab</a>
+          <p>If the page does not load here, use the new-tab link. Some recipe sites block embedded previews.</p>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,2724 @@
+{
+  "menuGenerator.dayNotes": {
+    "Monday": "",
+    "Saturday": "",
+    "Tuesday": ""
+  },
+  "menuGenerator.dayDishes": {
+    "Thursday": [
+      {
+        "id": "19412c6f-ffea-45e1-bb5d-da3b16390117",
+        "mealType": "dinner",
+        "role": "salad",
+        "source": "recipe",
+        "recipeId": "4367BC62-DACD-4051-BAF9-1B404EFEBD38",
+        "title": "Mugen “Infinite” Cabbage Salad with Crunchy Furikake"
+      }
+    ],
+    "Friday": [
+      {
+        "id": "57d8e09f-8656-4e5f-96d6-14cdd52986e6",
+        "mealType": "dinner",
+        "role": "salad",
+        "source": "recipe",
+        "recipeId": "0879C9FD-6630-4483-B1D5-345C9D72933B",
+        "title": "Tomato & Mozzarella Salad"
+      }
+    ],
+    "Tuesday": [
+      {
+        "id": "fee2579e-569f-4168-b99c-fa5f11e83301",
+        "mealType": "lunch",
+        "role": "carb",
+        "source": "manual",
+        "title": "Bread"
+      }
+    ]
+  },
+  "menuGenerator.lockedDays": [
+    "Saturday"
+  ],
+  "menuGenerator.recipeFeedback": {
+    "A29035EC-F38F-4F1F-A73A-58935C402108-22636-000009B3E1D77989": {
+      "mealTypes": [
+        "dinner",
+        "lunch"
+      ],
+      "tags": [
+        "easy"
+      ]
+    },
+    "2214A15F-E938-4ABE-82E0-78B16C18DFF7-4245-000035F94826BAE5": {
+      "addOnRole": "carb",
+      "tags": [
+        "winter",
+        "cozy",
+        "goodLeftovers",
+        "easy",
+        "autumn",
+        "busyDay"
+      ],
+      "roles": [
+        "main"
+      ],
+      "reviewed": true,
+      "repeatPreference": "normal",
+      "suppressedTags": [
+        "entertaining"
+      ]
+    },
+    "B16A4842-341C-452C-953D-F6FFB6F6FE6D": {
+      "mealTypes": []
+    },
+    "30B9A3A4-45BD-46A9-93E9-3903341D8306": {
+      "repeatPreference": "rare",
+      "roles": [
+        "addOn"
+      ],
+      "tags": [
+        "easy",
+        "healthy",
+        "winter",
+        "creative",
+        "hotDay"
+      ],
+      "reviewed": true,
+      "suppressedTags": [
+        "weekend"
+      ]
+    },
+    "A2460D90-1846-4B0A-937F-D35345ED401B-3226-00000179EDA78B55": {
+      "tags": [
+        "entertaining"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "322FC1E6-520B-40B8-B06F-0F7BCDC6C626": {
+      "tags": [
+        "easy",
+        "light",
+        "cozy",
+        "canMakeAhead",
+        "weekend",
+        "entertaining"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "6DF17434-50F1-4F84-9D09-8AB249B62221-20952-0000090225E77040": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "tags": [
+        "entertaining"
+      ],
+      "suppressedTags": []
+    },
+    "C0C28E1F-2967-4138-8FBC-87950024AF6A": {
+      "roles": [
+        "main",
+        "addOn"
+      ],
+      "reviewed": true,
+      "tags": [
+        "cozy"
+      ],
+      "suppressedTags": []
+    },
+    "2CBF3B7D-5343-4154-A0C3-477192F2444A-4990-000055B13E205A3F": {
+      "tags": [
+        "autumn",
+        "winter",
+        "weekend"
+      ],
+      "suppressedTags": [],
+      "reviewed": true,
+      "comment": "Goes well with panfried potatoes as a side"
+    },
+    "5AA30868-A344-456B-B2C3-CA75E497B947": {
+      "tags": [
+        "easy",
+        "weekend",
+        "hotDay",
+        "cozy"
+      ],
+      "suppressedTags": [],
+      "reviewed": true,
+      "roles": [
+        "main",
+        "addOn"
+      ],
+      "addOnRoles": [
+        "protein"
+      ]
+    },
+    "FB8DEBFF-4FF2-498F-B5B1-DFBDBAAD0FC5-4990-0000848155060207": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "comment": "Couscous as a side",
+      "tags": [
+        "weekend",
+        "autumn",
+        "winter"
+      ],
+      "suppressedTags": []
+    },
+    "021D99CB-54DE-4F27-B935-EE60B0B615A6": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "roles": [
+        "snackDessert"
+      ],
+      "tags": [
+        "weekend",
+        "needsTime"
+      ],
+      "suppressedTags": []
+    },
+    "38C4C162-7868-4FAB-9F6F-8F334F768956": {
+      "repeatPreference": "often",
+      "reviewed": true,
+      "tags": [
+        "healthy",
+        "hotDay",
+        "light"
+      ],
+      "suppressedTags": [],
+      "roles": [
+        "addOn"
+      ],
+      "addOnRoles": [
+        "side",
+        "vegetable"
+      ]
+    },
+    "97B0CC5A-85D8-4B17-A4C7-AF5F93B51B8E-4990-000067709B560780": {
+      "roles": [
+        "main",
+        "snackDessert"
+      ],
+      "reviewed": true
+    },
+    "8F2FCBED-F0AB-4C67-B5F7-FD1B3BA8E9C3": {
+      "roles": [
+        "snackDessert"
+      ],
+      "reviewed": true,
+      "repeatPreference": "rare",
+      "tags": [
+        "creative",
+        "hotDay",
+        "cozy",
+        "entertaining",
+        "canMakeAhead"
+      ],
+      "suppressedTags": [
+        "spring"
+      ],
+      "comment": "Can make with Nolan"
+    },
+    "A814217E-9449-411E-8781-538CF0BB1FFB": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true
+    },
+    "4F9801B6-2D4B-4D7C-887C-753565AE1DCB": {
+      "reviewed": true
+    },
+    "895C8D91-015E-47E3-BC41-CA742D69D47E": {
+      "roles": [
+        "snackDessert",
+        "main"
+      ],
+      "reviewed": true,
+      "tags": [
+        "easy",
+        "canMakeAhead",
+        "busyDay",
+        "weekend",
+        "needsTime"
+      ],
+      "suppressedTags": []
+    },
+    "D9E551AB-344F-4361-AB9D-5089E4B370E9-25570-00000A8F8B326308": {
+      "roles": [
+        "main"
+      ],
+      "reviewed": true,
+      "tags": [
+        "cozy",
+        "weekend"
+      ],
+      "suppressedTags": []
+    },
+    "BE327E2C-CCC0-42DC-AF71-ABE2FB54FE47-25204-00000A6B82FA7BFE": {
+      "tags": [
+        "weekend",
+        "needsTime",
+        "cozy"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "39F79D09-2296-4DA6-BAAF-D267939CF472-4990-000066636C8DB003": {
+      "repeatPreference": "often",
+      "reviewed": true,
+      "tags": [
+        "weekend"
+      ],
+      "suppressedTags": [
+        "healthy"
+      ]
+    },
+    "D0F69AB9-1CED-4F3C-88B0-3E0CC5F2FAAB": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "tags": [
+        "creative"
+      ],
+      "suppressedTags": []
+    },
+    "8F54F6E1-3E52-4AB0-A2BB-3AD3BA836488-4990-0000835B690A8B7B": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "tags": [
+        "creative",
+        "healthy",
+        "weekend",
+        "entertaining"
+      ],
+      "suppressedTags": []
+    },
+    "AD3FC746-9E31-4A23-BECC-C175F4242B26": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "tags": [
+        "canMakeAhead",
+        "entertaining"
+      ],
+      "suppressedTags": [
+        "hotDay"
+      ]
+    },
+    "5F7E5952-6E47-4C05-802E-9062BA1EDEF2": {
+      "reviewed": true
+    },
+    "BB5C9166-CF54-43F3-B98C-545D6094F28C-14705-0000065941A56B41": {
+      "tags": [
+        "spring",
+        "autumn"
+      ],
+      "suppressedTags": [
+        "winter"
+      ],
+      "reviewed": true
+    },
+    "F7AF13D6-76F0-451A-BBA9-401D29692F68": {
+      "tags": [
+        "weekend",
+        "canMakeAhead",
+        "needsTime"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "72044D70-8051-42F2-B90E-52FB3E653588": {
+      "tags": [
+        "creative",
+        "entertaining"
+      ],
+      "suppressedTags": [
+        "winter"
+      ],
+      "reviewed": true
+    },
+    "79CEB6E0-B2E2-4801-A439-331AF597757C-17520-0000097A605A939F": {
+      "tags": [
+        "healthy",
+        "easy",
+        "weekend"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "C651EFF7-7F76-41BC-A797-C52450FC5FB2-4990-000044F92F0353CE": {
+      "repeatPreference": "often",
+      "reviewed": true,
+      "tags": [
+        "canMakeAhead"
+      ],
+      "suppressedTags": [
+        "spring",
+        "light"
+      ]
+    },
+    "34BFF30A-E020-4E0B-B230-2A60D3572780": {
+      "roles": [
+        "main",
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "carb"
+      ],
+      "tags": [
+        "easy",
+        "busyDay"
+      ],
+      "suppressedTags": [
+        "spring",
+        "summer",
+        "autumn"
+      ]
+    },
+    "66882C6C-6C87-4E79-96C0-67CFAABCA65D-38940-0001196CBA682B0D": {
+      "tags": [
+        "healthy",
+        "cozy"
+      ],
+      "suppressedTags": [],
+      "reviewed": true,
+      "roles": [
+        "addOn"
+      ],
+      "addOnRoles": [
+        "vegetable"
+      ]
+    },
+    "6B8E8C7A-B9EF-4FCA-870D-D24A81B78545-22636-000009AAC8784F1D": {
+      "tags": [
+        "cozy"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "A50A9C39-0082-4962-A996-ED11E4234015": {
+      "tags": [
+        "cozy"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "1FAAA4B1-0E9F-4F55-B6C0-133AFC5754E4": {
+      "tags": [
+        "weekend",
+        "summer",
+        "startEarly",
+        "handsOn"
+      ],
+      "suppressedTags": [
+        "winter",
+        "canMakeAhead",
+        "entertaining"
+      ],
+      "reviewed": true,
+      "comment": "Better the next day!",
+      "roles": [
+        "main"
+      ],
+      "addOnRoles": [
+        "side"
+      ]
+    },
+    "9EB80CF1-187A-4EC1-9702-45F1081653DC": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "salad",
+        "vegetable"
+      ],
+      "tags": [
+        "easy",
+        "busyDay"
+      ],
+      "suppressedTags": []
+    },
+    "0DE012DE-6390-4910-ABED-58DB0C6306D1-1565-000034E6F319E249": {
+      "tags": [
+        "canMakeAhead",
+        "needsTime"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "DD499590-FE5F-400D-8B6E-441F3BA55863": {
+      "repeatPreference": "often",
+      "reviewed": true,
+      "addOnRoles": [
+        "vegetable"
+      ],
+      "tags": [
+        "easy",
+        "weekend",
+        "startEarly"
+      ],
+      "suppressedTags": [],
+      "roles": [
+        "addOn"
+      ]
+    },
+    "7136156A-4696-404D-AABF-E4F0440B814C": {
+      "roles": [
+        "main",
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "protein"
+      ],
+      "tags": [
+        "light",
+        "startEarly"
+      ],
+      "suppressedTags": [
+        "canMakeAhead",
+        "handsOn",
+        "needsTime"
+      ],
+      "repeatPreference": "normal"
+    },
+    "C758B09C-9B1A-45B9-B0D8-F1065C7DE68B": {
+      "tags": [
+        "needsTime",
+        "weekend",
+        "autumn",
+        "winter",
+        "cozy",
+        "easy"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "D266090B-DE61-4916-999A-78934DCEDEA0": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "tags": [
+        "spring"
+      ],
+      "suppressedTags": []
+    },
+    "96E0C719-F81D-4960-A8B6-D243CB3AE7C7": {
+      "roles": [
+        "snackDessert"
+      ],
+      "reviewed": true,
+      "tags": [
+        "creative"
+      ],
+      "suppressedTags": [
+        "easy"
+      ]
+    },
+    "32A1141A-7057-4258-AE62-3385316599C3-2197-00000D7A679C7E41": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "side",
+        "protein"
+      ],
+      "tags": [
+        "spring",
+        "autumn"
+      ],
+      "suppressedTags": [
+        "summer"
+      ]
+    },
+    "7D8D6E31-D336-4575-95B4-0F5CCCA0F4CA": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "salad",
+        "vegetable"
+      ],
+      "tags": [],
+      "suppressedTags": [
+        "winter",
+        "summer",
+        "spring"
+      ]
+    },
+    "E3258BFA-B53A-41D4-865C-F9E3A6FB9FE3": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "vegetable"
+      ],
+      "tags": [
+        "easy"
+      ],
+      "suppressedTags": [
+        "handsOn",
+        "needsTime"
+      ]
+    },
+    "BF819D28-7900-4BC3-9AD5-2BE88D599B55": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true
+    },
+    "3C06DB3D-B40A-4F8C-8E16-754D3314644B-92193-00003116C52DD9C2": {
+      "addOnRoles": [
+        "appetizer",
+        "carb",
+        "protein"
+      ],
+      "reviewed": true,
+      "tags": [
+        "easy",
+        "weekend"
+      ],
+      "suppressedTags": [
+        "entertaining"
+      ],
+      "roles": [
+        "addOn"
+      ]
+    },
+    "5DFDF4E3-FA59-42FA-9D68-2A9B7B412994": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "repeatPreference": "often",
+      "addOnRoles": [
+        "salad",
+        "vegetable"
+      ]
+    },
+    "70DDC337-5CCE-428C-9055-17ECEAC1C34E": {
+      "roles": [
+        "snackDessert"
+      ],
+      "reviewed": true,
+      "tags": [
+        "entertaining",
+        "weekend"
+      ],
+      "suppressedTags": []
+    },
+    "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754": {
+      "repeatPreference": "often",
+      "reviewed": true,
+      "roles": [
+        "main"
+      ],
+      "addOnRoles": [
+        "protein"
+      ],
+      "tags": [
+        "weekend",
+        "handsOn"
+      ],
+      "suppressedTags": [
+        "autumn",
+        "startEarly"
+      ]
+    },
+    "53092A96-1B56-4C09-AA48-4466A4355CB6-4990-00005BA70C36E0AD": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "vegetable",
+        "appetizer"
+      ],
+      "tags": [
+        "easy",
+        "handsOn",
+        "entertaining"
+      ],
+      "suppressedTags": [
+        "autumn"
+      ]
+    },
+    "1F7EF2C8-6046-45C8-B562-C6A69F118C26-99567-000034A590532CA5": {
+      "tags": [
+        "entertaining",
+        "handsOn",
+        "startEarly",
+        "weekend"
+      ],
+      "suppressedTags": [],
+      "reviewed": true,
+      "roles": [
+        "addOn"
+      ],
+      "repeatPreference": "rare"
+    },
+    "9C8BB505-D4F9-4C83-8490-408597C7B1F6-59189-00001E16E480F735": {
+      "tags": [
+        "weekend",
+        "creative",
+        "startEarly",
+        "entertaining",
+        "autumn"
+      ],
+      "suppressedTags": [
+        "summer"
+      ],
+      "reviewed": true,
+      "repeatPreference": "rare"
+    },
+    "15424BA1-5445-467A-ACEF-310B28F34D6E-25570-00000AB237BC8085": {
+      "tags": [
+        "easy",
+        "creative",
+        "weekend",
+        "startEarly"
+      ],
+      "suppressedTags": [],
+      "reviewed": true,
+      "comment": "It was super yummy"
+    },
+    "7D94D043-D0F5-4FF7-94A7-AF319ED1CD06": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "carb",
+        "side"
+      ],
+      "tags": [
+        "easy",
+        "weekend",
+        "creative"
+      ],
+      "suppressedTags": [
+        "autumn",
+        "summer"
+      ],
+      "comment": "Good thing to do with leftover black rice; Nolan didn't really like it though",
+      "repeatPreference": "rare"
+    },
+    "600A654B-E5AC-4F1A-A0AC-20AB6AC6773C-76970-00002751B1C8C57D": {
+      "tags": [
+        "entertaining",
+        "startEarly",
+        "weekend",
+        "autumn",
+        "winter",
+        "keeps"
+      ],
+      "suppressedTags": [],
+      "reviewed": true,
+      "repeatPreference": "rare"
+    },
+    "B8CA4683-CE07-43AA-B7B5-514688F18450": {
+      "repeatPreference": "normal",
+      "reviewed": true,
+      "tags": [
+        "easy",
+        "cozy",
+        "busyDay"
+      ],
+      "suppressedTags": [
+        "weekend",
+        "summer",
+        "spring",
+        "handsOn",
+        "needsTime"
+      ]
+    },
+    "FA805795-99AF-43BE-95AA-65787AEDD791": {
+      "tags": [
+        "winter",
+        "easy",
+        "weekend"
+      ],
+      "suppressedTags": [
+        "summer",
+        "spring"
+      ],
+      "reviewed": true
+    },
+    "A13A3B1B-C71A-48EF-8AF3-621175A21526-25570-00000ABE64AE60C7": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "tags": [
+        "winter",
+        "autumn",
+        "keeps"
+      ],
+      "suppressedTags": [
+        "summer",
+        "creative"
+      ]
+    },
+    "345A2D3D-31C1-4122-BB2C-7AA27EDF0A5A": {
+      "repeatPreference": "often",
+      "reviewed": true,
+      "tags": [
+        "easy",
+        "weekend",
+        "keeps"
+      ],
+      "suppressedTags": [
+        "summer",
+        "winter",
+        "handsOn",
+        "needsTime"
+      ]
+    },
+    "5A40DB19-1FBA-452D-84AE-ED57982860B8": {
+      "repeatPreference": "normal",
+      "reviewed": true,
+      "tags": [
+        "busyDay",
+        "weekend",
+        "winter",
+        "entertaining"
+      ],
+      "suppressedTags": [
+        "light"
+      ],
+      "comment": "Use nice aceto! A family favourite."
+    },
+    "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C": {
+      "roles": [
+        "main"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "side"
+      ],
+      "tags": [],
+      "suppressedTags": [
+        "summer"
+      ],
+      "repeatPreference": "often"
+    },
+    "49340D05-CD1E-4629-9718-6C18F740F838": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "tags": [],
+      "suppressedTags": [
+        "summer"
+      ]
+    },
+    "B33DD2DD-DE3B-463C-B6E2-ED585FD6D25C": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "appetizer",
+        "vegetable"
+      ],
+      "comment": "Nolan doesn't like",
+      "repeatPreference": "rare",
+      "tags": [
+        "creative"
+      ],
+      "suppressedTags": []
+    },
+    "2B58DCFF-A91D-44CB-831C-B9DC672F7E59-21459-000009347A5F20D9": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "roles": [
+        "main"
+      ],
+      "tags": [
+        "creative",
+        "startEarly",
+        "entertaining"
+      ],
+      "suppressedTags": [
+        "handsOn",
+        "needsTime",
+        "keeps",
+        "canMakeAhead",
+        "hotDay",
+        "light"
+      ],
+      "addOnRoles": [
+        "side"
+      ]
+    },
+    "BAD36E2C-B2C9-437A-A357-20F31282C3B6": {
+      "repeatPreference": "normal",
+      "reviewed": true,
+      "tags": [
+        "healthy",
+        "autumn",
+        "winter",
+        "cozy"
+      ],
+      "suppressedTags": [
+        "summer"
+      ]
+    },
+    "F592AFC9-C853-4C07-8141-C199ED8CD6FB-399-0000095873C56F57": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "side",
+        "vegetable",
+        "salad"
+      ],
+      "tags": [
+        "asian"
+      ],
+      "suppressedTags": [
+        "handsOn",
+        "needsTime"
+      ]
+    },
+    "25B67935-73BE-4582-8617-A73E5F63C4B5-4990-00005A4DB54E9E15": {
+      "roles": [
+        "main",
+        "addOn"
+      ],
+      "reviewed": true,
+      "tags": [
+        "asian",
+        "startEarly"
+      ],
+      "suppressedTags": [
+        "easy",
+        "busyDay"
+      ],
+      "comment": "Can make lots of leftovers from this!",
+      "repeatPreference": "rare"
+    },
+    "3FDEB4F5-C556-456A-BCAE-0CEC8C1B7BB3-25570-00000A8EFB989551": {
+      "tags": [],
+      "suppressedTags": [
+        "western"
+      ],
+      "reviewed": true
+    },
+    "995A9216-7971-43C0-B135-F54C57664B3C": {
+      "tags": [
+        "weekend"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "B4D2C1D4-E488-47F0-A58E-9DDF3AEA4A1C": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true
+    },
+    "B543C38B-3CE0-4891-8944-C29EF53AD205": {
+      "addOnRoles": [
+        "salad",
+        "vegetable"
+      ],
+      "reviewed": true
+    },
+    "ED30A441-EB77-4F7C-BC63-B5E196328548-37263-000012E4D456F52A": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "roles": [
+        "snackDessert"
+      ],
+      "tags": [
+        "entertaining",
+        "summer",
+        "weekend"
+      ],
+      "suppressedTags": [
+        "western",
+        "autumn",
+        "spring"
+      ]
+    },
+    "DEEE7A26-104A-4C17-A1C5-794ADAD7FFF8": {
+      "displayTitle": "Kirsch Diplomat",
+      "reviewed": true,
+      "roles": [
+        "snackDessert"
+      ],
+      "tags": [
+        "western",
+        "startEarly",
+        "weekend",
+        "creative"
+      ],
+      "suppressedTags": [
+        "flexibleCuisine",
+        "handsOn",
+        "needsTime"
+      ]
+    },
+    "219D75B3-B850-4A7D-A08F-E5A01ECFA53A": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "side",
+        "carb",
+        "vegetable"
+      ],
+      "tags": [
+        "cozy",
+        "winter"
+      ],
+      "suppressedTags": [
+        "startEarly"
+      ]
+    },
+    "F2066F12-B33F-4B00-8233-1A1DE1588D65": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "roles": [
+        "addOn"
+      ],
+      "tags": [
+        "entertaining",
+        "weekend"
+      ],
+      "suppressedTags": [
+        "western",
+        "summer",
+        "autumn"
+      ],
+      "addOnRoles": [
+        "carb",
+        "salad",
+        "vegetable"
+      ]
+    },
+    "EF905CF5-0545-4E04-BA3C-16C9146157CE": {
+      "repeatPreference": "often",
+      "reviewed": true,
+      "tags": [
+        "flexibleCuisine",
+        "autumn",
+        "spring",
+        "light"
+      ],
+      "suppressedTags": [
+        "summer"
+      ],
+      "roles": [
+        "main",
+        "addOn"
+      ],
+      "addOnRoles": [
+        "protein"
+      ]
+    },
+    "F7F1C730-3430-492E-AB7E-B62088D3BE35-31256-00000DCC39EA4BC7": {
+      "repeatPreference": "often",
+      "reviewed": true,
+      "roles": [
+        "addOn"
+      ],
+      "tags": [
+        "western"
+      ],
+      "suppressedTags": [
+        "flexibleCuisine"
+      ]
+    },
+    "B9CF965E-D127-4E47-820D-7BBB28B8A8D1-4990-0000670F53E145CA": {
+      "tags": [
+        "easy",
+        "healthy",
+        "weekend"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "832ED450-03A4-4B01-BB2E-358193350A91": {
+      "displayTitle": "Burrata with Strawberries",
+      "reviewed": true,
+      "roles": [
+        "addOn"
+      ],
+      "addOnRoles": [
+        "appetizer",
+        "salad"
+      ],
+      "tags": [
+        "western",
+        "healthy",
+        "summer",
+        "spring",
+        "light"
+      ],
+      "suppressedTags": [
+        "flexibleCuisine"
+      ]
+    },
+    "2C6D6DF6-766F-4594-B3C3-547A2A0CA0A6": {
+      "repeatPreference": "normal",
+      "reviewed": true
+    },
+    "1231139A-D1DC-451F-B9BE-24A743C81A7C-379-00000057C431F2AE": {
+      "tags": [
+        "healthy",
+        "light"
+      ],
+      "suppressedTags": [
+        "western",
+        "startEarly"
+      ],
+      "reviewed": true,
+      "roles": [
+        "addOn"
+      ],
+      "addOnRoles": [
+        "vegetable"
+      ]
+    },
+    "2EC89842-CA0C-4938-9B19-ECFD7C8BD935": {
+      "displayTitle": "Breadsticks with Figs and Jamón Ibérico",
+      "reviewed": true,
+      "repeatPreference": "rare",
+      "tags": [
+        "easy",
+        "healthy",
+        "busyDay"
+      ],
+      "suppressedTags": [],
+      "roles": [
+        "addOn"
+      ],
+      "addOnRoles": [
+        "appetizer"
+      ]
+    },
+    "57E8FA69-FB77-4AB0-86A2-DC451B3D6379-20952-000008F2DBB92CD4": {
+      "tags": [
+        "summer",
+        "spring"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "A833A2E5-C187-48CC-80F9-7E7DC08035CC-5581-000002729F2C55BA": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "roles": [
+        "main",
+        "addOn"
+      ],
+      "addOnRoles": [
+        "carb"
+      ],
+      "tags": [
+        "weekend"
+      ],
+      "suppressedTags": [
+        "handsOn",
+        "needsTime"
+      ],
+      "comment": "Easy if use pre-made gnocchi"
+    },
+    "CB9E36C1-52AB-438B-97B8-F0CE38DDA4DD": {
+      "tags": [
+        "weekend",
+        "hotDay",
+        "light"
+      ],
+      "suppressedTags": [
+        "western"
+      ],
+      "reviewed": true,
+      "roles": [
+        "main",
+        "addOn"
+      ],
+      "addOnRoles": [
+        "appetizer",
+        "protein"
+      ]
+    },
+    "5A5B7AA7-3E0B-4AD5-9B96-69B5ABECCE69": {
+      "tags": [
+        "hotDay",
+        "light"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "07DEB13B-C070-4310-B8D0-B0B2E961D8A7-31886-00000E26734443FE": {
+      "tags": [
+        "western",
+        "creative",
+        "weekend"
+      ],
+      "suppressedTags": [
+        "flexibleCuisine",
+        "spring",
+        "autumn"
+      ],
+      "reviewed": true
+    },
+    "48AA8EAD-9EE8-42A3-B1AB-A3BCBBDC2BB4-13944-000005F49DB9C428": {
+      "tags": [
+        "easy",
+        "busyDay",
+        "weekend",
+        "light",
+        "autumn"
+      ],
+      "suppressedTags": [
+        "keeps",
+        "canMakeAhead"
+      ],
+      "reviewed": true
+    },
+    "1098F135-8428-4005-8D8B-5464AC3F5F01-31256-00000DCC8164A644": {
+      "repeatPreference": "normal",
+      "reviewed": true,
+      "roles": [
+        "addOn"
+      ],
+      "addOnRoles": [
+        "appetizer",
+        "salad"
+      ],
+      "tags": [
+        "western",
+        "healthy",
+        "light",
+        "weekend",
+        "entertaining"
+      ],
+      "suppressedTags": [
+        "flexibleCuisine",
+        "summer"
+      ]
+    },
+    "3B4017D7-06EC-414A-979D-8F92176B8C6D-1121-000183BD56C70308": {
+      "tags": [
+        "easy",
+        "weekend",
+        "autumn",
+        "winter"
+      ],
+      "suppressedTags": [
+        "summer"
+      ],
+      "reviewed": true
+    },
+    "51EEBC8D-47B3-49D0-935D-4DFD5F457685": {
+      "tags": [
+        "startEarly",
+        "weekend",
+        "cozy",
+        "handsOn",
+        "entertaining"
+      ],
+      "suppressedTags": [
+        "easy",
+        "busyDay"
+      ],
+      "reviewed": true
+    },
+    "C32D4F6F-D915-44E1-9661-A60391364000-25570-00000AB1B6E327FB": {
+      "tags": [
+        "western",
+        "weekend",
+        "entertaining"
+      ],
+      "suppressedTags": [
+        "asian",
+        "busyDay",
+        "cozy"
+      ],
+      "reviewed": true,
+      "repeatPreference": "rare"
+    },
+    "F399D2BF-0B7E-49E2-A0EC-AD7E13A8435E": {
+      "tags": [],
+      "suppressedTags": [
+        "western",
+        "spring",
+        "cozy"
+      ],
+      "reviewed": true,
+      "roles": [
+        "main",
+        "addOn"
+      ],
+      "addOnRoles": [
+        "protein"
+      ]
+    },
+    "47E8B881-9C4F-4BA8-B372-B088AEAF10F6": {
+      "tags": [
+        "entertaining",
+        "creative",
+        "handsOn",
+        "cozy"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "3353A3CC-FEC7-4366-8203-45543B38FE2A-31886-00000E28CE3B761A": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true
+    },
+    "81A60EBE-AF16-4B84-B271-E7CFD6DAC131": {
+      "tags": [
+        "handsOn",
+        "creative"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "CD747119-3670-4AE6-9AEA-B78A483C527E-4990-0000597A0A38D76D": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "tags": [
+        "handsOn",
+        "hotDay"
+      ],
+      "suppressedTags": [],
+      "repeatPreference": "rare"
+    },
+    "2F1AD5F5-04CA-4037-B322-0CDC087CCA06-4990-0000809701E9449A": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "addOnRoles": [
+        "appetizer",
+        "vegetable",
+        "salad"
+      ],
+      "tags": [
+        "creative",
+        "entertaining",
+        "healthy"
+      ],
+      "suppressedTags": [
+        "spring"
+      ]
+    },
+    "97E5912C-4598-4372-AF70-E49CC0A802DB": {
+      "tags": [
+        "startEarly",
+        "light"
+      ],
+      "suppressedTags": [
+        "handsOn",
+        "needsTime"
+      ],
+      "reviewed": true
+    },
+    "A2ABFCA6-733C-404F-9CA2-6F9BEA9D70B5": {
+      "tags": [
+        "autumn",
+        "startEarly"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "68D55467-D1EA-4564-9560-7A0E81D2AB1D": {
+      "tags": [
+        "easy",
+        "startEarly",
+        "autumn",
+        "winter",
+        "spring",
+        "healthy"
+      ],
+      "suppressedTags": [
+        "handsOn",
+        "needsTime"
+      ],
+      "reviewed": true
+    },
+    "65DA0EDE-10D6-4A5C-9E63-F877AE68906D-31886-00000E27A7A520F5": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "carb"
+      ],
+      "tags": [
+        "weekend",
+        "entertaining",
+        "keeps",
+        "spring"
+      ],
+      "suppressedTags": [
+        "easy",
+        "summer"
+      ]
+    },
+    "378A1C3C-CAA7-4BB1-BB4C-FA960233380B-99567-000034A57BAB2939": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "protein",
+        "vegetable"
+      ],
+      "tags": [
+        "cozy",
+        "weekend",
+        "western"
+      ],
+      "suppressedTags": [
+        "busyDay",
+        "healthy"
+      ]
+    },
+    "3B947F75-B5B9-42D6-BAD0-86C2B582BB37": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "roles": [
+        "snackDessert",
+        "addOn"
+      ],
+      "addOnRoles": [
+        "carb",
+        "appetizer"
+      ],
+      "tags": [
+        "entertaining",
+        "handsOn",
+        "startEarly",
+        "autumn",
+        "winter"
+      ],
+      "suppressedTags": []
+    },
+    "34B82F3E-D45B-41AE-9DCE-0A5D1A24739E": {
+      "addOnRoles": [
+        "salad",
+        "vegetable",
+        "appetizer"
+      ],
+      "reviewed": true,
+      "tags": [
+        "western"
+      ],
+      "suppressedTags": [
+        "flexibleCuisine"
+      ]
+    },
+    "74C41222-3E36-4F7D-A10C-E1C1AAE56854": {
+      "tags": [
+        "handsOn"
+      ],
+      "suppressedTags": [
+        "summer",
+        "autumn"
+      ],
+      "reviewed": true
+    },
+    "A5239E28-BA3D-4128-959A-72A2500E68B6-4990-00006603283EC4D0": {
+      "tags": [
+        "entertaining",
+        "weekend",
+        "handsOn"
+      ],
+      "suppressedTags": [
+        "spring"
+      ],
+      "reviewed": true,
+      "repeatPreference": "rare"
+    },
+    "BA56226A-D659-4E1B-8D6D-5BA02CA652BF": {
+      "roles": [
+        "main"
+      ],
+      "reviewed": true,
+      "tags": [
+        "easy",
+        "startEarly",
+        "weekend",
+        "autumn",
+        "spring"
+      ],
+      "suppressedTags": [
+        "handsOn",
+        "needsTime",
+        "summer"
+      ]
+    },
+    "E1C38B67-BD5C-4E34-854F-8DE4C9DE4783-15643-000006B2D0C3932F": {
+      "tags": [
+        "western",
+        "hotDay",
+        "light",
+        "summer"
+      ],
+      "suppressedTags": [
+        "flexibleCuisine"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "appetizer",
+        "salad",
+        "protein"
+      ]
+    },
+    "B1E7C49F-8A6C-4FB5-8206-77B7B2D387D6-33274-00000F0D3CF7682D": {
+      "repeatPreference": "often",
+      "reviewed": true,
+      "tags": [],
+      "suppressedTags": [
+        "western",
+        "spring",
+        "light"
+      ]
+    },
+    "3CEB688A-1D34-480D-9C69-223522C98F17": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "tags": [
+        "easy",
+        "entertaining",
+        "busyDay",
+        "light"
+      ],
+      "suppressedTags": [
+        "spring",
+        "winter",
+        "keeps",
+        "canMakeAhead"
+      ]
+    },
+    "E25DDDA9-FDBF-4E6A-9E70-5D3C8C2E1DFD": {
+      "tags": [
+        "easy",
+        "flexibleCuisine",
+        "busyDay"
+      ],
+      "suppressedTags": [],
+      "reviewed": true,
+      "roles": [
+        "addOn"
+      ],
+      "addOnRoles": [
+        "vegetable",
+        "side"
+      ]
+    },
+    "B4915CEC-A3F9-432F-8EA2-854EBCC622F2": {
+      "comment": "Freezes well",
+      "reviewed": true,
+      "roles": [
+        "addOn"
+      ],
+      "addOnRoles": [
+        "appetizer",
+        "carb"
+      ],
+      "tags": [
+        "easy",
+        "weekend",
+        "handsOn",
+        "startEarly",
+        "entertaining"
+      ],
+      "suppressedTags": []
+    },
+    "970D7E7B-F42B-46E4-A333-2F956F98685E": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "tags": [
+        "creative",
+        "startEarly",
+        "weekend",
+        "entertaining"
+      ],
+      "suppressedTags": [
+        "busyDay"
+      ],
+      "addOnRoles": [
+        "appetizer"
+      ],
+      "repeatPreference": "rare"
+    },
+    "34797E0A-5B59-45F7-BBAD-660AC0F7B285": {
+      "tags": [
+        "light"
+      ],
+      "suppressedTags": [
+        "western",
+        "healthy",
+        "spring",
+        "summer"
+      ],
+      "reviewed": true
+    },
+    "1A29E565-8B88-4FFA-84B3-328BDBD876A9": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "appetizer",
+        "vegetable"
+      ],
+      "tags": [
+        "healthy",
+        "easy",
+        "spring",
+        "winter",
+        "hotDay",
+        "busyDay"
+      ],
+      "suppressedTags": [
+        "western",
+        "handsOn",
+        "needsTime"
+      ]
+    },
+    "E14FA17D-5104-40BD-9A11-A7665B662607-329-0000AD2BC6749BBC": {
+      "tags": [
+        "creative",
+        "cozy",
+        "weekend"
+      ],
+      "suppressedTags": [
+        "spring",
+        "keeps",
+        "canMakeAhead"
+      ],
+      "reviewed": true
+    },
+    "2EA84235-2110-4615-8452-70A8A6E1C4EB-24356-00004035E4698202": {
+      "tags": [
+        "startEarly",
+        "creative",
+        "weekend"
+      ],
+      "suppressedTags": [],
+      "reviewed": true,
+      "roles": [
+        "main"
+      ]
+    },
+    "6B491CBD-EBB7-4253-9415-A3541C379DC1": {
+      "roles": [
+        "main",
+        "addOn"
+      ],
+      "reviewed": true,
+      "tags": [
+        "creative",
+        "weekend"
+      ],
+      "suppressedTags": [
+        "western",
+        "spring",
+        "winter",
+        "handsOn",
+        "needsTime"
+      ],
+      "addOnRoles": [
+        "protein",
+        "appetizer"
+      ],
+      "repeatPreference": "rare"
+    },
+    "FC52E4C1-5E07-43CF-9962-5E1D09574707-99567-000034B1D58C17D7": {
+      "tags": [
+        "weekend",
+        "handsOn",
+        "startEarly",
+        "entertaining",
+        "cozy"
+      ],
+      "suppressedTags": [
+        "western"
+      ],
+      "reviewed": true,
+      "roles": [
+        "main"
+      ],
+      "addOnRoles": [
+        "side"
+      ]
+    },
+    "C7038DD9-73B4-4933-9D75-FA1C307775DA": {
+      "tags": [
+        "handsOn",
+        "weekend",
+        "entertaining",
+        "cozy"
+      ],
+      "suppressedTags": [
+        "western"
+      ],
+      "reviewed": true
+    },
+    "2B726A4C-788A-4674-8761-B3739E1403D9": {
+      "tags": [
+        "weekend",
+        "startEarly",
+        "entertaining"
+      ],
+      "suppressedTags": [
+        "hotDay",
+        "busyDay",
+        "cozy",
+        "winter",
+        "handsOn",
+        "needsTime"
+      ],
+      "reviewed": true
+    },
+    "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83": {
+      "tags": [
+        "weekend",
+        "entertaining",
+        "cozy"
+      ],
+      "suppressedTags": [
+        "western"
+      ],
+      "reviewed": true,
+      "roles": [
+        "main",
+        "addOn"
+      ],
+      "addOnRoles": [
+        "protein"
+      ]
+    },
+    "49500504-84F3-4B77-824C-1B280864E29F-93800-0000320EAEC36B1D": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "tags": [
+        "flexibleCuisine",
+        "easy",
+        "light",
+        "weekend"
+      ],
+      "suppressedTags": [
+        "entertaining",
+        "spring",
+        "autumn",
+        "busyDay"
+      ],
+      "addOnRoles": [
+        "vegetable",
+        "appetizer"
+      ]
+    },
+    "5C8C2CB2-FA4F-454E-B3D1-BEF159BF0C80": {
+      "roles": [
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "carb"
+      ],
+      "tags": [
+        "keeps",
+        "winter",
+        "autumn",
+        "spring",
+        "entertaining"
+      ],
+      "suppressedTags": []
+    },
+    "96EDC71D-BE73-4C3B-8A5C-C9A8E407F0B4-98727-0000345C739CB142": {
+      "tags": [
+        "startEarly",
+        "easy",
+        "healthy",
+        "weekend",
+        "entertaining"
+      ],
+      "suppressedTags": [],
+      "reviewed": true,
+      "roles": [
+        "addOn"
+      ]
+    },
+    "97FB6B15-169C-464E-8265-2325F9BB3C8D-25570-00000ABA21A54B81": {
+      "tags": [
+        "entertaining",
+        "weekend"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    },
+    "ACEEA0BA-2790-4005-8EE1-4B2F2F556ACF": {
+      "tags": [
+        "entertaining",
+        "startEarly",
+        "weekend"
+      ],
+      "suppressedTags": [
+        "western"
+      ],
+      "reviewed": true,
+      "roles": [
+        "addOn"
+      ],
+      "addOnRoles": [
+        "side",
+        "appetizer",
+        "protein"
+      ],
+      "repeatPreference": "rare"
+    },
+    "96A1A1AF-9B10-44B7-BAB5-0D7EA06BE0EA-4990-0000551B9056044A": {
+      "tags": [
+        "weekend",
+        "entertaining",
+        "keeps"
+      ],
+      "suppressedTags": [
+        "western",
+        "spring",
+        "winter"
+      ],
+      "reviewed": true
+    },
+    "2B038040-A51E-4C88-A4D8-9A84CE642FD3": {
+      "tags": [
+        "easy"
+      ],
+      "suppressedTags": [],
+      "reviewed": true,
+      "hiddenFromPlanner": true,
+      "comment": "Let's use another recipe without teriyaki sauce"
+    },
+    "DA19E4F2-CA81-4B37-BA6E-7E7505455A38-25570-00000A8AFABF93E6": {
+      "roles": [
+        "snackDessert"
+      ],
+      "reviewed": true,
+      "tags": [
+        "startEarly",
+        "weekend",
+        "creative"
+      ],
+      "suppressedTags": [
+        "handsOn",
+        "needsTime",
+        "busyDay"
+      ]
+    },
+    "ACCD04AB-98B9-4929-99DE-E74E09BCC150-1121-00017F22525856B9": {
+      "tags": [
+        "weekend"
+      ],
+      "suppressedTags": [
+        "autumn"
+      ],
+      "reviewed": true
+    },
+    "0879C9FD-6630-4483-B1D5-345C9D72933B": {
+      "repeatPreference": "often",
+      "reviewed": true,
+      "tags": [
+        "western",
+        "summer"
+      ],
+      "suppressedTags": [
+        "flexibleCuisine"
+      ]
+    },
+    "E0A3E250-BFA9-47C4-8BE1-B05D175C8FD6": {
+      "roles": [
+        "main"
+      ],
+      "reviewed": true,
+      "tags": [
+        "easy",
+        "startEarly",
+        "autumn",
+        "weekend",
+        "cozy"
+      ],
+      "suppressedTags": [],
+      "comment": "Goes with potatoes, pasta"
+    },
+    "6B18909F-DCBC-47E9-BA47-9FB231F631C8": {
+      "roles": [
+        "main"
+      ],
+      "reviewed": true
+    },
+    "C511E460-FFD9-4876-AC9F-4B77A40EAA2A": {
+      "displayTitle": "Flammkuchen-Schnecken",
+      "reviewed": true,
+      "tags": [
+        "easy",
+        "busyDay",
+        "cozy"
+      ],
+      "suppressedTags": [
+        "handsOn",
+        "needsTime",
+        "weekend"
+      ]
+    },
+    "B82D7C83-1377-4BD7-A1D8-3DA871B967C1-11810-00000518B80822AC": {
+      "tags": [
+        "weekend",
+        "entertaining"
+      ],
+      "suppressedTags": [
+        "spring"
+      ],
+      "reviewed": true
+    },
+    "1BA98FFF-5F6C-40A5-82F9-B0E5566D8295": {
+      "repeatPreference": "rare",
+      "reviewed": true
+    },
+    "BD643FBF-FE22-48CF-B2E4-5DDFE69291AE-4990-0000837FB85135CC": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "tags": [
+        "easy",
+        "busyDay"
+      ],
+      "suppressedTags": [
+        "handsOn",
+        "needsTime"
+      ]
+    },
+    "A2DB928D-258D-44D5-8A80-203F432599B3": {
+      "tags": [
+        "summer",
+        "healthy",
+        "light"
+      ],
+      "suppressedTags": [
+        "western"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "vegetable",
+        "salad"
+      ],
+      "roles": [
+        "addOn"
+      ]
+    },
+    "4367BC62-DACD-4051-BAF9-1B404EFEBD38": {
+      "tags": [
+        "handsOn",
+        "entertaining",
+        "weekend"
+      ],
+      "suppressedTags": [
+        "busyDay"
+      ],
+      "reviewed": true,
+      "roles": [
+        "addOn"
+      ],
+      "repeatPreference": "rare"
+    },
+    "E9DB6ADC-8A81-4858-860A-D74BF0683584": {
+      "addOnRoles": [
+        "salad"
+      ],
+      "reviewed": true,
+      "roles": [
+        "main"
+      ],
+      "tags": [
+        "weekend",
+        "cozy"
+      ],
+      "suppressedTags": [
+        "summer",
+        "autumn",
+        "winter"
+      ]
+    },
+    "39B2F6CF-A07B-4EF5-A7FA-0F98E6392705": {
+      "tags": [
+        "busyDay",
+        "winter",
+        "autumn",
+        "handsOn"
+      ],
+      "suppressedTags": [
+        "asian",
+        "spring"
+      ],
+      "reviewed": true,
+      "repeatPreference": "rare"
+    },
+    "45556521-21BA-4D6D-A067-FF7379B9E911-14774-00000665B72E49AA": {
+      "repeatPreference": "rare",
+      "reviewed": true,
+      "addOnRoles": [
+        "protein",
+        "side"
+      ],
+      "tags": [
+        "startEarly",
+        "entertaining",
+        "weekend",
+        "autumn",
+        "spring",
+        "easy"
+      ],
+      "suppressedTags": [
+        "western",
+        "handsOn",
+        "needsTime"
+      ],
+      "roles": [
+        "main"
+      ]
+    },
+    "C090B1FD-6298-4D83-BABD-88E787D7AF77-5581-000002719ADCB8D7": {
+      "reviewed": true
+    },
+    "81C9DCD5-1590-48FF-98E6-24703F38B941-4990-000080441AB3B983": {
+      "tags": [
+        "weekend"
+      ],
+      "suppressedTags": [],
+      "reviewed": true
+    }
+  },
+  "menuGenerator.cookingHistory": {
+    "2026-07-06:Monday:dinner:dinner:39F79D09-2296-4DA6-BAAF-D267939CF472-4990-000066636C8DB003": {
+      "status": "cooked",
+      "plannedFor": "2026-07-06",
+      "dayLabel": "Monday",
+      "mealType": "dinner",
+      "role": "dinner",
+      "title": "Cafe Complet",
+      "source": "recipe",
+      "recipeId": "39F79D09-2296-4DA6-BAAF-D267939CF472-4990-000066636C8DB003",
+      "updatedAt": "2026-07-02T18:44:22.472Z"
+    },
+    "2026-07-06:Monday:dinner:side:49340D05-CD1E-4629-9718-6C18F740F838": {
+      "status": "notCooked",
+      "plannedFor": "2026-07-06",
+      "dayLabel": "Monday",
+      "mealType": "dinner",
+      "role": "side",
+      "title": "Cranberry Spinach Salad",
+      "source": "recipe",
+      "recipeId": "49340D05-CD1E-4629-9718-6C18F740F838",
+      "updatedAt": "2026-07-02T18:44:24.971Z"
+    }
+  },
+  "menuGenerator.currentPlan": {
+    "days": [
+      {
+        "label": "Monday",
+        "busy": true,
+        "noDinner": false,
+        "noCook": false,
+        "snackDessertNeeded": false,
+        "reason": "low-effort for a busy day",
+        "dinnerId": "34797E0A-5B59-45F7-BBAD-660AC0F7B285",
+        "dinnerOptionIds": [
+          "34797E0A-5B59-45F7-BBAD-660AC0F7B285",
+          "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C",
+          "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754"
+        ],
+        "sideId": null,
+        "lunchId": null,
+        "lunchOptionIds": [],
+        "snackDessertId": null,
+        "snackDessertOptionIds": [],
+        "customLunch": null,
+        "customDinner": null,
+        "customSnackDessert": null
+      },
+      {
+        "label": "Tuesday",
+        "busy": true,
+        "noDinner": false,
+        "noCook": false,
+        "snackDessertNeeded": false,
+        "reason": "low-effort for a busy day",
+        "dinnerId": "0879C9FD-6630-4483-B1D5-345C9D72933B",
+        "dinnerOptionIds": [
+          "0879C9FD-6630-4483-B1D5-345C9D72933B",
+          "EF905CF5-0545-4E04-BA3C-16C9146157CE",
+          "72044D70-8051-42F2-B90E-52FB3E653588"
+        ],
+        "sideId": null,
+        "lunchId": null,
+        "lunchOptionIds": [],
+        "snackDessertId": null,
+        "snackDessertOptionIds": [],
+        "customLunch": null,
+        "customDinner": null,
+        "customSnackDessert": null
+      },
+      {
+        "label": "Wednesday",
+        "busy": true,
+        "noDinner": false,
+        "noCook": false,
+        "snackDessertNeeded": false,
+        "reason": "low-effort for a busy day, paired with a side",
+        "dinnerId": "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C",
+        "dinnerOptionIds": [
+          "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754",
+          "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C",
+          "CB9E36C1-52AB-438B-97B8-F0CE38DDA4DD"
+        ],
+        "sideId": "81C9DCD5-1590-48FF-98E6-24703F38B941-4990-000080441AB3B983",
+        "lunchId": null,
+        "lunchOptionIds": [],
+        "snackDessertId": null,
+        "snackDessertOptionIds": [],
+        "customLunch": null,
+        "customDinner": null,
+        "customSnackDessert": null
+      },
+      {
+        "label": "Thursday",
+        "busy": false,
+        "noDinner": false,
+        "noCook": false,
+        "snackDessertNeeded": false,
+        "reason": "useful leftovers, paired with a side",
+        "dinnerId": "48AA8EAD-9EE8-42A3-B1AB-A3BCBBDC2BB4-13944-000005F49DB9C428",
+        "dinnerOptionIds": [
+          "2214A15F-E938-4ABE-82E0-78B16C18DFF7-4245-000035F94826BAE5",
+          "48AA8EAD-9EE8-42A3-B1AB-A3BCBBDC2BB4-13944-000005F49DB9C428",
+          "2B726A4C-788A-4674-8761-B3739E1403D9"
+        ],
+        "sideId": "ACEEA0BA-2790-4005-8EE1-4B2F2F556ACF",
+        "lunchId": null,
+        "lunchOptionIds": [],
+        "snackDessertId": null,
+        "snackDessertOptionIds": [],
+        "customLunch": null,
+        "customDinner": null,
+        "customSnackDessert": null
+      },
+      {
+        "label": "Friday",
+        "busy": false,
+        "noDinner": false,
+        "noCook": false,
+        "snackDessertNeeded": true,
+        "reason": "paired with a side",
+        "dinnerId": "C511E460-FFD9-4876-AC9F-4B77A40EAA2A",
+        "dinnerOptionIds": [
+          "97FB6B15-169C-464E-8265-2325F9BB3C8D-25570-00000ABA21A54B81",
+          "BAD36E2C-B2C9-437A-A357-20F31282C3B6",
+          "C511E460-FFD9-4876-AC9F-4B77A40EAA2A"
+        ],
+        "sideId": "49340D05-CD1E-4629-9718-6C18F740F838",
+        "lunchId": null,
+        "lunchOptionIds": [],
+        "snackDessertId": "4F9801B6-2D4B-4D7C-887C-753565AE1DCB",
+        "snackDessertOptionIds": [
+          "97E5912C-4598-4372-AF70-E49CC0A802DB",
+          "4F9801B6-2D4B-4D7C-887C-753565AE1DCB",
+          "895C8D91-015E-47E3-BC41-CA742D69D47E"
+        ],
+        "customLunch": null,
+        "customDinner": null,
+        "customSnackDessert": null
+      },
+      {
+        "label": "Saturday",
+        "busy": false,
+        "noDinner": false,
+        "noCook": false,
+        "snackDessertNeeded": true,
+        "reason": "paired with a side",
+        "dinnerId": "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83",
+        "dinnerOptionIds": [
+          "97FB6B15-169C-464E-8265-2325F9BB3C8D-25570-00000ABA21A54B81",
+          "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83",
+          "79CEB6E0-B2E2-4801-A439-331AF597757C-17520-0000097A605A939F"
+        ],
+        "sideId": "ACEEA0BA-2790-4005-8EE1-4B2F2F556ACF",
+        "lunchId": null,
+        "lunchOptionIds": [],
+        "snackDessertId": "DEEE7A26-104A-4C17-A1C5-794ADAD7FFF8",
+        "snackDessertOptionIds": [
+          "DEEE7A26-104A-4C17-A1C5-794ADAD7FFF8",
+          "345A2D3D-31C1-4122-BB2C-7AA27EDF0A5A",
+          "47E8B881-9C4F-4BA8-B372-B088AEAF10F6"
+        ],
+        "customLunch": null,
+        "customDinner": null,
+        "customSnackDessert": null
+      },
+      {
+        "label": "Sunday",
+        "busy": false,
+        "noDinner": false,
+        "noCook": false,
+        "snackDessertNeeded": true,
+        "reason": "balanced pick for the week",
+        "dinnerId": "F7AF13D6-76F0-451A-BBA9-401D29692F68",
+        "dinnerOptionIds": [
+          "97FB6B15-169C-464E-8265-2325F9BB3C8D-25570-00000ABA21A54B81",
+          "F7AF13D6-76F0-451A-BBA9-401D29692F68",
+          "2EA84235-2110-4615-8452-70A8A6E1C4EB-24356-00004035E4698202"
+        ],
+        "sideId": "4367BC62-DACD-4051-BAF9-1B404EFEBD38",
+        "lunchId": null,
+        "lunchOptionIds": [],
+        "snackDessertId": "322FC1E6-520B-40B8-B06F-0F7BCDC6C626",
+        "snackDessertOptionIds": [
+          "3B947F75-B5B9-42D6-BAD0-86C2B582BB37",
+          "322FC1E6-520B-40B8-B06F-0F7BCDC6C626",
+          "895C8D91-015E-47E3-BC41-CA742D69D47E"
+        ],
+        "customLunch": null,
+        "customDinner": null,
+        "customSnackDessert": null
+      },
+      {
+        "label": "Next Monday",
+        "busy": false,
+        "noDinner": false,
+        "noCook": false,
+        "snackDessertNeeded": false,
+        "reason": "paired with a side",
+        "dinnerId": "BAD36E2C-B2C9-437A-A357-20F31282C3B6",
+        "dinnerOptionIds": [
+          "E1C38B67-BD5C-4E34-854F-8DE4C9DE4783-15643-000006B2D0C3932F",
+          "BAD36E2C-B2C9-437A-A357-20F31282C3B6",
+          "5A5B7AA7-3E0B-4AD5-9B96-69B5ABECCE69"
+        ],
+        "sideId": "49340D05-CD1E-4629-9718-6C18F740F838",
+        "lunchId": null,
+        "lunchOptionIds": [],
+        "snackDessertId": null,
+        "snackDessertOptionIds": [],
+        "customLunch": null,
+        "customDinner": null,
+        "customSnackDessert": null
+      }
+    ]
+  },
+  "menuGenerator.savedWeeks": [
+    {
+      "id": "week-2026-07-04T08:50:30.562Z",
+      "savedAt": "2026-07-04T08:50:30.562Z",
+      "weekLabel": "Mon 6 Jul - Mon 13 Jul",
+      "plan": {
+        "days": [
+          {
+            "label": "Monday",
+            "busy": true,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": false,
+            "reason": "low-effort for a busy day, paired with a side",
+            "dinnerId": "C090B1FD-6298-4D83-BABD-88E787D7AF77-5581-000002719ADCB8D7",
+            "dinnerOptionIds": [
+              "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754",
+              "C090B1FD-6298-4D83-BABD-88E787D7AF77-5581-000002719ADCB8D7",
+              "57E8FA69-FB77-4AB0-86A2-DC451B3D6379-20952-000008F2DBB92CD4"
+            ],
+            "sideId": null,
+            "lunchId": null,
+            "lunchOptionIds": [],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Tuesday",
+            "busy": true,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": false,
+            "reason": "low-effort for a busy day, paired with a side",
+            "dinnerId": "C0C28E1F-2967-4138-8FBC-87950024AF6A",
+            "dinnerOptionIds": [
+              "C0C28E1F-2967-4138-8FBC-87950024AF6A",
+              "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C",
+              "0879C9FD-6630-4483-B1D5-345C9D72933B"
+            ],
+            "sideId": "A814217E-9449-411E-8781-538CF0BB1FFB",
+            "lunchId": null,
+            "lunchOptionIds": [],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Wednesday",
+            "busy": true,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": false,
+            "reason": "low-effort for a busy day, paired with a side",
+            "dinnerId": null,
+            "dinnerOptionIds": [
+              "72044D70-8051-42F2-B90E-52FB3E653588",
+              "0879C9FD-6630-4483-B1D5-345C9D72933B",
+              "EF905CF5-0545-4E04-BA3C-16C9146157CE"
+            ],
+            "sideId": null,
+            "lunchId": null,
+            "lunchOptionIds": [],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Thursday",
+            "busy": false,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": false,
+            "reason": "paired with a side",
+            "dinnerId": null,
+            "dinnerOptionIds": [
+              "5A5B7AA7-3E0B-4AD5-9B96-69B5ABECCE69",
+              "79CEB6E0-B2E2-4801-A439-331AF597757C-17520-0000097A605A939F",
+              "7136156A-4696-404D-AABF-E4F0440B814C"
+            ],
+            "sideId": null,
+            "lunchId": null,
+            "lunchOptionIds": [],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Friday",
+            "busy": false,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": true,
+            "reason": "paired with a side",
+            "dinnerId": null,
+            "dinnerOptionIds": [
+              "EF905CF5-0545-4E04-BA3C-16C9146157CE",
+              "7136156A-4696-404D-AABF-E4F0440B814C",
+              "E1C38B67-BD5C-4E34-854F-8DE4C9DE4783-15643-000006B2D0C3932F"
+            ],
+            "sideId": null,
+            "lunchId": null,
+            "lunchOptionIds": [],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [
+              "ED30A441-EB77-4F7C-BC63-B5E196328548-37263-000012E4D456F52A",
+              "97E5912C-4598-4372-AF70-E49CC0A802DB",
+              "4F9801B6-2D4B-4D7C-887C-753565AE1DCB"
+            ],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Saturday",
+            "busy": false,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": true,
+            "reason": "paired with a side",
+            "dinnerId": null,
+            "dinnerOptionIds": [
+              "97FB6B15-169C-464E-8265-2325F9BB3C8D-25570-00000ABA21A54B81",
+              "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83",
+              "F7AF13D6-76F0-451A-BBA9-401D29692F68"
+            ],
+            "sideId": null,
+            "lunchId": null,
+            "lunchOptionIds": [],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [
+              "96E0C719-F81D-4960-A8B6-D243CB3AE7C7",
+              "345A2D3D-31C1-4122-BB2C-7AA27EDF0A5A",
+              "895C8D91-015E-47E3-BC41-CA742D69D47E"
+            ],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Sunday",
+            "busy": false,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": true,
+            "reason": "balanced pick for the week",
+            "dinnerId": null,
+            "dinnerOptionIds": [
+              "74C41222-3E36-4F7D-A10C-E1C1AAE56854",
+              "97FB6B15-169C-464E-8265-2325F9BB3C8D-25570-00000ABA21A54B81",
+              "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83"
+            ],
+            "sideId": null,
+            "lunchId": null,
+            "lunchOptionIds": [],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [
+              "97B0CC5A-85D8-4B17-A4C7-AF5F93B51B8E-4990-000067709B560780",
+              "BE327E2C-CCC0-42DC-AF71-ABE2FB54FE47-25204-00000A6B82FA7BFE",
+              "47E8B881-9C4F-4BA8-B372-B088AEAF10F6"
+            ],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Next Monday",
+            "busy": false,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": false,
+            "reason": "useful leftovers",
+            "dinnerId": null,
+            "dinnerOptionIds": [
+              "6B18909F-DCBC-47E9-BA47-9FB231F631C8",
+              "B9CF965E-D127-4E47-820D-7BBB28B8A8D1-4990-0000670F53E145CA",
+              "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83"
+            ],
+            "sideId": null,
+            "lunchId": null,
+            "lunchOptionIds": [],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          }
+        ]
+      },
+      "dayDishes": {
+        "Monday": [
+          {
+            "id": "b995ab3c-e1ed-4b64-baab-8a17847770b3",
+            "mealType": "dinner",
+            "role": "vegetable",
+            "source": "recipe",
+            "recipeId": "7D8D6E31-D336-4575-95B4-0F5CCCA0F4CA",
+            "title": "Asian Cucumber Salad"
+          }
+        ]
+      },
+      "dayNotes": {},
+      "lockedDays": [
+        "Monday"
+      ]
+    },
+    {
+      "id": "week-2026-07-03T17:56:34.972Z",
+      "savedAt": "2026-07-03T17:56:34.972Z",
+      "weekLabel": "Mon 6 Jul - Mon 13 Jul",
+      "plan": {
+        "days": [
+          {
+            "label": "Monday",
+            "busy": true,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": false,
+            "reason": "low-effort for a busy day",
+            "dinnerId": "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C",
+            "dinnerOptionIds": [
+              "34797E0A-5B59-45F7-BBAD-660AC0F7B285",
+              "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754",
+              "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C"
+            ],
+            "sideId": null,
+            "lunchId": "ACCD04AB-98B9-4929-99DE-E74E09BCC150-1121-00017F22525856B9",
+            "lunchOptionIds": [
+              "ACCD04AB-98B9-4929-99DE-E74E09BCC150-1121-00017F22525856B9",
+              "0879C9FD-6630-4483-B1D5-345C9D72933B",
+              "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754"
+            ],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Tuesday",
+            "busy": true,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": false,
+            "reason": "low-effort for a busy day, paired with a side",
+            "dinnerId": "CB9E36C1-52AB-438B-97B8-F0CE38DDA4DD",
+            "dinnerOptionIds": [
+              "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C",
+              "CB9E36C1-52AB-438B-97B8-F0CE38DDA4DD",
+              "C0C28E1F-2967-4138-8FBC-87950024AF6A"
+            ],
+            "sideId": null,
+            "lunchId": null,
+            "lunchOptionIds": [],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Wednesday",
+            "busy": true,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": false,
+            "reason": "low-effort for a busy day, paired with a side",
+            "dinnerId": "EF905CF5-0545-4E04-BA3C-16C9146157CE",
+            "dinnerOptionIds": [
+              "EF905CF5-0545-4E04-BA3C-16C9146157CE",
+              "0879C9FD-6630-4483-B1D5-345C9D72933B",
+              "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754"
+            ],
+            "sideId": null,
+            "lunchId": "57E8FA69-FB77-4AB0-86A2-DC451B3D6379-20952-000008F2DBB92CD4",
+            "lunchOptionIds": [
+              "72044D70-8051-42F2-B90E-52FB3E653588",
+              "57E8FA69-FB77-4AB0-86A2-DC451B3D6379-20952-000008F2DBB92CD4",
+              "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C"
+            ],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Thursday",
+            "busy": false,
+            "noDinner": true,
+            "noCook": true,
+            "snackDessertNeeded": false,
+            "reason": "No dinner planned",
+            "dinnerId": null,
+            "dinnerOptionIds": [],
+            "sideId": null,
+            "lunchId": null,
+            "lunchOptionIds": [],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Friday",
+            "busy": false,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": true,
+            "reason": "a reliable repeat meal, paired with a side",
+            "dinnerId": "BAD36E2C-B2C9-437A-A357-20F31282C3B6",
+            "dinnerOptionIds": [
+              "7136156A-4696-404D-AABF-E4F0440B814C",
+              "E1C38B67-BD5C-4E34-854F-8DE4C9DE4783-15643-000006B2D0C3932F",
+              "BAD36E2C-B2C9-437A-A357-20F31282C3B6"
+            ],
+            "sideId": "49340D05-CD1E-4629-9718-6C18F740F838",
+            "lunchId": null,
+            "lunchOptionIds": [],
+            "snackDessertId": "345A2D3D-31C1-4122-BB2C-7AA27EDF0A5A",
+            "snackDessertOptionIds": [
+              "345A2D3D-31C1-4122-BB2C-7AA27EDF0A5A",
+              "895C8D91-015E-47E3-BC41-CA742D69D47E",
+              "4F9801B6-2D4B-4D7C-887C-753565AE1DCB"
+            ],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Saturday",
+            "busy": false,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": true,
+            "reason": "paired with a side",
+            "dinnerId": "34B82F3E-D45B-41AE-9DCE-0A5D1A24739E",
+            "dinnerOptionIds": [
+              "34B82F3E-D45B-41AE-9DCE-0A5D1A24739E",
+              "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83",
+              "79CEB6E0-B2E2-4801-A439-331AF597757C-17520-0000097A605A939F"
+            ],
+            "sideId": null,
+            "lunchId": "A29035EC-F38F-4F1F-A73A-58935C402108-22636-000009B3E1D77989",
+            "lunchOptionIds": [
+              "A29035EC-F38F-4F1F-A73A-58935C402108-22636-000009B3E1D77989",
+              "0879C9FD-6630-4483-B1D5-345C9D72933B",
+              "2B726A4C-788A-4674-8761-B3739E1403D9"
+            ],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [
+              "DEEE7A26-104A-4C17-A1C5-794ADAD7FFF8",
+              "ED30A441-EB77-4F7C-BC63-B5E196328548-37263-000012E4D456F52A",
+              "47E8B881-9C4F-4BA8-B372-B088AEAF10F6"
+            ],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Sunday",
+            "busy": false,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": true,
+            "reason": "paired with a side",
+            "dinnerId": "F7AF13D6-76F0-451A-BBA9-401D29692F68",
+            "dinnerOptionIds": [
+              "C511E460-FFD9-4876-AC9F-4B77A40EAA2A",
+              "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83",
+              "F7AF13D6-76F0-451A-BBA9-401D29692F68"
+            ],
+            "sideId": "4367BC62-DACD-4051-BAF9-1B404EFEBD38",
+            "lunchId": "2214A15F-E938-4ABE-82E0-78B16C18DFF7-4245-000035F94826BAE5",
+            "lunchOptionIds": [
+              "2B726A4C-788A-4674-8761-B3739E1403D9",
+              "0879C9FD-6630-4483-B1D5-345C9D72933B",
+              "57E8FA69-FB77-4AB0-86A2-DC451B3D6379-20952-000008F2DBB92CD4"
+            ],
+            "snackDessertId": "4F9801B6-2D4B-4D7C-887C-753565AE1DCB",
+            "snackDessertOptionIds": [
+              "4F9801B6-2D4B-4D7C-887C-753565AE1DCB",
+              "47E8B881-9C4F-4BA8-B372-B088AEAF10F6",
+              "96E0C719-F81D-4960-A8B6-D243CB3AE7C7"
+            ],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          },
+          {
+            "label": "Next Monday",
+            "busy": false,
+            "noDinner": false,
+            "noCook": false,
+            "snackDessertNeeded": false,
+            "reason": "useful leftovers",
+            "dinnerId": "E1C38B67-BD5C-4E34-854F-8DE4C9DE4783-15643-000006B2D0C3932F",
+            "dinnerOptionIds": [
+              "6B18909F-DCBC-47E9-BA47-9FB231F631C8",
+              "E1C38B67-BD5C-4E34-854F-8DE4C9DE4783-15643-000006B2D0C3932F",
+              "79CEB6E0-B2E2-4801-A439-331AF597757C-17520-0000097A605A939F"
+            ],
+            "sideId": null,
+            "lunchId": null,
+            "lunchOptionIds": [],
+            "snackDessertId": null,
+            "snackDessertOptionIds": [],
+            "customLunch": null,
+            "customDinner": null,
+            "customSnackDessert": null
+          }
+        ]
+      },
+      "dayDishes": {
+        "Monday": [
+          {
+            "id": "0ab89780-238b-4273-888a-4d424591516d",
+            "mealType": "lunch",
+            "role": "salad",
+            "source": "recipe",
+            "recipeId": "A5239E28-BA3D-4128-959A-72A2500E68B6-4990-00006603283EC4D0",
+            "title": "Macerated Peach and Burrata Salad with Basil Oil"
+          }
+        ],
+        "Tuesday": [
+          {
+            "id": "49dfb690-0b96-451b-be26-ab28c31a79dd",
+            "mealType": "dinner",
+            "role": "salad",
+            "source": "recipe",
+            "recipeId": "9EB80CF1-187A-4EC1-9702-45F1081653DC",
+            "title": "Miso Marinated Cucumber Salad"
+          }
+        ],
+        "Wednesday": [
+          {
+            "id": "8e844f43-f0e6-4ed4-bd09-e6310ce0a35b",
+            "mealType": "lunch",
+            "role": "salad",
+            "source": "recipe",
+            "recipeId": "49340D05-CD1E-4629-9718-6C18F740F838",
+            "title": "Cranberry Spinach Salad"
+          },
+          {
+            "id": "fa8882c8-df76-4e35-9f55-c0b730890e78",
+            "mealType": "dinner",
+            "role": "carb",
+            "source": "manual",
+            "title": "Noodles"
+          },
+          {
+            "id": "c19b155c-4ed5-483e-8133-cb9f8f11fd45",
+            "mealType": "dinner",
+            "role": "salad",
+            "source": "recipe",
+            "recipeId": "3353A3CC-FEC7-4366-8203-45543B38FE2A-31886-00000E28CE3B761A",
+            "title": "Watermelon Feta Salad with Mint"
+          }
+        ],
+        "Saturday": [
+          {
+            "id": "c32a333d-6758-4308-899e-6af7c595be7e",
+            "mealType": "dinner",
+            "role": "carb",
+            "source": "manual",
+            "title": "Bread"
+          }
+        ],
+        "Next Monday": [
+          {
+            "id": "ea782632-81f2-4cd7-ab63-edb51ded13d5",
+            "mealType": "dinner",
+            "role": "carb",
+            "source": "manual",
+            "title": "Bread"
+          }
+        ]
+      },
+      "dayNotes": {},
+      "lockedDays": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
+    }
+  ]
+}

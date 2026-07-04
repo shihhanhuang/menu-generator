@@ -45,7 +45,22 @@
         "lunch"
       ],
       "tags": [
-        "easy"
+        "easy",
+        "weekend",
+        "entertaining"
+      ],
+      "roles": [
+        "main",
+        "addOn"
+      ],
+      "reviewed": true,
+      "addOnRoles": [
+        "appetizer"
+      ],
+      "suppressedTags": [
+        "summer",
+        "spring",
+        "hotDay"
       ]
     },
     "2214A15F-E938-4ABE-82E0-78B16C18DFF7-4245-000035F94826BAE5": {
@@ -78,21 +93,30 @@
       "tags": [
         "easy",
         "healthy",
-        "winter",
-        "creative",
-        "hotDay"
+        "winter"
       ],
-      "reviewed": true,
-      "suppressedTags": [
-        "weekend"
-      ]
+      "addOnRoles": [
+        "salad",
+        "vegetable"
+      ],
+      "reviewed": true
     },
     "A2460D90-1846-4B0A-937F-D35345ED401B-3226-00000179EDA78B55": {
       "tags": [
-        "entertaining"
+        "entertaining",
+        "easy",
+        "cozy",
+        "startEarly",
+        "weekend"
       ],
-      "suppressedTags": [],
-      "reviewed": true
+      "roles": [
+        "main"
+      ],
+      "reviewed": true,
+      "suppressedTags": [
+        "spring",
+        "western"
+      ]
     },
     "322FC1E6-520B-40B8-B06F-0F7BCDC6C626": {
       "tags": [
@@ -110,9 +134,17 @@
       "repeatPreference": "rare",
       "reviewed": true,
       "tags": [
-        "entertaining"
+        "entertaining",
+        "busyDay",
+        "weekend",
+        "winter"
       ],
-      "suppressedTags": []
+      "suppressedTags": [
+        "healthy"
+      ],
+      "roles": [
+        "addOn"
+      ]
     },
     "C0C28E1F-2967-4138-8FBC-87950024AF6A": {
       "roles": [
@@ -180,7 +212,6 @@
       "reviewed": true,
       "tags": [
         "healthy",
-        "hotDay",
         "light"
       ],
       "suppressedTags": [],
@@ -215,7 +246,8 @@
       "suppressedTags": [
         "spring"
       ],
-      "comment": "Can make with Nolan"
+      "comment": "Can make with Nolan",
+      "displayTitle": "Chocolate Coconut Balls – Rum Balls"
     },
     "A814217E-9449-411E-8781-538CF0BB1FFB": {
       "roles": [
@@ -224,7 +256,16 @@
       "reviewed": true
     },
     "4F9801B6-2D4B-4D7C-887C-753565AE1DCB": {
-      "reviewed": true
+      "reviewed": true,
+      "roles": [
+        "snackDessert"
+      ],
+      "tags": [
+        "healthy"
+      ],
+      "suppressedTags": [
+        "asian"
+      ]
     },
     "895C8D91-015E-47E3-BC41-CA742D69D47E": {
       "roles": [
@@ -256,7 +297,8 @@
       "tags": [
         "weekend",
         "needsTime",
-        "cozy"
+        "cozy",
+        "entertaining"
       ],
       "suppressedTags": [],
       "reviewed": true
@@ -352,7 +394,9 @@
       ],
       "suppressedTags": [
         "spring",
-        "light"
+        "light",
+        "handsOn",
+        "needsTime"
       ]
     },
     "34BFF30A-E020-4E0B-B230-2A60D3572780": {
@@ -514,7 +558,8 @@
       ],
       "suppressedTags": [
         "easy"
-      ]
+      ],
+      "repeatPreference": "rare"
     },
     "32A1141A-7057-4258-AE62-3385316599C3-2197-00000D7A679C7E41": {
       "roles": [
@@ -615,14 +660,14 @@
       "repeatPreference": "often",
       "reviewed": true,
       "roles": [
-        "main"
+        "main",
+        "addOn"
       ],
       "addOnRoles": [
         "protein"
       ],
       "tags": [
-        "weekend",
-        "handsOn"
+        "weekend"
       ],
       "suppressedTags": [
         "autumn",
@@ -652,14 +697,22 @@
         "entertaining",
         "handsOn",
         "startEarly",
-        "weekend"
+        "weekend",
+        "flexibleCuisine"
       ],
-      "suppressedTags": [],
+      "suppressedTags": [
+        "western",
+        "asian"
+      ],
       "reviewed": true,
       "roles": [
         "addOn"
       ],
-      "repeatPreference": "rare"
+      "repeatPreference": "normal",
+      "comment": "For everyday use can just general stir fry with bacon.",
+      "addOnRoles": [
+        "vegetable"
+      ]
     },
     "9C8BB505-D4F9-4C83-8490-408597C7B1F6-59189-00001E16E480F735": {
       "tags": [
@@ -926,7 +979,14 @@
         "salad",
         "vegetable"
       ],
-      "reviewed": true
+      "reviewed": true,
+      "roles": [
+        "addOn"
+      ],
+      "tags": [
+        "easy"
+      ],
+      "suppressedTags": []
     },
     "ED30A441-EB77-4F7C-BC63-B5E196328548-37263-000012E4D456F52A": {
       "repeatPreference": "rare",

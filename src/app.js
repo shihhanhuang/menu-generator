@@ -2204,6 +2204,7 @@ function generate({ keepShoppingEdits = false, preserveDays = new Set(), randomn
 }
 
 function startFreshWeek() {
+  resetPlanningDefaults();
   state.lockedDays.clear();
   state.excludedRecipeIdsBySlot.clear();
   state.excludedAddOnSuggestionIdsBySlot.clear();
@@ -2218,7 +2219,19 @@ function startFreshWeek() {
   saveSharedState();
   saveObject(storageKeys.dayNotes, state.dayNotes);
   saveObject(storageKeys.dayDishes, state.dayDishes);
+  renderPlanningToggles();
   generate({ randomness: 5 });
+}
+
+function resetPlanningDefaults() {
+  state.busyDays = new Set(["Monday", "Tuesday", "Wednesday"]);
+  state.noCookDays = new Set();
+  state.lunchDays = new Set();
+  state.snackDessertDays = new Set(["Friday", "Saturday", "Sunday"]);
+  state.inspiration = "none";
+  state.weekMood = "balanced";
+  controls.inspiration.value = state.inspiration;
+  controls.weekMood.value = state.weekMood;
 }
 
 function applyPlanOverrides(nextPlan, preserveDays = new Set()) {
@@ -2882,8 +2895,12 @@ loadRecipes().then(async () => {
   const restoredPlan = hydratePlan(state.savedPlan);
   if (restoredPlan) {
     state.plan = restoredPlan;
-    renderPlan(state.plan);
-    renderCurrentShoppingList();
+    if (isEmptyNoCookPlan(state.plan)) {
+      startFreshWeek();
+    } else {
+      renderPlan(state.plan);
+      renderCurrentShoppingList();
+    }
   } else {
     if (state.lockedDays.size) {
       state.lockedDays.clear();
@@ -2893,6 +2910,18 @@ loadRecipes().then(async () => {
   }
   renderActiveView();
 });
+
+function isEmptyNoCookPlan(plan) {
+  return Boolean(plan?.days?.length) && plan.days.every((day) =>
+    day.noCook
+    && !day.lunch
+    && !day.dinner
+    && !day.snackDessert
+    && !day.customLunch
+    && !day.customDinner
+    && !day.customSnackDessert,
+  );
+}
 
 async function loadRecipes() {
   try {

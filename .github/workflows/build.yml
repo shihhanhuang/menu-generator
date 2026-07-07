@@ -11,6 +11,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      WATCHTOWER_TOKEN: ${{ secrets.WATCHTOWER_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: docker/login-action@v3
@@ -23,3 +25,8 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/menu-generator:latest
+      - name: Trigger deploy on rxtx.io
+        if: ${{ env.WATCHTOWER_TOKEN != '' }}
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer ${WATCHTOWER_TOKEN}" \
+            "https://watchtower.rxtx.io/v1/update"

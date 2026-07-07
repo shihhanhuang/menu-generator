@@ -57,6 +57,14 @@ After the first GitHub Actions build, check GitHub Packages for `menu-generator`
 GitHub profile -> Packages -> menu-generator -> Package settings -> Change visibility -> Public
 ```
 
+The workflow can also trigger Watchtower after each build. Add this repository secret in GitHub to enable that deploy trigger:
+
+```text
+WATCHTOWER_TOKEN
+```
+
+Without that secret, the image still builds and pushes to GHCR, but the Watchtower trigger step is skipped.
+
 ## Where data lives
 
 - Recipes imported from Paprika: `data/recipes.json`

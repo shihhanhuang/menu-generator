@@ -1,6 +1,6 @@
-import { sampleRecipes } from "./sampleData.js";
-import { buildMealOptions, buildPlan } from "./planning/weeklyPlanner.js";
-import { splitShoppingList } from "./planning/shoppingSplitter.js";
+import { sampleRecipes } from "./sampleData.js?v=20260707";
+import { buildMealOptions, buildPlan } from "./planning/weeklyPlanner.js?v=20260707";
+import { splitShoppingList } from "./planning/shoppingSplitter.js?v=20260707";
 
 const dinnerDays = [
   "Monday",
@@ -331,7 +331,7 @@ function restoreSavedWeek(weekId) {
   state.plan = restoredPlan;
   state.dayDishes = cloneJson(week.dayDishes) ?? {};
   state.dayNotes = cloneJson(week.dayNotes) ?? {};
-  state.lockedDays = new Set(week.lockedDays ?? []);
+  state.lockedDays = new Set();
   localStorage.setItem(storageKeys.dayDishes, JSON.stringify(state.dayDishes));
   localStorage.setItem(storageKeys.dayNotes, JSON.stringify(state.dayNotes));
   localStorage.setItem(storageKeys.lockedDays, JSON.stringify([...state.lockedDays]));
@@ -2204,23 +2204,62 @@ function generate({ keepShoppingEdits = false, preserveDays = new Set(), randomn
 }
 
 function startFreshWeek() {
+  const freshWeekExclusions = getFreshWeekExclusions();
   resetPlanningDefaults();
+  state.plan = null;
+  state.savedPlan = null;
+  state.activeSavedWeekId = "";
+  state.recentlyLoadedSavedWeekId = "";
   state.lockedDays.clear();
   state.excludedRecipeIdsBySlot.clear();
+  applyFreshWeekExclusions(freshWeekExclusions);
   state.excludedAddOnSuggestionIdsBySlot.clear();
   state.addOnSuggestionIdsBySlot.clear();
   state.activeAdders = {};
   state.activeMealChoosers.clear();
+  state.visibleMealOptions.clear();
   state.dayNotes = {};
   state.dayDishes = {};
   localStorage.setItem(storageKeys.lockedDays, JSON.stringify([]));
   localStorage.removeItem(storageKeys.currentPlan);
-  state.savedPlan = null;
   saveSharedState();
   saveObject(storageKeys.dayNotes, state.dayNotes);
   saveObject(storageKeys.dayDishes, state.dayDishes);
   renderPlanningToggles();
-  generate({ randomness: 5 });
+  renderSavedWeeksList();
+  generate({ randomness: 8 });
+}
+
+function getFreshWeekExclusions() {
+  const exclusions = {
+    dinner: new Set(),
+    lunch: new Set(),
+    snackDessert: new Set(),
+  };
+
+  (state.plan?.days ?? []).forEach((day) => {
+    [
+      ["dinner", day.dinner, day.dinnerOptions],
+      ["lunch", day.lunch, day.lunchOptions],
+      ["snackDessert", day.snackDessert, day.snackDessertOptions],
+    ].forEach(([mealType, selectedRecipe, optionRecipes = []]) => {
+      if (selectedRecipe?.id) exclusions[mealType].add(selectedRecipe.id);
+      optionRecipes.forEach((recipe) => {
+        if (recipe?.id) exclusions[mealType].add(recipe.id);
+      });
+    });
+  });
+
+  return exclusions;
+}
+
+function applyFreshWeekExclusions(exclusions) {
+  dinnerDays.forEach((dayLabel) => {
+    Object.entries(exclusions).forEach(([mealType, recipeIds]) => {
+      if (!recipeIds.size) return;
+      state.excludedRecipeIdsBySlot.set(`${dayLabel}:${mealType}`, new Set(recipeIds));
+    });
+  });
 }
 
 function resetPlanningDefaults() {
@@ -2252,12 +2291,12 @@ function applyPlanOverrides(nextPlan, preserveDays = new Set()) {
         customLunch: customLunch || null,
         customDinner: customDinner || null,
         customSnackDessert: customSnackDessert || null,
-        lunch: null,
+        lunch: customLunch ? null : day.lunch,
         lunchOptions: customLunch ? [] : day.lunchOptions,
-        dinner: null,
+        dinner: customDinner ? null : day.dinner,
         dinnerOptions: customDinner ? [] : day.dinnerOptions,
-        side: null,
-        snackDessert: null,
+        side: customDinner ? null : day.side,
+        snackDessert: customSnackDessert ? null : day.snackDessert,
         snackDessertOptions: customSnackDessert ? [] : day.snackDessertOptions,
         reason: customLunch || customDinner || customSnackDessert ? "Includes manual note" : day.reason,
       };

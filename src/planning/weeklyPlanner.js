@@ -5,6 +5,7 @@ function scoreRecipe(recipe, context, usedRecipeIds) {
   const memoryTags = getEffectiveTags(recipe, context.recipeFeedback);
   const repeatPreference = feedback.repeatPreference ?? recipe.defaultRepeatPreference;
   const varietyKey = getRecipeVarietyKey(recipe);
+  const proteinFamily = getRecipeProteinFamily(recipe);
   const daysSinceCooked = getDaysSinceCooked(recipe.id, context.cookingHistory);
   const inspiration = context.inspiration ?? "none";
   const useSeason = inspiration === "seasonal" || inspiration === "seasonalWeather";
@@ -99,6 +100,12 @@ function scoreRecipe(recipe, context, usedRecipeIds) {
   }
   if (usedRecipeIds.has(recipe.id)) score -= repeatFrequency === "regular" ? 7 : 20;
   if (varietyKey && context.usedVarietyKeys?.has(varietyKey)) score -= 14;
+  if (proteinFamily && context.usedProteinFamilies?.has(proteinFamily)) {
+    const count = context.usedProteinFamilies.get(proteinFamily);
+    if (count >= 3) score -= 40;
+    else if (count >= 2) score -= 22;
+    else score -= 8;
+  }
   score += Math.random() * (context.randomness ?? 0);
 
   return score;
@@ -138,6 +145,21 @@ function addVarietyKey(recipe, usedVarietyKeys) {
   if (varietyKey) usedVarietyKeys.add(varietyKey);
 }
 
+function getRecipeProteinFamily(recipe) {
+  const varietyKey = getRecipeVarietyKey(recipe);
+  if (["salmon", "tuna", "white-fish", "fish", "shrimp", "scallop"].includes(varietyKey)) return "seafood";
+  if (["chicken", "duck"].includes(varietyKey)) return "poultry";
+  if (["beef", "pork"].includes(varietyKey)) return "meat";
+  if (["tofu", "egg"].includes(varietyKey)) return "vegetarian-protein";
+  return varietyKey || "";
+}
+
+function addProteinFamily(recipe, usedProteinFamilies) {
+  const proteinFamily = getRecipeProteinFamily(recipe);
+  if (!proteinFamily) return;
+  usedProteinFamilies.set(proteinFamily, (usedProteinFamilies.get(proteinFamily) ?? 0) + 1);
+}
+
 function getUsedVarietyKeys(recipes, usedRecipeIds) {
   const recipesById = new Map(recipes.map((recipe) => [recipe.id, recipe]));
   const usedVarietyKeys = new Set();
@@ -148,6 +170,10 @@ function getUsedVarietyKeys(recipes, usedRecipeIds) {
   });
 
   return usedVarietyKeys;
+}
+
+function getPlannerRecipeTitle(recipe, recipeFeedback = {}) {
+  return recipeFeedback[recipe.id]?.displayTitle?.trim() || recipe.title;
 }
 
 function getDaysSinceCooked(recipeId, cookingHistory = {}) {
@@ -307,6 +333,7 @@ function chooseRecipeOptions(recipes, context, usedRecipeIds, excludedRecipeIds,
     .filter(filter)
     .filter((recipe) => !isRecipeHidden(recipe, context.recipeFeedback))
     .filter((recipe) => getRepeatPreference(recipe, context.recipeFeedback) !== "avoid")
+    .filter((recipe) => !usedRecipeIds.has(recipe.id))
     .filter((recipe) => !excludedRecipeIds.has(recipe.id))
     .map((recipe) => ({
       recipe,
@@ -388,7 +415,10 @@ function chooseSideRecipe(recipes, mainRecipe, context, usedRecipeIds, excludedR
   const candidates = recipes
     .filter((recipe) => isAddOnRecipe(recipe, context.recipeFeedback))
     .filter((recipe) => recipe.id !== mainRecipe.id)
-    .filter((recipe) => getRecipeDisplayTitle(recipe).toLowerCase() !== getRecipeDisplayTitle(mainRecipe).toLowerCase())
+    .filter((recipe) =>
+      getPlannerRecipeTitle(recipe, context.recipeFeedback).toLowerCase()
+      !== getPlannerRecipeTitle(mainRecipe, context.recipeFeedback).toLowerCase(),
+    )
     .filter((recipe) => getAddOnRoles(recipe, context.recipeFeedback).some((role) =>
       ["side", "salad", "vegetable", "carb"].includes(role),
     ))
@@ -420,6 +450,7 @@ export function buildPlan({
 }) {
   const usedRecipeIds = new Set();
   const usedVarietyKeys = new Set();
+  const usedProteinFamilies = new Map();
 
   const plannedDays = days.map((label) => {
     const noDinner = noCookDays.has(label);
@@ -435,6 +466,7 @@ export function buildPlan({
       weekMood,
       randomness,
       usedVarietyKeys,
+      usedProteinFamilies,
     };
 
     const dinner = noDinner
@@ -467,6 +499,7 @@ export function buildPlan({
     if (dinner) {
       usedRecipeIds.add(dinner.id);
       addVarietyKey(dinner, usedVarietyKeys);
+      addProteinFamily(dinner, usedProteinFamilies);
     }
 
     const side = dinner?.recipeRole === "main"
@@ -507,6 +540,7 @@ export function buildPlan({
 
     if (lunch) usedRecipeIds.add(lunch.id);
     if (lunch) addVarietyKey(lunch, usedVarietyKeys);
+    if (lunch) addProteinFamily(lunch, usedProteinFamilies);
     const snackDessert = snackDessertDays.has(label)
       ? chooseRecipe(
           recipes,

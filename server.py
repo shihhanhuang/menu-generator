@@ -106,9 +106,24 @@ def initialize_data_dir() -> None:
     for filename in ("recipes.json", "app-state.json"):
         target = DATA_PATH / filename
         source = SEED_DATA_PATH / filename
-        if target.exists() or not source.exists() or target.resolve() == source.resolve():
+        if not source.exists() or target.resolve() == source.resolve():
             continue
-        shutil.copy2(source, target)
+        if should_seed_data_file(target, filename):
+            shutil.copy2(source, target)
+
+
+def should_seed_data_file(path: Path, filename: str) -> bool:
+    if not path.exists() or path.stat().st_size == 0:
+        return True
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return True
+    if filename == "recipes.json":
+        return not isinstance(payload, list) or len(payload) == 0
+    if filename == "app-state.json":
+        return not isinstance(payload, dict)
+    return False
 
 
 def read_state() -> dict[str, Any]:

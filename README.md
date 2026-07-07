@@ -49,7 +49,7 @@ Details for Beni:
 - Persistent data folder: `/data/menu-generator`
 - App port: `5178`
 
-On first server run, the app seeds `/data/menu-generator/recipes.json` and `/data/menu-generator/app-state.json` from the repo copy if those files do not already exist. After that, the `/data/menu-generator` copy is the durable source of truth.
+On server run, the app seeds `/data/menu-generator/recipes.json` and `/data/menu-generator/app-state.json` from the repo copy if those files do not exist yet, are empty, or are invalid. After that, the `/data/menu-generator` copy is the durable source of truth.
 
 After the first GitHub Actions build, check GitHub Packages for `menu-generator` and make the container package public if Beni's server will pull it without GitHub credentials:
 
@@ -85,6 +85,12 @@ Put Paprika `.paprikarecipes` exports in:
 
 ```text
 imports/
+```
+
+On Beni's server, that means:
+
+```text
+/data/menu-generator/imports/
 ```
 
 Then open the Import tab, choose the export file(s) to use, and click **Update recipes**. Import files are not preselected, so each update is deliberate. The app refreshes `data/recipes.json`, preserves app-only recipe memory in `data/app-state.json`, and backs up both files first.

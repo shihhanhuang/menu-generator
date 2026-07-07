@@ -51,6 +51,12 @@ Details for Beni:
 
 On first server run, the app seeds `/data/menu-generator/recipes.json` and `/data/menu-generator/app-state.json` from the repo copy if those files do not already exist. After that, the `/data/menu-generator` copy is the durable source of truth.
 
+After the first GitHub Actions build, check GitHub Packages for `menu-generator` and make the container package public if Beni's server will pull it without GitHub credentials:
+
+```text
+GitHub profile -> Packages -> menu-generator -> Package settings -> Change visibility -> Public
+```
+
 ## Where data lives
 
 - Recipes imported from Paprika: `data/recipes.json`

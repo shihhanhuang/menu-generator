@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Menu Generator</title>
-    <link rel="stylesheet" href="src/styles.css" />
+    <link rel="stylesheet" href="src/styles.css?v=20260722" />
   </head>
   <body>
     <main class="app-shell">
@@ -15,6 +15,7 @@
         </div>
         <nav class="view-tabs" aria-label="App views">
           <button class="tab-button is-active" type="button" data-view-tab="plan">Plan</button>
+          <button class="tab-button" type="button" data-view-tab="shopping">Shopping</button>
           <button class="tab-button" type="button" data-view-tab="recipes">Recipes</button>
           <button class="tab-button" type="button" data-view-tab="history">History</button>
           <button class="tab-button" type="button" data-view-tab="import">Import</button>
@@ -83,12 +84,39 @@
           </div>
         </section>
 
-        <section class="shopping-panel is-collapsed" aria-label="Shopping list">
+      </section>
+
+      <section id="shoppingView" class="shopping-layout app-view is-hidden" aria-label="Shopping list">
+        <section class="shopping-panel">
           <div class="section-heading">
             <h2>Shopping</h2>
-            <p>Tabled for now</p>
+            <p>Split by when you plan to shop</p>
+          </div>
+          <div class="shopping-controls">
+            <span class="label">When will you shop?</span>
+            <div id="shoppingDays" class="toggle-grid"></div>
           </div>
           <div id="shoppingList" class="shopping-list"></div>
+          <div id="shoppingCopyPanel" class="shopping-copy-panel is-hidden">
+            <div>
+              <strong>Copy shopping list</strong>
+              <p>Use checklist for Capacities, or plain list for Bring.</p>
+            </div>
+            <div class="shopping-copy-actions">
+              <select id="shoppingCopyFormat" aria-label="Copy shopping list format">
+                <option value="checklist">Checklist</option>
+                <option value="plain">Plain list</option>
+              </select>
+              <button id="copyShoppingListButton" class="secondary-button" type="button">Copy list</button>
+              <span id="shoppingCopyStatus" class="shopping-copy-status" aria-live="polite"></span>
+            </div>
+            <textarea
+              id="shoppingCopyText"
+              class="shopping-copy-text"
+              aria-label="Copyable shopping list"
+              readonly
+            ></textarea>
+          </div>
         </section>
       </section>
 
@@ -171,6 +199,19 @@
       </section>
     </main>
 
+    <div id="quickRecipeOverlay" class="source-overlay quick-recipe-overlay is-hidden" aria-hidden="true">
+      <section class="source-dialog quick-recipe-dialog" aria-label="Recipe details">
+        <header class="source-dialog-header">
+          <div>
+            <p class="eyebrow">Recipe details</p>
+            <h2 id="quickRecipeTitle">Recipe</h2>
+          </div>
+          <button id="closeQuickRecipeOverlay" class="small-button" type="button">Close</button>
+        </header>
+        <div id="quickRecipeContent" class="quick-recipe-content"></div>
+      </section>
+    </div>
+
     <div id="sourceOverlay" class="source-overlay is-hidden" aria-hidden="true">
       <section class="source-dialog" aria-label="Recipe source">
         <header class="source-dialog-header">
@@ -188,6 +229,6 @@
       </section>
     </div>
 
-    <script type="module" src="src/app.js?v=20260707"></script>
+    <script type="module" src="src/app.js?v=20260737"></script>
   </body>
 </html>

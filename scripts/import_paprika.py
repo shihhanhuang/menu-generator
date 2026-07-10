@@ -439,6 +439,19 @@ def clean_ingredient_line(line: str) -> str | None:
         "method",
         "instructions",
         "finally",
+        "filling",
+        "füllung",
+        "fuellung",
+        "sauce",
+        "marinade",
+        "batter",
+        "dough",
+        "pastry base",
+        "glaze",
+        "topping",
+        "toppings",
+        "garnish",
+        "seasonings",
         "to serve",
         "to garnish",
         "to prepare",
@@ -448,12 +461,17 @@ def clean_ingredient_line(line: str) -> str | None:
     }
     if lower in ignored_exact:
         return None
+    if not re.search(r"\d", lower) and (re.match(r"^(for|to)\s+", lower) or re.match(r"^garnish\s+with\b", lower)):
+        return None
     if re.fullmatch(r"serves?\s+\d+.*", lower):
         return None
     if re.fullmatch(r"makes?\s+\d+.*", lower):
         return None
 
-    line = re.sub(r"\([^)]*(?:optional|if you wish|to taste|see note|about\s+\d+)[^)]*\)", "", line, flags=re.I)
+    line = re.sub(r"^(\d+(?:[.,]\d+)?)(g|kg|ml|l|dl|oz|lb|lbs)\b", r"\1 \2", line, flags=re.I)
+    line = re.sub(r"^(\d+(?:[.,]\d+)?\s*(?:g|kg|ml|l|dl|oz|lb|lbs))/[^\s]+\s+", r"\1 ", line, flags=re.I)
+    line = re.sub(r"\([^)]*(?:optional|if you wish|to taste|see note|shh|to get|about\s+\d+)[^)]*\)", "", line, flags=re.I)
+    line = re.sub(r"\([^A-Za-z0-9¼½¾⅓⅔⅛⅜⅝⅞]*\)", "", line)
     line = re.sub(r",\s*(?:cleaned|trimmed|torn|cut|chopped|chop|sliced|slice|diced|dice|minced|mince|grated|shredded|peeled|rinsed|drained|divided|separated|finely|thinly|roughly|coarsely)\b.*", "", line, flags=re.I)
     line = re.sub(r"\b(?:finely|thinly|roughly|coarsely)?\s*(?:cleaned|trimmed|torn|cut|chopped|sliced|diced|minced|grated|shredded|peeled|rinsed|drained)\b\s*", " ", line, flags=re.I)
     line = re.sub(r",?\s*(?:use a bit more if you wish|or more to taste|plus more|to taste|for serving|for garnish)\b.*", "", line, flags=re.I)
@@ -474,7 +492,19 @@ def is_pantry_staple(ingredient: str) -> bool:
 
     if "olive oil" in text:
         return True
+    if re.fullmatch(r".*\b(?:vegetable oil|canola oil|neutral oil|cooking oil)\b.*", text):
+        return True
+    if re.fullmatch(r".*\b(?:soy sauce|light soy sauce|dark soy sauce|low sodium soy sauce)\b.*", text):
+        return True
+    if re.fullmatch(r".*\b(?:sesame oil|toasted sesame oil)\b.*", text):
+        return True
+    if re.fullmatch(r".*\bred wine vinegar\b.*", text):
+        return True
+    if re.fullmatch(r".*\b(?:butter|unsalted butter|salted butter)\b.*", text):
+        return True
     if re.fullmatch(r".*\b(?:water|boiling water|warm water|cold water)\b.*", text):
+        return True
+    if re.fullmatch(r".*\b(?:white sugar|brown sugar|caster sugar|granulated sugar|sugar)\b.*", text):
         return True
     if re.fullmatch(r".*\b(?:kosher salt|sea salt|fine salt|salt)\b.*", text):
         return True

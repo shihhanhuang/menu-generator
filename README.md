@@ -115,6 +115,7 @@ reference/
 
 - `reference/paprika-update-workflow.md`
 - `reference/planner-tags.md`
+- `reference/shopping-list-feature.md`
 
 ## Backups
 

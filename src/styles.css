@@ -233,6 +233,12 @@ h3 {
   margin-top: 8px;
 }
 
+.shopping-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
 .saved-weeks-panel {
   display: grid;
   gap: 10px;
@@ -677,11 +683,19 @@ select {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 10px;
+  margin: -14px -14px 12px;
+  border-bottom: 1px solid #d4e3dc;
+  border-radius: 8px 8px 0 0;
+  padding: 11px 14px;
+  background: #edf6f2;
+  box-shadow: inset 4px 0 0 var(--accent);
 }
 
 .day-card-header h3 {
   margin-bottom: 2px;
+  color: var(--accent-dark);
+  font-size: 1.08rem;
+  font-weight: 900;
 }
 
 .day-card-header p {
@@ -695,10 +709,19 @@ select {
   flex: 0 0 auto;
   border-radius: 999px;
   padding: 4px 8px;
-  background: #efe8da;
-  color: var(--muted);
+  background: white;
+  color: var(--accent-dark);
   font-size: 0.78rem;
-  font-weight: 700;
+  font-weight: 800;
+}
+
+.shopping-card > .day-card-header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  box-shadow:
+    inset 4px 0 0 var(--accent),
+    0 3px 10px rgba(36, 34, 30, 0.08);
 }
 
 .meal-row {
@@ -716,6 +739,26 @@ select {
 
 .meal-row strong {
   overflow-wrap: anywhere;
+}
+
+.meal-row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.manual-meal-editor {
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  background: #f8fbf8;
+}
+
+.manual-meal-editor .small-button {
+  justify-self: start;
 }
 
 .meal-options {
@@ -971,7 +1014,13 @@ select {
   align-items: center;
 }
 
-.meal-note input {
+.manual-meal-fields {
+  display: grid;
+  gap: 6px;
+}
+
+.meal-note input,
+.meal-note textarea {
   min-height: 36px;
   width: 100%;
   border: 1px solid var(--line);
@@ -979,6 +1028,12 @@ select {
   padding: 0 10px;
   background: white;
   color: var(--text);
+}
+
+.meal-note textarea {
+  min-height: 58px;
+  padding-top: 8px;
+  resize: vertical;
 }
 
 .recipe-picker-controls {
@@ -1124,7 +1179,8 @@ select {
 
 .chooser-search input,
 .chooser-search select,
-.chooser-manual input {
+.chooser-manual input,
+.chooser-manual textarea {
   min-height: 36px;
   width: 100%;
   border: 1px solid var(--line);
@@ -1132,6 +1188,13 @@ select {
   padding: 0 10px;
   background: white;
   color: var(--text);
+}
+
+.chooser-manual textarea {
+  grid-column: 1 / -1;
+  min-height: 58px;
+  padding-top: 8px;
+  resize: vertical;
 }
 
 .chooser-search input {
@@ -1166,6 +1229,14 @@ select {
 
 .added-dish strong {
   overflow-wrap: anywhere;
+}
+
+.added-dish small {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.3;
 }
 
 .added-dish-actions {
@@ -1429,10 +1500,6 @@ select {
   resize: vertical;
 }
 
-.shopping-panel.is-collapsed {
-  display: none;
-}
-
 ul {
   margin: 0;
   padding-left: 0;
@@ -1463,14 +1530,151 @@ li + li {
   line-height: 1.35;
 }
 
-.shopping-actions {
+.shopping-item-heading {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 8px;
+  align-items: start;
+}
+
+.shopping-item-heading strong {
+  overflow-wrap: anywhere;
+}
+
+.shopping-controls {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.shopping-copy-panel {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fffdf8;
+}
+
+.shopping-copy-panel strong {
+  display: block;
+  font-size: 0.92rem;
+}
+
+.shopping-copy-panel p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.shopping-copy-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.shopping-copy-actions select {
+  min-height: 40px;
+}
+
+.shopping-copy-status {
+  align-self: center;
+  min-height: 24px;
+  border-radius: 999px;
+  padding: 4px 8px;
+  color: var(--accent-dark);
+  font-size: 0.8rem;
+  font-weight: 800;
+  opacity: 0;
+  transform: translateY(2px);
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease;
+}
+
+.shopping-copy-status.is-visible {
+  background: #e5f4ec;
+  box-shadow: inset 0 0 0 1px #b8dbc9;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.shopping-copy-status.needs-copy {
+  background: #fff3d8;
+  box-shadow: inset 0 0 0 1px #e4c675;
+  color: #75580d;
+}
+
+.shopping-copy-text {
+  width: 100%;
+  min-height: 160px;
+  resize: vertical;
+  font: 0.9rem/1.45 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  color: var(--ink);
+  background: var(--panel);
+}
+
+.shopping-source-list {
+  margin-top: 6px;
+  display: grid;
+  gap: 6px;
+}
+
+.shopping-source-list li {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.shopping-source-link {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.shopping-source-link:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+.shopping-card.is-collapsed .shopping-group-items {
+  display: none;
+}
+
+.shopping-group-items {
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+.shopping-actions {
+  display: block;
 }
 
 .shopping-actions select {
   min-height: 34px;
+  width: 100%;
+}
+
+.shopping-remove-button {
+  min-height: 28px;
+  width: 28px;
+  border-radius: 999px;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .source-overlay {
@@ -1515,6 +1719,21 @@ li + li {
   height: 100%;
   border: 0;
   background: white;
+}
+
+.quick-recipe-dialog {
+  grid-template-rows: auto minmax(0, 1fr);
+  width: min(880px, 100%);
+}
+
+.quick-recipe-content {
+  overflow: auto;
+  padding: 18px;
+}
+
+.quick-recipe-details {
+  border: 0;
+  background: transparent;
 }
 
 .source-dialog-footer {
@@ -1571,8 +1790,12 @@ li + li {
     grid-template-columns: 58px minmax(0, 1fr);
   }
 
-  .meal-row .small-button {
+  .meal-row-actions {
     grid-column: 2;
+    justify-content: flex-start;
+  }
+
+  .meal-row .small-button {
     justify-self: start;
   }
 
@@ -1621,6 +1844,15 @@ li + li {
   .chooser-search .small-button,
   .chooser-manual .small-button {
     justify-self: start;
+  }
+
+  .shopping-copy-panel {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .shopping-copy-actions {
+    justify-content: flex-start;
   }
 
   .source-overlay {

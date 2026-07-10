@@ -1,6 +1,6 @@
-import { sampleRecipes } from "./sampleData.js?v=20260707";
-import { buildMealOptions, buildPlan } from "./planning/weeklyPlanner.js?v=20260707";
-import { splitShoppingList } from "./planning/shoppingSplitter.js?v=20260707";
+import { sampleRecipes } from "./sampleData.js?v=20260709";
+import { buildMealOptions, buildPlan } from "./planning/weeklyPlanner.js?v=20260709";
+import { splitShoppingList } from "./planning/shoppingSplitter.js?v=20260724";
 
 const dinnerDays = [
   "Monday",
@@ -21,8 +21,11 @@ const storageKeys = {
   cookingHistory: "menuGenerator.cookingHistory",
   currentPlan: "menuGenerator.currentPlan",
   savedWeeks: "menuGenerator.savedWeeks",
+  shoppingDays: "menuGenerator.shoppingDays",
+  manualShoppingItems: "menuGenerator.manualShoppingItems",
 };
 const apiBase = location.protocol === "file:" ? "http://127.0.0.1:5178/api" : "/api";
+const preWeekShop = "Pre-week shop";
 
 const dishRoles = ["appetizer", "side", "salad", "vegetable", "carb", "protein", "other"];
 const suggestionRoles = ["appetizer", "salad", "vegetable", "carb", "protein", "side"];
@@ -34,7 +37,7 @@ const state = {
   noCookDays: new Set(),
   lunchDays: new Set(),
   snackDessertDays: new Set(["Friday", "Saturday", "Sunday"]),
-  shoppingDays: new Set(["Tuesday", "Saturday"]),
+  shoppingDays: new Set(loadArray(storageKeys.shoppingDays).length ? loadArray(storageKeys.shoppingDays) : ["Tuesday", "Saturday"]),
   recipes: sampleRecipes,
   plan: null,
   dayNotes: loadObject(storageKeys.dayNotes),
@@ -44,6 +47,7 @@ const state = {
   cookingHistory: loadObject(storageKeys.cookingHistory),
   savedPlan: loadObject(storageKeys.currentPlan),
   savedWeeks: loadArray(storageKeys.savedWeeks),
+  manualShoppingItems: loadObject(storageKeys.manualShoppingItems),
   activeSavedWeekId: "",
   recentlyLoadedSavedWeekId: "",
   loadedFeedbackTimer: null,
@@ -52,6 +56,7 @@ const state = {
   addOnSuggestionIdsBySlot: new Map(),
   removedShoppingItemIds: new Set(),
   shoppingItemAssignments: new Map(),
+  collapsedShoppingGroups: new Set(),
   activeAdders: {},
   activeMealChoosers: new Set(),
   visibleMealOptions: new Set(),
@@ -68,6 +73,7 @@ const state = {
 
 const controls = {
   planView: document.querySelector("#planView"),
+  shoppingView: document.querySelector("#shoppingView"),
   recipesView: document.querySelector("#recipesView"),
   historyView: document.querySelector("#historyView"),
   importView: document.querySelector("#importView"),
@@ -78,12 +84,18 @@ const controls = {
   noCookDays: document.querySelector("#noCookDays"),
   lunchDays: document.querySelector("#lunchDays"),
   snackDessertDays: document.querySelector("#snackDessertDays"),
+  shoppingDays: document.querySelector("#shoppingDays"),
   startFreshWeekButton: document.querySelector("#startFreshWeekButton"),
   saveWeekButton: document.querySelector("#saveWeekButton"),
   savedWeeksList: document.querySelector("#savedWeeksList"),
   planningWeekLabel: document.querySelector("#planningWeekLabel"),
   menuPlan: document.querySelector("#menuPlan"),
   shoppingList: document.querySelector("#shoppingList"),
+  shoppingCopyPanel: document.querySelector("#shoppingCopyPanel"),
+  shoppingCopyFormat: document.querySelector("#shoppingCopyFormat"),
+  copyShoppingListButton: document.querySelector("#copyShoppingListButton"),
+  shoppingCopyStatus: document.querySelector("#shoppingCopyStatus"),
+  shoppingCopyText: document.querySelector("#shoppingCopyText"),
   recipeLibrarySearch: document.querySelector("#recipeLibrarySearch"),
   recipeLibraryFilter: document.querySelector("#recipeLibraryFilter"),
   recipeLibraryCount: document.querySelector("#recipeLibraryCount"),
@@ -92,6 +104,10 @@ const controls = {
   importFileList: document.querySelector("#importFileList"),
   importButton: document.querySelector("#importButton"),
   importStatus: document.querySelector("#importStatus"),
+  quickRecipeOverlay: document.querySelector("#quickRecipeOverlay"),
+  quickRecipeTitle: document.querySelector("#quickRecipeTitle"),
+  quickRecipeContent: document.querySelector("#quickRecipeContent"),
+  closeQuickRecipeOverlay: document.querySelector("#closeQuickRecipeOverlay"),
   sourceOverlay: document.querySelector("#sourceOverlay"),
   sourceFrame: document.querySelector("#sourceFrame"),
   sourceDialogTitle: document.querySelector("#sourceDialogTitle"),
@@ -110,6 +126,10 @@ function escapeHtml(value) {
 
 function slugify(value) {
   return String(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "item";
+}
+
+function formatShoppingDayLabel(day) {
+  return day === preWeekShop ? "Before this week" : day;
 }
 
 function getRecipeDisplayTitle(recipe) {
@@ -153,6 +173,8 @@ function getSharedStatePayload() {
     [storageKeys.cookingHistory]: state.cookingHistory,
     [storageKeys.currentPlan]: serializePlan(state.plan) ?? state.savedPlan,
     [storageKeys.savedWeeks]: state.savedWeeks,
+    [storageKeys.shoppingDays]: [...state.shoppingDays],
+    [storageKeys.manualShoppingItems]: state.manualShoppingItems,
   };
 }
 
@@ -173,12 +195,18 @@ async function loadSharedState() {
     const sharedSavedWeeks = Array.isArray(sharedState[storageKeys.savedWeeks])
       ? sharedState[storageKeys.savedWeeks]
       : [];
+    const sharedShoppingDays = Array.isArray(sharedState[storageKeys.shoppingDays])
+      ? sharedState[storageKeys.shoppingDays]
+      : [];
+    const sharedManualShoppingItems = sharedState[storageKeys.manualShoppingItems] ?? {};
 
     state.recipeFeedback = { ...sharedFeedback, ...state.recipeFeedback };
     state.dayNotes = { ...sharedDayNotes, ...state.dayNotes };
     state.dayDishes = { ...sharedDayDishes, ...state.dayDishes };
+    state.manualShoppingItems = { ...sharedManualShoppingItems, ...state.manualShoppingItems };
     state.lockedDays = new Set([...sharedLockedDays, ...state.lockedDays]);
     state.cookingHistory = sharedCookingHistory;
+    if (sharedShoppingDays.length) state.shoppingDays = new Set(sharedShoppingDays);
     if (sharedPlan) state.savedPlan = sharedPlan;
     state.savedWeeks = mergeSavedWeeks(sharedSavedWeeks, state.savedWeeks);
 
@@ -189,6 +217,8 @@ async function loadSharedState() {
     localStorage.setItem(storageKeys.cookingHistory, JSON.stringify(state.cookingHistory));
     localStorage.setItem(storageKeys.currentPlan, JSON.stringify(state.savedPlan));
     localStorage.setItem(storageKeys.savedWeeks, JSON.stringify(state.savedWeeks));
+    localStorage.setItem(storageKeys.shoppingDays, JSON.stringify([...state.shoppingDays]));
+    localStorage.setItem(storageKeys.manualShoppingItems, JSON.stringify(state.manualShoppingItems));
     saveSharedState();
   } catch {
     // Static file mode still works without the local server.
@@ -312,6 +342,7 @@ function saveWeekSnapshot() {
     plan: serializePlan(state.plan),
     dayDishes: cloneJson(state.dayDishes) ?? {},
     dayNotes: cloneJson(state.dayNotes) ?? {},
+    manualShoppingItems: cloneJson(state.manualShoppingItems) ?? {},
     lockedDays: [...state.lockedDays],
   };
 
@@ -331,9 +362,11 @@ function restoreSavedWeek(weekId) {
   state.plan = restoredPlan;
   state.dayDishes = cloneJson(week.dayDishes) ?? {};
   state.dayNotes = cloneJson(week.dayNotes) ?? {};
+  state.manualShoppingItems = cloneJson(week.manualShoppingItems) ?? {};
   state.lockedDays = new Set();
   localStorage.setItem(storageKeys.dayDishes, JSON.stringify(state.dayDishes));
   localStorage.setItem(storageKeys.dayNotes, JSON.stringify(state.dayNotes));
+  localStorage.setItem(storageKeys.manualShoppingItems, JSON.stringify(state.manualShoppingItems));
   localStorage.setItem(storageKeys.lockedDays, JSON.stringify([...state.lockedDays]));
   saveCurrentPlan();
   renderPlanningToggles();
@@ -642,8 +675,18 @@ function renderPlan(plan) {
   });
 
   controls.menuPlan.querySelectorAll("[data-day-note]").forEach((input) => {
-    input.addEventListener("change", () => {
+    input.addEventListener("blur", (event) => {
+      if (input.closest(".manual-meal-fields")?.contains(event.relatedTarget)) return;
       setDayNote(input.dataset.dayNote, input.dataset.dayNoteMeal, input.value);
+    });
+  });
+
+  controls.menuPlan.querySelectorAll("[data-day-shopping-items]").forEach((input) => {
+    input.addEventListener("blur", (event) => {
+      if (input.closest(".manual-meal-fields")?.contains(event.relatedTarget)) return;
+      setManualShoppingItems(input.dataset.dayShoppingItems, input.dataset.dayShoppingMeal, input.value);
+      const titleInput = input.closest(".manual-meal-fields")?.querySelector("[data-day-note]");
+      if (titleInput) setDayNote(titleInput.dataset.dayNote, titleInput.dataset.dayNoteMeal, titleInput.value);
     });
   });
 
@@ -662,6 +705,18 @@ function renderPlan(plan) {
   controls.menuPlan.querySelectorAll("[data-clear-note]").forEach((button) => {
     button.addEventListener("click", () => {
       setDayNote(button.dataset.clearNote, button.dataset.clearNoteMeal ?? "dinner", "");
+    });
+  });
+
+  controls.menuPlan.querySelectorAll("[data-edit-manual-meal]").forEach((button) => {
+    button.addEventListener("click", () => {
+      openManualMealEdit(button.dataset.editManualMeal, button.dataset.editManualMealType);
+    });
+  });
+
+  controls.menuPlan.querySelectorAll("[data-close-manual-edit]").forEach((button) => {
+    button.addEventListener("click", () => {
+      closeManualMealEdit(button.dataset.closeManualEdit, button.dataset.closeManualEditMeal);
     });
   });
 
@@ -758,18 +813,30 @@ function renderPlan(plan) {
   controls.menuPlan.querySelectorAll("[data-add-manual-dish]").forEach((button) => {
     button.addEventListener("click", () => {
       const title = button.closest(".add-dish-chooser")?.querySelector("[data-custom-title]")?.value.trim();
-      addManualDish(button.dataset.addManualDish, button.dataset.addMeal, button.dataset.addRole, title);
+      const shoppingItems = button.closest(".add-dish-chooser")?.querySelector("[data-custom-shopping-items]")?.value.trim();
+      addManualDish(button.dataset.addManualDish, button.dataset.addMeal, button.dataset.addRole, title, shoppingItems);
     });
   });
 }
 
 function renderCustomMealRow(day, mealType, title) {
+  const isEditing = state.activeMealChoosers.has(getMealKey(day.label, mealType));
+
   return `
     <div class="meal-row">
       <span>Chosen</span>
       <strong>${escapeHtml(title)}</strong>
-      <button class="small-button" type="button" data-clear-note="${escapeHtml(day.label)}" data-clear-note-meal="${mealType}">Use recipe instead</button>
+      <div class="meal-row-actions">
+        <button class="small-button" type="button" data-edit-manual-meal="${escapeHtml(day.label)}" data-edit-manual-meal-type="${mealType}">${isEditing ? "Editing" : "Edit"}</button>
+        <button class="small-button" type="button" data-clear-note="${escapeHtml(day.label)}" data-clear-note-meal="${mealType}">Use recipe instead</button>
+      </div>
     </div>
+    ${isEditing ? `
+      <div class="manual-meal-editor">
+        ${renderMealNoteInput(day, mealType)}
+        <button class="small-button" type="button" data-close-manual-edit="${escapeHtml(day.label)}" data-close-manual-edit-meal="${mealType}">Done</button>
+      </div>
+    ` : ""}
   `;
 }
 
@@ -927,8 +994,46 @@ function renderRecipeDetails(recipe, { rememberOpenState = true } = {}) {
   `;
 }
 
+function renderQuickRecipeDetails(recipe) {
+  const times = [
+    recipe.prepTime ? `Prep: ${recipe.prepTime}` : null,
+    recipe.cookTime ? `Cook: ${recipe.cookTime}` : null,
+    recipe.totalTime ? `Total: ${recipe.totalTime}` : null,
+  ].filter(Boolean);
+  const ingredients = recipe.ingredients ?? [];
+  const directions = recipe.directions?.trim();
+
+  return `
+    <section class="recipe-details quick-recipe-details">
+      <div class="recipe-details-body">
+        ${times.length || recipe.servings ? `
+          <div class="recipe-detail-meta">
+            ${recipe.servings ? `<span>Serves: ${escapeHtml(recipe.servings)}</span>` : ""}
+            ${times.map((time) => `<span>${escapeHtml(time)}</span>`).join("")}
+          </div>
+        ` : ""}
+        ${ingredients.length ? `
+          <div class="recipe-detail-section">
+            <span>Ingredients</span>
+            <ul>
+              ${ingredients.map((ingredient) => `<li>${escapeHtml(ingredient)}</li>`).join("")}
+            </ul>
+          </div>
+        ` : ""}
+        ${directions ? `
+          <div class="recipe-detail-section">
+            <span>Directions</span>
+            <p>${escapeHtml(directions)}</p>
+          </div>
+        ` : ""}
+      </div>
+    </section>
+  `;
+}
+
 function renderActiveView() {
   controls.planView.classList.toggle("is-hidden", state.activeView !== "plan");
+  controls.shoppingView.classList.toggle("is-hidden", state.activeView !== "shopping");
   controls.recipesView.classList.toggle("is-hidden", state.activeView !== "recipes");
   controls.historyView.classList.toggle("is-hidden", state.activeView !== "history");
   controls.importView.classList.toggle("is-hidden", state.activeView !== "import");
@@ -939,6 +1044,7 @@ function renderActiveView() {
   });
 
   if (state.activeView === "recipes") renderRecipesView();
+  if (state.activeView === "shopping") renderCurrentShoppingList();
   if (state.activeView === "history") renderSavedWeeksList();
   if (state.activeView === "import") renderImportView();
 }
@@ -1456,6 +1562,7 @@ function renderDayControls(day) {
 
 function renderMealNoteInput(day, mealType) {
   const note = getMealNote(day.label, mealType);
+  const shoppingItems = getManualShoppingItems(day.label, mealType);
   const placeholders = {
     lunch: "Lunch note, leftovers, request...",
     dinner: "Frozen pizza, leftovers, request...",
@@ -1466,13 +1573,21 @@ function renderMealNoteInput(day, mealType) {
   return `
     <div class="meal-note">
       <span>Write my own</span>
-      <input
-        type="text"
-        value="${escapeHtml(note)}"
-        placeholder="${escapeHtml(placeholder)}"
-        data-day-note="${escapeHtml(day.label)}"
-        data-day-note-meal="${mealType}"
-      />
+      <div class="manual-meal-fields">
+        <input
+          type="text"
+          value="${escapeHtml(note)}"
+          placeholder="${escapeHtml(placeholder)}"
+          data-day-note="${escapeHtml(day.label)}"
+          data-day-note-meal="${mealType}"
+        />
+        <textarea
+          rows="2"
+          placeholder="Shopping items, separated by commas or lines"
+          data-day-shopping-items="${escapeHtml(day.label)}"
+          data-day-shopping-meal="${mealType}"
+        >${escapeHtml(shoppingItems)}</textarea>
+      </div>
     </div>
   `;
 }
@@ -1768,6 +1883,7 @@ function renderAddDishChooser(day, mealType, role, isLocked) {
       <div class="chooser-section-label">Or write my own</div>
       <div class="chooser-manual">
         <input type="text" placeholder="${escapeHtml(manualPlaceholder)}" data-custom-title ${isLocked ? "disabled" : ""} />
+        <textarea rows="2" placeholder="Shopping items, separated by commas or lines" data-custom-shopping-items ${isLocked ? "disabled" : ""}></textarea>
         <button class="small-button" type="button" data-add-manual-dish="${escapeHtml(day.label)}" data-add-meal="${mealType}" data-add-role="${role}" ${isLocked ? "disabled" : ""}>Add custom entry</button>
       </div>
     </div>
@@ -1776,11 +1892,15 @@ function renderAddDishChooser(day, mealType, role, isLocked) {
 
 function renderAddedDish(dayLabel, dish, isLocked) {
   const title = getDishTitle(dish);
+  const shoppingItems = dish.source === "manual" ? dish.shoppingItems?.trim() : "";
 
   return `
     <div class="added-dish">
       <span>${escapeHtml(formatRole(dish.role))}</span>
-      <strong>${escapeHtml(title)}</strong>
+      <div>
+        <strong>${escapeHtml(title)}</strong>
+        ${shoppingItems ? `<small>Shopping: ${escapeHtml(shoppingItems)}</small>` : ""}
+      </div>
       <button
         class="remove-button"
         type="button"
@@ -2114,51 +2234,56 @@ function filterRecipeOptions(input) {
   }
 }
 
+let currentShoppingGroups = [];
+
 function renderShopping(groups) {
+  currentShoppingGroups = groups;
+  renderShoppingCopyPanel(groups);
   controls.shoppingList.innerHTML = "";
 
+  if (!groups.length) {
+    controls.shoppingList.innerHTML = `<p class="empty-state">No shopping items for this plan yet.</p>`;
+    return;
+  }
+
   groups.forEach((group) => {
+    const isCollapsed = state.collapsedShoppingGroups.has(group.day);
     const article = document.createElement("article");
     article.className = "shopping-card";
+    if (isCollapsed) article.classList.add("is-collapsed");
 
     const items = group.items
-      .map((item) => {
-        const sources = item.sources
-          .map((source) => `${source.mealDay} ${source.mealType.toLowerCase()}: ${source.recipeTitle}`)
-          .join("; ");
-        const options = item.allowedShoppingDays
-          .map(
-            (day) =>
-              `<option value="${escapeHtml(day)}" ${day === item.assignedDay ? "selected" : ""}>${escapeHtml(day)}</option>`,
-          )
-          .join("");
-
-        return `
-          <li class="shopping-item">
-            <div>
-              <strong>${escapeHtml(item.name)}</strong>
-              <p>${escapeHtml(sources)}</p>
-            </div>
-            <div class="shopping-actions">
-              <select data-move-item="${escapeHtml(item.id)}" aria-label="Move ${escapeHtml(item.name)}">
-                ${options}
-              </select>
-              <button class="remove-button" type="button" data-remove-item="${escapeHtml(item.id)}" aria-label="Remove ${escapeHtml(item.name)}">Remove</button>
-            </div>
-          </li>
-        `;
-      })
+      .map((item) => renderShoppingItem(item, { showSources: true }))
       .join("");
 
     article.innerHTML = `
       <div class="day-card-header">
-        <h3>${escapeHtml(group.day)}</h3>
-        <span>${escapeHtml(group.mealsCovered)}</span>
+        <div>
+          <h3>${escapeHtml(formatShoppingDayLabel(group.day))}</h3>
+          <p>${escapeHtml(group.items.length)} ${group.items.length === 1 ? "item" : "items"} for ${escapeHtml(group.mealsCovered)}</p>
+        </div>
+        <button
+          class="small-button subtle-button"
+          type="button"
+          data-toggle-shopping-group="${escapeHtml(group.day)}"
+          aria-expanded="${String(!isCollapsed)}"
+        >
+          ${isCollapsed ? "Show" : "Minimize"}
+        </button>
       </div>
-      <ul>${items}</ul>
+      <ul class="shopping-group-items" ${isCollapsed ? "hidden" : ""}>${items}</ul>
     `;
 
     controls.shoppingList.append(article);
+  });
+
+  controls.shoppingList.querySelectorAll("[data-toggle-shopping-group]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const groupDay = button.dataset.toggleShoppingGroup;
+      if (state.collapsedShoppingGroups.has(groupDay)) state.collapsedShoppingGroups.delete(groupDay);
+      else state.collapsedShoppingGroups.add(groupDay);
+      renderCurrentShoppingList();
+    });
   });
 
   controls.shoppingList.querySelectorAll("[data-remove-item]").forEach((button) => {
@@ -2169,11 +2294,205 @@ function renderShopping(groups) {
   });
 
   controls.shoppingList.querySelectorAll("[data-move-item]").forEach((select) => {
+    select.addEventListener("focus", () => {
+      if (select.value.startsWith("combine:")) {
+        select.value = select.dataset.assignedDay;
+      }
+    });
     select.addEventListener("change", () => {
-      state.shoppingItemAssignments.set(select.dataset.moveItem, select.value);
+      const value = select.value.startsWith("combine:")
+        ? select.value.replace("combine:", "")
+        : select.value;
+      state.shoppingItemAssignments.set(select.dataset.moveItem, value);
       renderCurrentShoppingList();
     });
   });
+
+  controls.shoppingList.querySelectorAll("[data-open-shopping-recipe]").forEach((button) => {
+    button.addEventListener("click", () => {
+      openShoppingRecipe(button.dataset.openShoppingRecipe, button.dataset.openShoppingSource, button.dataset.openShoppingTitle);
+    });
+  });
+}
+
+function renderShoppingCopyPanel(groups) {
+  if (!controls.shoppingCopyPanel || !controls.copyShoppingListButton) return;
+
+  const hasItems = groups.some((group) => group.items.length);
+  controls.shoppingCopyPanel.classList.toggle("is-hidden", !hasItems);
+  controls.copyShoppingListButton.disabled = !hasItems;
+  updateShoppingCopyText();
+}
+
+function formatShoppingListForCopy(groups, format) {
+  const checkbox = format === "checklist" ? "- [ ] " : "";
+
+  return groups
+    .filter((group) => group.items.length)
+    .map((group) => {
+      const items = group.items.map((item) => `${checkbox}${item.name}`).join("\n");
+      return `${formatShoppingDayLabel(group.day)}\n${items}`;
+    })
+    .join("\n\n");
+}
+
+function updateShoppingCopyText() {
+  if (!controls.shoppingCopyText) return;
+
+  const format = controls.shoppingCopyFormat?.value ?? "checklist";
+  controls.shoppingCopyText.value = formatShoppingListForCopy(currentShoppingGroups, format);
+  clearShoppingCopyStatus();
+}
+
+async function copyShoppingList() {
+  if (!controls.copyShoppingListButton) return;
+
+  updateShoppingCopyText();
+  const text = controls.shoppingCopyText?.value ?? "";
+  if (!text.trim()) return;
+
+  try {
+    await navigator.clipboard.writeText(text);
+    selectShoppingCopyText(text);
+    showTemporaryButtonText(controls.copyShoppingListButton, "Copied");
+    showShoppingCopyStatus("Copied to clipboard");
+  } catch {
+    selectShoppingCopyText(text);
+    const copiedSelection = document.execCommand("copy");
+    if (copiedSelection) {
+      showTemporaryButtonText(controls.copyShoppingListButton, "Copied");
+      showShoppingCopyStatus("Copied to clipboard");
+    } else {
+      showTemporaryButtonText(controls.copyShoppingListButton, "Select + copy");
+      showShoppingCopyStatus("List selected. Press Command-C to copy.", "needs-copy");
+    }
+  }
+}
+
+function selectShoppingCopyText(text) {
+  if (controls.shoppingCopyText) {
+    controls.shoppingCopyText.value = text;
+    controls.shoppingCopyText.focus();
+    controls.shoppingCopyText.select();
+    controls.shoppingCopyText.setSelectionRange(0, text.length);
+  }
+}
+
+function clearShoppingCopyStatus() {
+  if (!controls.shoppingCopyStatus) return;
+
+  controls.shoppingCopyStatus.textContent = "";
+  controls.shoppingCopyStatus.classList.remove("is-visible", "needs-copy");
+  if (controls.shoppingCopyStatus.dataset.feedbackTimer) {
+    clearTimeout(Number(controls.shoppingCopyStatus.dataset.feedbackTimer));
+    delete controls.shoppingCopyStatus.dataset.feedbackTimer;
+  }
+}
+
+function showShoppingCopyStatus(message, status = "copied") {
+  if (!controls.shoppingCopyStatus) return;
+
+  clearShoppingCopyStatus();
+  controls.shoppingCopyStatus.textContent = message;
+  controls.shoppingCopyStatus.classList.add("is-visible");
+  controls.shoppingCopyStatus.classList.toggle("needs-copy", status === "needs-copy");
+  const timer = setTimeout(() => {
+    clearShoppingCopyStatus();
+  }, 3000);
+  controls.shoppingCopyStatus.dataset.feedbackTimer = String(timer);
+}
+
+function renderShoppingItem(item, { showSources = false } = {}) {
+  const sourceRows = showSources
+    ? `
+      <ul class="shopping-source-list">
+        ${item.sources.map((source) => `
+          <li>
+            ${source.recipeId || source.sourceUrl ? `
+              <button
+                class="shopping-source-link"
+                type="button"
+                data-open-shopping-recipe="${escapeHtml(source.recipeId ?? "")}"
+                data-open-shopping-source="${escapeHtml(source.sourceUrl ?? "")}"
+                data-open-shopping-title="${escapeHtml(source.recipeTitle)}"
+              >
+                ${escapeHtml(source.mealDay)} ${escapeHtml(source.mealType.toLowerCase())}: ${escapeHtml(source.recipeTitle)}
+              </button>
+            ` : `<span>${escapeHtml(source.mealDay)} ${escapeHtml(source.mealType.toLowerCase())}: ${escapeHtml(source.recipeTitle)}</span>`}
+          </li>
+        `).join("")}
+      </ul>
+    `
+    : "";
+  const combineEarlierOption = item.combineEarlierDay
+    ? `<option value="combine:${escapeHtml(item.combineEarlierDay)}" selected>Add to earlier shop</option>`
+    : "";
+  const options = item.allowedShoppingDays
+    .filter((day) => day !== item.combineEarlierDay)
+    .map(
+      (day) =>
+        `<option value="${escapeHtml(day)}" ${!item.combineEarlierDay && day === item.assignedDay ? "selected" : ""}>${escapeHtml(formatShoppingDayLabel(day))}</option>`,
+    )
+    .join("");
+  const canMoveItem = item.combineEarlierDay || item.allowedShoppingDays.length > 1;
+  const moveControl = canMoveItem
+    ? `
+      <select
+        data-move-item="${escapeHtml(item.id)}"
+        data-assigned-day="${escapeHtml(item.assignedDay)}"
+        aria-label="Choose shopping day for ${escapeHtml(item.name)}"
+      >
+        ${combineEarlierOption}
+        ${options}
+      </select>
+    `
+    : "";
+
+  return `
+    <li class="shopping-item">
+      <div>
+        <div class="shopping-item-heading">
+          <strong>${escapeHtml(item.name)}</strong>
+          <button class="remove-button shopping-remove-button" type="button" data-remove-item="${escapeHtml(item.id)}" aria-label="Remove ${escapeHtml(item.name)}">×</button>
+        </div>
+        ${sourceRows}
+      </div>
+      ${moveControl ? `<div class="shopping-actions">${moveControl}</div>` : ""}
+    </li>
+  `;
+}
+
+function openShoppingRecipe(recipeId, sourceUrl, title) {
+  if (!recipeId) {
+    if (sourceUrl) openSourceOverlay(sourceUrl, title);
+    return;
+  }
+
+  const recipe = state.recipes.find((candidate) => candidate.id === recipeId);
+  if (!recipe) {
+    if (sourceUrl) openSourceOverlay(sourceUrl, title);
+    return;
+  }
+
+  openQuickRecipeOverlay(recipe);
+}
+
+function openQuickRecipeOverlay(recipe) {
+  if (!controls.quickRecipeOverlay || !controls.quickRecipeTitle || !controls.quickRecipeContent) return;
+
+  controls.quickRecipeTitle.textContent = getRecipeDisplayTitle(recipe);
+  controls.quickRecipeContent.innerHTML = renderQuickRecipeDetails(recipe);
+  controls.quickRecipeOverlay.classList.remove("is-hidden");
+  controls.quickRecipeOverlay.setAttribute("aria-hidden", "false");
+  controls.closeQuickRecipeOverlay?.focus();
+}
+
+function closeQuickRecipeOverlay() {
+  if (!controls.quickRecipeOverlay || !controls.quickRecipeContent) return;
+
+  controls.quickRecipeOverlay.classList.add("is-hidden");
+  controls.quickRecipeOverlay.setAttribute("aria-hidden", "true");
+  controls.quickRecipeContent.innerHTML = "";
 }
 
 function generate({ keepShoppingEdits = false, preserveDays = new Set(), randomness = 0 } = {}) {
@@ -2220,11 +2539,13 @@ function startFreshWeek() {
   state.visibleMealOptions.clear();
   state.dayNotes = {};
   state.dayDishes = {};
+  state.manualShoppingItems = {};
   localStorage.setItem(storageKeys.lockedDays, JSON.stringify([]));
   localStorage.removeItem(storageKeys.currentPlan);
   saveSharedState();
   saveObject(storageKeys.dayNotes, state.dayNotes);
   saveObject(storageKeys.dayDishes, state.dayDishes);
+  saveObject(storageKeys.manualShoppingItems, state.manualShoppingItems);
   renderPlanningToggles();
   renderSavedWeeksList();
   generate({ randomness: 8 });
@@ -2313,6 +2634,9 @@ function renderCurrentShoppingList() {
       shoppingDays: [...state.shoppingDays],
       itemAssignments: state.shoppingItemAssignments,
       removedItemIds: state.removedShoppingItemIds,
+      manualShoppingItems: state.manualShoppingItems,
+      dayDishes: state.dayDishes,
+      recipesById: new Map(state.recipes.map((recipe) => [recipe.id, recipe])),
     }),
   );
 }
@@ -2465,6 +2789,16 @@ function toggleMealChooser(dayLabel, mealType) {
   renderPlan(state.plan);
 }
 
+function openManualMealEdit(dayLabel, mealType) {
+  state.activeMealChoosers.add(getMealKey(dayLabel, mealType));
+  renderPlan(state.plan);
+}
+
+function closeManualMealEdit(dayLabel, mealType) {
+  state.activeMealChoosers.delete(getMealKey(dayLabel, mealType));
+  renderPlan(state.plan);
+}
+
 function toggleMealOptions(dayLabel, mealType) {
   const mealKey = getMealKey(dayLabel, mealType);
   if (state.visibleMealOptions.has(mealKey)) state.visibleMealOptions.delete(mealKey);
@@ -2507,7 +2841,7 @@ function regenerateAddOnSuggestions(dayLabel, mealType, role) {
   renderCurrentShoppingList();
 }
 
-function addManualDish(dayLabel, mealType, role, title) {
+function addManualDish(dayLabel, mealType, role, title, shoppingItems = "") {
   if (state.lockedDays.has(dayLabel) || !title?.trim()) return;
 
   addDish(dayLabel, {
@@ -2516,6 +2850,7 @@ function addManualDish(dayLabel, mealType, role, title) {
     role,
     source: "manual",
     title: title.trim(),
+    shoppingItems: shoppingItems.trim(),
   });
   closeAddDishChooser(dayLabel, mealType);
 }
@@ -2685,6 +3020,21 @@ function getMealNote(dayLabel, mealType) {
   return "";
 }
 
+function getManualShoppingItems(dayLabel, mealType) {
+  return state.manualShoppingItems[getMealKey(dayLabel, mealType)]?.trim() ?? "";
+}
+
+function setManualShoppingItems(dayLabel, mealType, value) {
+  const items = value.trim();
+  const mealKey = getMealKey(dayLabel, mealType);
+
+  if (items) state.manualShoppingItems[mealKey] = items;
+  else delete state.manualShoppingItems[mealKey];
+
+  saveObject(storageKeys.manualShoppingItems, state.manualShoppingItems);
+  renderCurrentShoppingList();
+}
+
 function setDayNote(dayLabel, mealType, value) {
   const note = value.trim();
   const mealKey = getMealKey(dayLabel, mealType);
@@ -2692,10 +3042,12 @@ function setDayNote(dayLabel, mealType, value) {
   if (note) state.dayNotes[mealKey] = note;
   else delete state.dayNotes[mealKey];
   if (mealType === "dinner") delete state.dayNotes[dayLabel];
+  if (!note) delete state.manualShoppingItems[mealKey];
   state.activeMealChoosers.delete(mealKey);
   state.visibleMealOptions.delete(mealKey);
 
   saveObject(storageKeys.dayNotes, state.dayNotes);
+  saveObject(storageKeys.manualShoppingItems, state.manualShoppingItems);
   generate({
     keepShoppingEdits: true,
     preserveDays: new Set(dinnerDays.filter((label) => label !== dayLabel)),
@@ -2875,6 +3227,14 @@ controls.saveWeekButton?.addEventListener("click", () => {
   showTemporaryButtonText(controls.saveWeekButton, "Saved");
 });
 
+controls.copyShoppingListButton?.addEventListener("click", () => {
+  copyShoppingList();
+});
+
+controls.shoppingCopyFormat?.addEventListener("change", () => {
+  updateShoppingCopyText();
+});
+
 controls.viewTabs.forEach((button) => {
   button.addEventListener("click", () => {
     state.activeView = button.dataset.viewTab;
@@ -2900,11 +3260,24 @@ controls.closeSourceOverlay?.addEventListener("click", () => {
   closeSourceOverlay();
 });
 
+controls.closeQuickRecipeOverlay?.addEventListener("click", () => {
+  closeQuickRecipeOverlay();
+});
+
+controls.quickRecipeOverlay?.addEventListener("click", (event) => {
+  if (event.target === controls.quickRecipeOverlay) closeQuickRecipeOverlay();
+});
+
 controls.sourceOverlay?.addEventListener("click", (event) => {
   if (event.target === controls.sourceOverlay) closeSourceOverlay();
 });
 
 document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !controls.quickRecipeOverlay?.classList.contains("is-hidden")) {
+    closeQuickRecipeOverlay();
+    return;
+  }
+
   if (event.key === "Escape" && !controls.sourceOverlay?.classList.contains("is-hidden")) {
     closeSourceOverlay();
   }
@@ -2915,6 +3288,7 @@ function renderPlanningToggles() {
   renderToggleGroup(controls.noCookDays, dinnerDays, state.noCookDays, handleNoCookDaysChanged);
   renderToggleGroup(controls.lunchDays, dinnerDays, state.lunchDays, generate);
   renderToggleGroup(controls.snackDessertDays, dinnerDays, state.snackDessertDays, generate);
+  renderToggleGroup(controls.shoppingDays, dinnerDays, state.shoppingDays, handleShoppingDaysChanged);
 }
 
 function handleNoCookDaysChanged() {
@@ -2923,6 +3297,12 @@ function handleNoCookDaysChanged() {
   });
   renderPlanningToggles();
   generate();
+}
+
+function handleShoppingDaysChanged() {
+  localStorage.setItem(storageKeys.shoppingDays, JSON.stringify([...state.shoppingDays]));
+  saveSharedState();
+  renderCurrentShoppingList();
 }
 
 loadRecipes().then(async () => {

@@ -1,43 +1,9 @@
 {
   "menuGenerator.dayNotes": {
-    "Monday": "",
-    "Saturday": "",
-    "Tuesday": ""
+    "Tuesday:dinner": "Browser test manual meal"
   },
-  "menuGenerator.dayDishes": {
-    "Thursday": [
-      {
-        "id": "19412c6f-ffea-45e1-bb5d-da3b16390117",
-        "mealType": "dinner",
-        "role": "salad",
-        "source": "recipe",
-        "recipeId": "4367BC62-DACD-4051-BAF9-1B404EFEBD38",
-        "title": "Mugen “Infinite” Cabbage Salad with Crunchy Furikake"
-      }
-    ],
-    "Friday": [
-      {
-        "id": "57d8e09f-8656-4e5f-96d6-14cdd52986e6",
-        "mealType": "dinner",
-        "role": "salad",
-        "source": "recipe",
-        "recipeId": "0879C9FD-6630-4483-B1D5-345C9D72933B",
-        "title": "Tomato & Mozzarella Salad"
-      }
-    ],
-    "Tuesday": [
-      {
-        "id": "fee2579e-569f-4168-b99c-fa5f11e83301",
-        "mealType": "lunch",
-        "role": "carb",
-        "source": "manual",
-        "title": "Bread"
-      }
-    ]
-  },
-  "menuGenerator.lockedDays": [
-    "Saturday"
-  ],
+  "menuGenerator.dayDishes": {},
+  "menuGenerator.lockedDays": [],
   "menuGenerator.recipeFeedback": {
     "A29035EC-F38F-4F1F-A73A-58935C402108-22636-000009B3E1D77989": {
       "mealTypes": [
@@ -2098,14 +2064,14 @@
         "noDinner": false,
         "noCook": false,
         "snackDessertNeeded": false,
-        "reason": "low-effort for a busy day",
-        "dinnerId": "34797E0A-5B59-45F7-BBAD-660AC0F7B285",
+        "reason": "low-effort for a busy day, paired with a side",
+        "dinnerId": "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754",
         "dinnerOptionIds": [
-          "34797E0A-5B59-45F7-BBAD-660AC0F7B285",
-          "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C",
-          "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754"
+          "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754",
+          "EF905CF5-0545-4E04-BA3C-16C9146157CE",
+          "0879C9FD-6630-4483-B1D5-345C9D72933B"
         ],
-        "sideId": null,
+        "sideId": "32A1141A-7057-4258-AE62-3385316599C3-2197-00000D7A679C7E41",
         "lunchId": null,
         "lunchOptionIds": [],
         "snackDessertId": null,
@@ -2121,11 +2087,11 @@
         "noCook": false,
         "snackDessertNeeded": false,
         "reason": "low-effort for a busy day",
-        "dinnerId": "0879C9FD-6630-4483-B1D5-345C9D72933B",
+        "dinnerId": "E9DB6ADC-8A81-4858-860A-D74BF0683584",
         "dinnerOptionIds": [
-          "0879C9FD-6630-4483-B1D5-345C9D72933B",
-          "EF905CF5-0545-4E04-BA3C-16C9146157CE",
-          "72044D70-8051-42F2-B90E-52FB3E653588"
+          "E9DB6ADC-8A81-4858-860A-D74BF0683584",
+          "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754",
+          "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C"
         ],
         "sideId": null,
         "lunchId": null,
@@ -2143,13 +2109,13 @@
         "noCook": false,
         "snackDessertNeeded": false,
         "reason": "low-effort for a busy day, paired with a side",
-        "dinnerId": "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C",
+        "dinnerId": "CB9E36C1-52AB-438B-97B8-F0CE38DDA4DD",
         "dinnerOptionIds": [
-          "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754",
           "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C",
+          "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754",
           "CB9E36C1-52AB-438B-97B8-F0CE38DDA4DD"
         ],
-        "sideId": "81C9DCD5-1590-48FF-98E6-24703F38B941-4990-000080441AB3B983",
+        "sideId": null,
         "lunchId": null,
         "lunchOptionIds": [],
         "snackDessertId": null,
@@ -2164,14 +2130,14 @@
         "noDinner": false,
         "noCook": false,
         "snackDessertNeeded": false,
-        "reason": "useful leftovers, paired with a side",
-        "dinnerId": "48AA8EAD-9EE8-42A3-B1AB-A3BCBBDC2BB4-13944-000005F49DB9C428",
+        "reason": "paired with a side",
+        "dinnerId": "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83",
         "dinnerOptionIds": [
-          "2214A15F-E938-4ABE-82E0-78B16C18DFF7-4245-000035F94826BAE5",
-          "48AA8EAD-9EE8-42A3-B1AB-A3BCBBDC2BB4-13944-000005F49DB9C428",
-          "2B726A4C-788A-4674-8761-B3739E1403D9"
+          "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83",
+          "3B4017D7-06EC-414A-979D-8F92176B8C6D-1121-000183BD56C70308",
+          "74C41222-3E36-4F7D-A10C-E1C1AAE56854"
         ],
-        "sideId": "ACEEA0BA-2790-4005-8EE1-4B2F2F556ACF",
+        "sideId": "32A1141A-7057-4258-AE62-3385316599C3-2197-00000D7A679C7E41",
         "lunchId": null,
         "lunchOptionIds": [],
         "snackDessertId": null,
@@ -2186,21 +2152,21 @@
         "noDinner": false,
         "noCook": false,
         "snackDessertNeeded": true,
-        "reason": "paired with a side",
-        "dinnerId": "C511E460-FFD9-4876-AC9F-4B77A40EAA2A",
+        "reason": "balanced pick for the week",
+        "dinnerId": "74C41222-3E36-4F7D-A10C-E1C1AAE56854",
         "dinnerOptionIds": [
-          "97FB6B15-169C-464E-8265-2325F9BB3C8D-25570-00000ABA21A54B81",
-          "BAD36E2C-B2C9-437A-A357-20F31282C3B6",
-          "C511E460-FFD9-4876-AC9F-4B77A40EAA2A"
+          "74C41222-3E36-4F7D-A10C-E1C1AAE56854",
+          "F7AF13D6-76F0-451A-BBA9-401D29692F68",
+          "A5239E28-BA3D-4128-959A-72A2500E68B6-4990-00006603283EC4D0"
         ],
-        "sideId": "49340D05-CD1E-4629-9718-6C18F740F838",
+        "sideId": null,
         "lunchId": null,
         "lunchOptionIds": [],
-        "snackDessertId": "4F9801B6-2D4B-4D7C-887C-753565AE1DCB",
+        "snackDessertId": "97B0CC5A-85D8-4B17-A4C7-AF5F93B51B8E-4990-000067709B560780",
         "snackDessertOptionIds": [
-          "97E5912C-4598-4372-AF70-E49CC0A802DB",
-          "4F9801B6-2D4B-4D7C-887C-753565AE1DCB",
-          "895C8D91-015E-47E3-BC41-CA742D69D47E"
+          "345A2D3D-31C1-4122-BB2C-7AA27EDF0A5A",
+          "97B0CC5A-85D8-4B17-A4C7-AF5F93B51B8E-4990-000067709B560780",
+          "8F2FCBED-F0AB-4C67-B5F7-FD1B3BA8E9C3"
         ],
         "customLunch": null,
         "customDinner": null,
@@ -2213,20 +2179,20 @@
         "noCook": false,
         "snackDessertNeeded": true,
         "reason": "paired with a side",
-        "dinnerId": "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83",
+        "dinnerId": "F7AF13D6-76F0-451A-BBA9-401D29692F68",
         "dinnerOptionIds": [
-          "97FB6B15-169C-464E-8265-2325F9BB3C8D-25570-00000ABA21A54B81",
-          "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83",
-          "79CEB6E0-B2E2-4801-A439-331AF597757C-17520-0000097A605A939F"
+          "F7AF13D6-76F0-451A-BBA9-401D29692F68",
+          "A29035EC-F38F-4F1F-A73A-58935C402108-22636-000009B3E1D77989",
+          "A5239E28-BA3D-4128-959A-72A2500E68B6-4990-00006603283EC4D0"
         ],
-        "sideId": "ACEEA0BA-2790-4005-8EE1-4B2F2F556ACF",
+        "sideId": "96EDC71D-BE73-4C3B-8A5C-C9A8E407F0B4-98727-0000345C739CB142",
         "lunchId": null,
         "lunchOptionIds": [],
-        "snackDessertId": "DEEE7A26-104A-4C17-A1C5-794ADAD7FFF8",
+        "snackDessertId": "A2ABFCA6-733C-404F-9CA2-6F9BEA9D70B5",
         "snackDessertOptionIds": [
-          "DEEE7A26-104A-4C17-A1C5-794ADAD7FFF8",
-          "345A2D3D-31C1-4122-BB2C-7AA27EDF0A5A",
-          "47E8B881-9C4F-4BA8-B372-B088AEAF10F6"
+          "A2ABFCA6-733C-404F-9CA2-6F9BEA9D70B5",
+          "322FC1E6-520B-40B8-B06F-0F7BCDC6C626",
+          "8F2FCBED-F0AB-4C67-B5F7-FD1B3BA8E9C3"
         ],
         "customLunch": null,
         "customDinner": null,
@@ -2239,20 +2205,20 @@
         "noCook": false,
         "snackDessertNeeded": true,
         "reason": "balanced pick for the week",
-        "dinnerId": "F7AF13D6-76F0-451A-BBA9-401D29692F68",
+        "dinnerId": "A29035EC-F38F-4F1F-A73A-58935C402108-22636-000009B3E1D77989",
         "dinnerOptionIds": [
-          "97FB6B15-169C-464E-8265-2325F9BB3C8D-25570-00000ABA21A54B81",
-          "F7AF13D6-76F0-451A-BBA9-401D29692F68",
-          "2EA84235-2110-4615-8452-70A8A6E1C4EB-24356-00004035E4698202"
+          "A29035EC-F38F-4F1F-A73A-58935C402108-22636-000009B3E1D77989",
+          "A5239E28-BA3D-4128-959A-72A2500E68B6-4990-00006603283EC4D0",
+          "2F1AD5F5-04CA-4037-B322-0CDC087CCA06-4990-0000809701E9449A"
         ],
-        "sideId": "4367BC62-DACD-4051-BAF9-1B404EFEBD38",
+        "sideId": null,
         "lunchId": null,
         "lunchOptionIds": [],
-        "snackDessertId": "322FC1E6-520B-40B8-B06F-0F7BCDC6C626",
+        "snackDessertId": "3B947F75-B5B9-42D6-BAD0-86C2B582BB37",
         "snackDessertOptionIds": [
           "3B947F75-B5B9-42D6-BAD0-86C2B582BB37",
-          "322FC1E6-520B-40B8-B06F-0F7BCDC6C626",
-          "895C8D91-015E-47E3-BC41-CA742D69D47E"
+          "8F2FCBED-F0AB-4C67-B5F7-FD1B3BA8E9C3",
+          "021D99CB-54DE-4F27-B935-EE60B0B615A6"
         ],
         "customLunch": null,
         "customDinner": null,
@@ -2264,14 +2230,14 @@
         "noDinner": false,
         "noCook": false,
         "snackDessertNeeded": false,
-        "reason": "paired with a side",
-        "dinnerId": "BAD36E2C-B2C9-437A-A357-20F31282C3B6",
+        "reason": "Chosen manually",
+        "dinnerId": "CB9E36C1-52AB-438B-97B8-F0CE38DDA4DD",
         "dinnerOptionIds": [
-          "E1C38B67-BD5C-4E34-854F-8DE4C9DE4783-15643-000006B2D0C3932F",
-          "BAD36E2C-B2C9-437A-A357-20F31282C3B6",
-          "5A5B7AA7-3E0B-4AD5-9B96-69B5ABECCE69"
+          "D9E551AB-344F-4361-AB9D-5089E4B370E9-25570-00000A8F8B326308",
+          "A5239E28-BA3D-4128-959A-72A2500E68B6-4990-00006603283EC4D0",
+          "A50A9C39-0082-4962-A996-ED11E4234015"
         ],
-        "sideId": "49340D05-CD1E-4629-9718-6C18F740F838",
+        "sideId": "A814217E-9449-411E-8781-538CF0BB1FFB",
         "lunchId": null,
         "lunchOptionIds": [],
         "snackDessertId": null,
@@ -2284,9 +2250,9 @@
   },
   "menuGenerator.savedWeeks": [
     {
-      "id": "week-2026-07-04T08:50:30.562Z",
-      "savedAt": "2026-07-04T08:50:30.562Z",
-      "weekLabel": "Mon 6 Jul - Mon 13 Jul",
+      "id": "week-2026-07-07T17:21:49.961Z",
+      "savedAt": "2026-07-07T17:21:49.961Z",
+      "weekLabel": "Mon 13 Jul - Mon 20 Jul",
       "plan": {
         "days": [
           {
@@ -2295,12 +2261,12 @@
             "noDinner": false,
             "noCook": false,
             "snackDessertNeeded": false,
-            "reason": "low-effort for a busy day, paired with a side",
-            "dinnerId": "C090B1FD-6298-4D83-BABD-88E787D7AF77-5581-000002719ADCB8D7",
+            "reason": "low-effort for a busy day",
+            "dinnerId": "34797E0A-5B59-45F7-BBAD-660AC0F7B285",
             "dinnerOptionIds": [
-              "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754",
-              "C090B1FD-6298-4D83-BABD-88E787D7AF77-5581-000002719ADCB8D7",
-              "57E8FA69-FB77-4AB0-86A2-DC451B3D6379-20952-000008F2DBB92CD4"
+              "34797E0A-5B59-45F7-BBAD-660AC0F7B285",
+              "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C",
+              "CB9E36C1-52AB-438B-97B8-F0CE38DDA4DD"
             ],
             "sideId": null,
             "lunchId": null,
@@ -2318,13 +2284,13 @@
             "noCook": false,
             "snackDessertNeeded": false,
             "reason": "low-effort for a busy day, paired with a side",
-            "dinnerId": "C0C28E1F-2967-4138-8FBC-87950024AF6A",
+            "dinnerId": "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754",
             "dinnerOptionIds": [
-              "C0C28E1F-2967-4138-8FBC-87950024AF6A",
+              "390DB1CD-9AB0-4E86-AB8C-4FA5C5171754",
               "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C",
-              "0879C9FD-6630-4483-B1D5-345C9D72933B"
+              "C090B1FD-6298-4D83-BABD-88E787D7AF77-5581-000002719ADCB8D7"
             ],
-            "sideId": "A814217E-9449-411E-8781-538CF0BB1FFB",
+            "sideId": "38C4C162-7868-4FAB-9F6F-8F334F768956",
             "lunchId": null,
             "lunchOptionIds": [],
             "snackDessertId": null,
@@ -2339,14 +2305,14 @@
             "noDinner": false,
             "noCook": false,
             "snackDessertNeeded": false,
-            "reason": "low-effort for a busy day, paired with a side",
-            "dinnerId": null,
+            "reason": "low-effort for a busy day",
+            "dinnerId": "34BFF30A-E020-4E0B-B230-2A60D3572780",
             "dinnerOptionIds": [
-              "72044D70-8051-42F2-B90E-52FB3E653588",
-              "0879C9FD-6630-4483-B1D5-345C9D72933B",
-              "EF905CF5-0545-4E04-BA3C-16C9146157CE"
+              "C090B1FD-6298-4D83-BABD-88E787D7AF77-5581-000002719ADCB8D7",
+              "34BFF30A-E020-4E0B-B230-2A60D3572780",
+              "1C47528F-8DF0-4317-A228-DFC62C9C16F1-24927-00000A510B3A939C"
             ],
-            "sideId": null,
+            "sideId": "4367BC62-DACD-4051-BAF9-1B404EFEBD38",
             "lunchId": null,
             "lunchOptionIds": [],
             "snackDessertId": null,
@@ -2361,12 +2327,12 @@
             "noDinner": false,
             "noCook": false,
             "snackDessertNeeded": false,
-            "reason": "paired with a side",
-            "dinnerId": null,
+            "reason": "balanced pick for the week",
+            "dinnerId": "57E8FA69-FB77-4AB0-86A2-DC451B3D6379-20952-000008F2DBB92CD4",
             "dinnerOptionIds": [
-              "5A5B7AA7-3E0B-4AD5-9B96-69B5ABECCE69",
+              "57E8FA69-FB77-4AB0-86A2-DC451B3D6379-20952-000008F2DBB92CD4",
               "79CEB6E0-B2E2-4801-A439-331AF597757C-17520-0000097A605A939F",
-              "7136156A-4696-404D-AABF-E4F0440B814C"
+              "E1C38B67-BD5C-4E34-854F-8DE4C9DE4783-15643-000006B2D0C3932F"
             ],
             "sideId": null,
             "lunchId": null,
@@ -2384,20 +2350,20 @@
             "noCook": false,
             "snackDessertNeeded": true,
             "reason": "paired with a side",
-            "dinnerId": null,
+            "dinnerId": "E1C38B67-BD5C-4E34-854F-8DE4C9DE4783-15643-000006B2D0C3932F",
             "dinnerOptionIds": [
-              "EF905CF5-0545-4E04-BA3C-16C9146157CE",
-              "7136156A-4696-404D-AABF-E4F0440B814C",
-              "E1C38B67-BD5C-4E34-854F-8DE4C9DE4783-15643-000006B2D0C3932F"
+              "79CEB6E0-B2E2-4801-A439-331AF597757C-17520-0000097A605A939F",
+              "E1C38B67-BD5C-4E34-854F-8DE4C9DE4783-15643-000006B2D0C3932F",
+              "7136156A-4696-404D-AABF-E4F0440B814C"
             ],
             "sideId": null,
             "lunchId": null,
             "lunchOptionIds": [],
-            "snackDessertId": null,
+            "snackDessertId": "895C8D91-015E-47E3-BC41-CA742D69D47E",
             "snackDessertOptionIds": [
-              "ED30A441-EB77-4F7C-BC63-B5E196328548-37263-000012E4D456F52A",
-              "97E5912C-4598-4372-AF70-E49CC0A802DB",
-              "4F9801B6-2D4B-4D7C-887C-753565AE1DCB"
+              "345A2D3D-31C1-4122-BB2C-7AA27EDF0A5A",
+              "895C8D91-015E-47E3-BC41-CA742D69D47E",
+              "47E8B881-9C4F-4BA8-B372-B088AEAF10F6"
             ],
             "customLunch": null,
             "customDinner": null,
@@ -2410,20 +2376,20 @@
             "noCook": false,
             "snackDessertNeeded": true,
             "reason": "paired with a side",
-            "dinnerId": null,
+            "dinnerId": "79CEB6E0-B2E2-4801-A439-331AF597757C-17520-0000097A605A939F",
             "dinnerOptionIds": [
-              "97FB6B15-169C-464E-8265-2325F9BB3C8D-25570-00000ABA21A54B81",
-              "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83",
-              "F7AF13D6-76F0-451A-BBA9-401D29692F68"
+              "51EEBC8D-47B3-49D0-935D-4DFD5F457685",
+              "79CEB6E0-B2E2-4801-A439-331AF597757C-17520-0000097A605A939F",
+              "2EA84235-2110-4615-8452-70A8A6E1C4EB-24356-00004035E4698202"
             ],
-            "sideId": null,
+            "sideId": "96EDC71D-BE73-4C3B-8A5C-C9A8E407F0B4-98727-0000345C739CB142",
             "lunchId": null,
             "lunchOptionIds": [],
-            "snackDessertId": null,
+            "snackDessertId": "345A2D3D-31C1-4122-BB2C-7AA27EDF0A5A",
             "snackDessertOptionIds": [
-              "96E0C719-F81D-4960-A8B6-D243CB3AE7C7",
               "345A2D3D-31C1-4122-BB2C-7AA27EDF0A5A",
-              "895C8D91-015E-47E3-BC41-CA742D69D47E"
+              "70DDC337-5CCE-428C-9055-17ECEAC1C34E",
+              "47E8B881-9C4F-4BA8-B372-B088AEAF10F6"
             ],
             "customLunch": null,
             "customDinner": null,
@@ -2435,21 +2401,21 @@
             "noDinner": false,
             "noCook": false,
             "snackDessertNeeded": true,
-            "reason": "balanced pick for the week",
-            "dinnerId": null,
+            "reason": "paired with a side",
+            "dinnerId": "F7AF13D6-76F0-451A-BBA9-401D29692F68",
             "dinnerOptionIds": [
-              "74C41222-3E36-4F7D-A10C-E1C1AAE56854",
-              "97FB6B15-169C-464E-8265-2325F9BB3C8D-25570-00000ABA21A54B81",
-              "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83"
+              "F7AF13D6-76F0-451A-BBA9-401D29692F68",
+              "51EEBC8D-47B3-49D0-935D-4DFD5F457685",
+              "48AA8EAD-9EE8-42A3-B1AB-A3BCBBDC2BB4-13944-000005F49DB9C428"
             ],
-            "sideId": null,
+            "sideId": "DD499590-FE5F-400D-8B6E-441F3BA55863",
             "lunchId": null,
             "lunchOptionIds": [],
-            "snackDessertId": null,
+            "snackDessertId": "47E8B881-9C4F-4BA8-B372-B088AEAF10F6",
             "snackDessertOptionIds": [
-              "97B0CC5A-85D8-4B17-A4C7-AF5F93B51B8E-4990-000067709B560780",
-              "BE327E2C-CCC0-42DC-AF71-ABE2FB54FE47-25204-00000A6B82FA7BFE",
-              "47E8B881-9C4F-4BA8-B372-B088AEAF10F6"
+              "96E0C719-F81D-4960-A8B6-D243CB3AE7C7",
+              "47E8B881-9C4F-4BA8-B372-B088AEAF10F6",
+              "8F2FCBED-F0AB-4C67-B5F7-FD1B3BA8E9C3"
             ],
             "customLunch": null,
             "customDinner": null,
@@ -2461,14 +2427,14 @@
             "noDinner": false,
             "noCook": false,
             "snackDessertNeeded": false,
-            "reason": "useful leftovers",
-            "dinnerId": null,
+            "reason": "useful leftovers, paired with a side",
+            "dinnerId": "48AA8EAD-9EE8-42A3-B1AB-A3BCBBDC2BB4-13944-000005F49DB9C428",
             "dinnerOptionIds": [
-              "6B18909F-DCBC-47E9-BA47-9FB231F631C8",
-              "B9CF965E-D127-4E47-820D-7BBB28B8A8D1-4990-0000670F53E145CA",
-              "EEEC7A0A-A566-4E2C-8696-69B81EF5AC83"
+              "48AA8EAD-9EE8-42A3-B1AB-A3BCBBDC2BB4-13944-000005F49DB9C428",
+              "51EEBC8D-47B3-49D0-935D-4DFD5F457685",
+              "2B726A4C-788A-4674-8761-B3739E1403D9"
             ],
-            "sideId": null,
+            "sideId": "219D75B3-B850-4A7D-A08F-E5A01ECFA53A",
             "lunchId": null,
             "lunchOptionIds": [],
             "snackDessertId": null,
@@ -2480,20 +2446,37 @@
         ]
       },
       "dayDishes": {
-        "Monday": [
+        "Friday": [
           {
-            "id": "b995ab3c-e1ed-4b64-baab-8a17847770b3",
+            "id": "8229e530-49ad-497b-a7f2-4d3d428e96ba",
             "mealType": "dinner",
             "role": "vegetable",
             "source": "recipe",
-            "recipeId": "7D8D6E31-D336-4575-95B4-0F5CCCA0F4CA",
-            "title": "Asian Cucumber Salad"
+            "recipeId": "49340D05-CD1E-4629-9718-6C18F740F838",
+            "title": "Cranberry Spinach Salad"
+          }
+        ],
+        "Monday": [
+          {
+            "id": "155998ae-e847-4276-9f47-bb05320e8806",
+            "mealType": "dinner",
+            "role": "vegetable",
+            "source": "recipe",
+            "recipeId": "D0F69AB9-1CED-4F3C-88B0-3E0CC5F2FAAB",
+            "title": "Cabbage Salad Tossed in Shio Konbu"
           }
         ]
       },
       "dayNotes": {},
       "lockedDays": [
-        "Monday"
+        "Friday",
+        "Thursday",
+        "Wednesday",
+        "Tuesday",
+        "Monday",
+        "Saturday",
+        "Next Monday",
+        "Sunday"
       ]
     },
     {
@@ -2780,5 +2763,13 @@
         "Sunday"
       ]
     }
-  ]
+  ],
+  "menuGenerator.shoppingDays": [
+    "Wednesday",
+    "Friday",
+    "Next Monday"
+  ],
+  "menuGenerator.manualShoppingItems": {
+    "Tuesday:dinner": "1 bag salad greens"
+  }
 }

@@ -34,6 +34,20 @@ http://192.168.x.x:5178/
 
 For a household server, copy this folder to the server, keep `data/app-state.json`, `data/recipes.json`, and `imports/`, then run the same command above from the app folder. A reverse proxy can point a friendly URL to port `5178` if desired.
 
+## Bring shopping list
+
+The Shopping tab can add individual items to Bring. Bring credentials stay server-side only and are read from environment variables:
+
+```bash
+BRING_EMAIL="you@example.com"
+BRING_PASSWORD="..."
+BRING_LIST_NAME="Pantry Test"
+```
+
+`BRING_LIST_NAME` defaults to `Pantry Test`. If list-name lookup is unreliable, set `BRING_LIST_UUID` as well.
+
+This uses Bring's unofficial web API shape, so it may need adjustment if Bring changes its private API.
+
 ## Beni's server / rxtx.io
 
 This repo is set up to build a Docker image with GitHub Actions and publish it to:

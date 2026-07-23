@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Menu Generator</title>
-    <link rel="stylesheet" href="src/styles.css?v=20260722" />
+    <link rel="stylesheet" href="src/styles.css?v=20260728" />
   </head>
   <body>
     <main class="app-shell">
@@ -24,6 +24,19 @@
 
       <section id="planView" class="planner-layout app-view" aria-label="Weekly planner controls and results">
         <aside class="control-panel" aria-label="Planning settings">
+          <section class="week-switcher-panel" aria-label="Planning week">
+            <span>Planning week</span>
+            <div class="week-switcher">
+              <button id="previousWeekButton" class="icon-button week-nav-button" type="button" aria-label="Previous week">‹</button>
+              <div class="week-switcher-text">
+                <strong id="planningWeekName">Planning week</strong>
+                <small id="planningWeekRange">Week range</small>
+              </div>
+              <button id="nextWeekButton" class="icon-button week-nav-button" type="button" aria-label="Next week">›</button>
+            </div>
+            <button id="currentWeekButton" class="small-button current-week-button" type="button">Current week</button>
+          </section>
+
           <div class="field-group">
             <label for="inspiration">Inspiration</label>
             <select id="inspiration">
@@ -97,26 +110,6 @@
             <div id="shoppingDays" class="toggle-grid"></div>
           </div>
           <div id="shoppingList" class="shopping-list"></div>
-          <div id="shoppingCopyPanel" class="shopping-copy-panel is-hidden">
-            <div>
-              <strong>Copy shopping list</strong>
-              <p>Use checklist for Capacities, or plain list for Bring.</p>
-            </div>
-            <div class="shopping-copy-actions">
-              <select id="shoppingCopyFormat" aria-label="Copy shopping list format">
-                <option value="checklist">Checklist</option>
-                <option value="plain">Plain list</option>
-              </select>
-              <button id="copyShoppingListButton" class="secondary-button" type="button">Copy list</button>
-              <span id="shoppingCopyStatus" class="shopping-copy-status" aria-live="polite"></span>
-            </div>
-            <textarea
-              id="shoppingCopyText"
-              class="shopping-copy-text"
-              aria-label="Copyable shopping list"
-              readonly
-            ></textarea>
-          </div>
         </section>
       </section>
 
@@ -229,6 +222,6 @@
       </section>
     </div>
 
-    <script type="module" src="src/app.js?v=20260737"></script>
+    <script type="module" src="src/app.js?v=20260744"></script>
   </body>
 </html>

@@ -20,6 +20,8 @@ const storageKeys = {
   recipeFeedback: "menuGenerator.recipeFeedback",
   cookingHistory: "menuGenerator.cookingHistory",
   currentPlan: "menuGenerator.currentPlan",
+  selectedWeekStart: "menuGenerator.selectedWeekStart",
+  weekDrafts: "menuGenerator.weekDrafts",
   savedWeeks: "menuGenerator.savedWeeks",
   shoppingDays: "menuGenerator.shoppingDays",
   manualShoppingItems: "menuGenerator.manualShoppingItems",
@@ -40,6 +42,8 @@ const state = {
   shoppingDays: new Set(loadArray(storageKeys.shoppingDays).length ? loadArray(storageKeys.shoppingDays) : ["Tuesday", "Saturday"]),
   recipes: sampleRecipes,
   plan: null,
+  selectedWeekStart: localStorage.getItem(storageKeys.selectedWeekStart) || getDefaultPlanningWeekStartKey(),
+  weekDrafts: loadObject(storageKeys.weekDrafts),
   dayNotes: loadObject(storageKeys.dayNotes),
   dayDishes: loadObject(storageKeys.dayDishes),
   lockedDays: new Set(loadArray(storageKeys.lockedDays)),
@@ -57,6 +61,9 @@ const state = {
   removedShoppingItemIds: new Set(),
   shoppingItemAssignments: new Map(),
   collapsedShoppingGroups: new Set(),
+  activeBringItemId: "",
+  bringItemDrafts: {},
+  bringItemStatus: {},
   activeAdders: {},
   activeMealChoosers: new Set(),
   visibleMealOptions: new Set(),
@@ -65,6 +72,7 @@ const state = {
   recipeFilter: "all",
   selectedRecipeId: null,
   openRecipeDetails: new Set(),
+  openPlanReviewSections: new Set(),
   importFiles: [],
   selectedImportFiles: new Set(),
   importStatus: "",
@@ -80,6 +88,11 @@ const controls = {
   viewTabs: document.querySelectorAll("[data-view-tab]"),
   inspiration: document.querySelector("#inspiration"),
   weekMood: document.querySelector("#weekMood"),
+  previousWeekButton: document.querySelector("#previousWeekButton"),
+  nextWeekButton: document.querySelector("#nextWeekButton"),
+  currentWeekButton: document.querySelector("#currentWeekButton"),
+  planningWeekName: document.querySelector("#planningWeekName"),
+  planningWeekRange: document.querySelector("#planningWeekRange"),
   busyDays: document.querySelector("#busyDays"),
   noCookDays: document.querySelector("#noCookDays"),
   lunchDays: document.querySelector("#lunchDays"),
@@ -91,11 +104,6 @@ const controls = {
   planningWeekLabel: document.querySelector("#planningWeekLabel"),
   menuPlan: document.querySelector("#menuPlan"),
   shoppingList: document.querySelector("#shoppingList"),
-  shoppingCopyPanel: document.querySelector("#shoppingCopyPanel"),
-  shoppingCopyFormat: document.querySelector("#shoppingCopyFormat"),
-  copyShoppingListButton: document.querySelector("#copyShoppingListButton"),
-  shoppingCopyStatus: document.querySelector("#shoppingCopyStatus"),
-  shoppingCopyText: document.querySelector("#shoppingCopyText"),
   recipeLibrarySearch: document.querySelector("#recipeLibrarySearch"),
   recipeLibraryFilter: document.querySelector("#recipeLibraryFilter"),
   recipeLibraryCount: document.querySelector("#recipeLibraryCount"),
@@ -172,6 +180,8 @@ function getSharedStatePayload() {
     [storageKeys.recipeFeedback]: state.recipeFeedback,
     [storageKeys.cookingHistory]: state.cookingHistory,
     [storageKeys.currentPlan]: serializePlan(state.plan) ?? state.savedPlan,
+    [storageKeys.selectedWeekStart]: state.selectedWeekStart,
+    [storageKeys.weekDrafts]: state.weekDrafts,
     [storageKeys.savedWeeks]: state.savedWeeks,
     [storageKeys.shoppingDays]: [...state.shoppingDays],
     [storageKeys.manualShoppingItems]: state.manualShoppingItems,
@@ -192,6 +202,8 @@ async function loadSharedState() {
       : [];
     const sharedCookingHistory = sharedState[storageKeys.cookingHistory] ?? {};
     const sharedPlan = sharedState[storageKeys.currentPlan] ?? null;
+    const sharedSelectedWeekStart = sharedState[storageKeys.selectedWeekStart] ?? "";
+    const sharedWeekDrafts = sharedState[storageKeys.weekDrafts] ?? {};
     const sharedSavedWeeks = Array.isArray(sharedState[storageKeys.savedWeeks])
       ? sharedState[storageKeys.savedWeeks]
       : [];
@@ -207,6 +219,8 @@ async function loadSharedState() {
     state.lockedDays = new Set([...sharedLockedDays, ...state.lockedDays]);
     state.cookingHistory = sharedCookingHistory;
     if (sharedShoppingDays.length) state.shoppingDays = new Set(sharedShoppingDays);
+    if (sharedSelectedWeekStart) state.selectedWeekStart = localStorage.getItem(storageKeys.selectedWeekStart) || sharedSelectedWeekStart;
+    state.weekDrafts = mergeWeekDrafts(sharedWeekDrafts, state.weekDrafts);
     if (sharedPlan) state.savedPlan = sharedPlan;
     state.savedWeeks = mergeSavedWeeks(sharedSavedWeeks, state.savedWeeks);
 
@@ -216,6 +230,8 @@ async function loadSharedState() {
     localStorage.setItem(storageKeys.lockedDays, JSON.stringify([...state.lockedDays]));
     localStorage.setItem(storageKeys.cookingHistory, JSON.stringify(state.cookingHistory));
     localStorage.setItem(storageKeys.currentPlan, JSON.stringify(state.savedPlan));
+    localStorage.setItem(storageKeys.selectedWeekStart, state.selectedWeekStart);
+    localStorage.setItem(storageKeys.weekDrafts, JSON.stringify(state.weekDrafts));
     localStorage.setItem(storageKeys.savedWeeks, JSON.stringify(state.savedWeeks));
     localStorage.setItem(storageKeys.shoppingDays, JSON.stringify([...state.shoppingDays]));
     localStorage.setItem(storageKeys.manualShoppingItems, JSON.stringify(state.manualShoppingItems));
@@ -254,6 +270,7 @@ function serializePlan(plan) {
       noCook: day.noCook,
       snackDessertNeeded: day.snackDessertNeeded,
       reason: day.reason,
+      carriedFromPreviousWeek: Boolean(day.carriedFromPreviousWeek),
       dinnerId: recipeId(day.dinner),
       dinnerOptionIds: recipeIds(day.dinnerOptions),
       sideId: recipeId(day.side),
@@ -283,6 +300,7 @@ function hydratePlan(savedPlan) {
       noCook: Boolean(day.noCook),
       snackDessertNeeded: Boolean(day.snackDessertNeeded),
       reason: day.reason ?? "",
+      carriedFromPreviousWeek: Boolean(day.carriedFromPreviousWeek),
       dinner: recipe(day.dinnerId),
       dinnerOptions: recipes(day.dinnerOptionIds),
       side: recipe(day.sideId),
@@ -302,6 +320,7 @@ function saveCurrentPlan() {
 
   state.savedPlan = serializePlan(state.plan);
   localStorage.setItem(storageKeys.currentPlan, JSON.stringify(state.savedPlan));
+  saveCurrentWeekDraft();
   saveSharedState();
 }
 
@@ -318,6 +337,45 @@ function mergeSavedWeeks(...weekLists) {
   });
 
   return [...byId.values()].sort((a, b) => String(b.savedAt).localeCompare(String(a.savedAt)));
+}
+
+function mergeWeekDrafts(...draftObjects) {
+  const drafts = {};
+
+  draftObjects.forEach((draftObject) => {
+    Object.entries(draftObject ?? {}).forEach(([weekStart, draft]) => {
+      if (!draft?.weekStart && !weekStart) return;
+      const key = draft.weekStart ?? weekStart;
+      const existing = drafts[key];
+      if (!existing || String(draft.updatedAt ?? "").localeCompare(String(existing.updatedAt ?? "")) >= 0) {
+        drafts[key] = { ...draft, weekStart: key };
+      }
+    });
+  });
+
+  return drafts;
+}
+
+function saveCurrentWeekDraft() {
+  if (!state.selectedWeekStart || !state.plan) return;
+
+  state.weekDrafts[state.selectedWeekStart] = {
+    weekStart: state.selectedWeekStart,
+    updatedAt: new Date().toISOString(),
+    plan: serializePlan(state.plan),
+    dayDishes: cloneJson(state.dayDishes) ?? {},
+    dayNotes: cloneJson(state.dayNotes) ?? {},
+    manualShoppingItems: cloneJson(state.manualShoppingItems) ?? {},
+    lockedDays: [...state.lockedDays],
+    busyDays: [...state.busyDays],
+    noCookDays: [...state.noCookDays],
+    lunchDays: [...state.lunchDays],
+    snackDessertDays: [...state.snackDessertDays],
+    inspiration: state.inspiration,
+    weekMood: state.weekMood,
+  };
+  localStorage.setItem(storageKeys.weekDrafts, JSON.stringify(state.weekDrafts));
+  localStorage.setItem(storageKeys.selectedWeekStart, state.selectedWeekStart);
 }
 
 function saveSavedWeeks() {
@@ -338,6 +396,7 @@ function saveWeekSnapshot() {
   const week = {
     id: `week-${savedAt}`,
     savedAt,
+    weekStart: state.selectedWeekStart,
     weekLabel: getPlanningWeekRangeLabel(),
     plan: serializePlan(state.plan),
     dayDishes: cloneJson(state.dayDishes) ?? {},
@@ -534,6 +593,7 @@ function renderToggleGroup(container, days, selectedSet, onChange, lockedDays = 
 
 function renderPlan(plan) {
   renderPlanningWeekLabel();
+  renderPlanningWeekSwitcher();
   sanitizeAutomaticSides(plan);
   saveCurrentPlan();
   controls.menuPlan.innerHTML = "";
@@ -552,7 +612,7 @@ function renderPlan(plan) {
             <h3>${escapeHtml(day.label)}</h3>
             <p>${escapeHtml(getPlannedDateLabel(day.label))}</p>
           </div>
-          <span>No meals</span>
+          <span>${escapeHtml(getDayStatusLabel(day))}</span>
         </div>
         ${isLocked ? renderLockedSummary(day) : renderDayControls(day)}
       `;
@@ -603,7 +663,7 @@ function renderPlan(plan) {
           <h3>${escapeHtml(day.label)}</h3>
           <p>${escapeHtml(getPlannedDateLabel(day.label))}</p>
         </div>
-        <span>${day.noDinner ? "No dinner" : day.busy ? "Busy" : "Normal"}</span>
+        <span>${escapeHtml(getDayStatusLabel(day))}</span>
       </div>
       ${isLocked ? renderLockedSummary(day) : `
         ${lunch}
@@ -723,6 +783,21 @@ function renderPlan(plan) {
   controls.menuPlan.querySelectorAll("[data-review-status]").forEach((button) => {
     button.addEventListener("click", () => {
       setCookingHistoryStatus(button.dataset.reviewStatus, button.dataset.reviewKey);
+    });
+  });
+
+  controls.menuPlan.querySelectorAll("[data-open-plan-recipe]").forEach((button) => {
+    button.addEventListener("click", () => {
+      openPlanRecipe(button.dataset.openPlanRecipe);
+    });
+  });
+
+  controls.menuPlan.querySelectorAll("[data-plan-review-section]").forEach((details) => {
+    details.addEventListener("toggle", () => {
+      const sectionKey = details.dataset.planReviewSection;
+      if (!sectionKey) return;
+      if (details.open) state.openPlanReviewSections.add(sectionKey);
+      else state.openPlanReviewSections.delete(sectionKey);
     });
   });
 
@@ -1317,13 +1392,24 @@ function renderLockedSummary(day) {
         ${dishes.map((dish) => `
           <div class="final-dish">
             <span>${escapeHtml(formatRole(dish.role))}</span>
-            <strong>${escapeHtml(dish.title)}</strong>
+            <div class="final-dish-main">
+              <strong>${escapeHtml(dish.title)}</strong>
+              ${dish.recipeId ? `
+                <button
+                  class="small-button final-dish-detail-button"
+                  type="button"
+                  data-open-plan-recipe="${escapeHtml(dish.recipeId)}"
+                >
+                  View recipe
+                </button>
+              ` : ""}
+            </div>
           </div>
         `).join("")}
       </div>
       ${reviewItems.length ? renderReviewWeek(day, reviewItems) : ""}
       ${recipeMemories.length ? `
-        <details class="locked-memory">
+        <details class="locked-memory" data-plan-review-section="${escapeHtml(getPlanReviewSectionKey(day.label, "recipes"))}" ${state.openPlanReviewSections.has(getPlanReviewSectionKey(day.label, "recipes")) ? "open" : ""}>
           <summary>Review recipes</summary>
           <div class="locked-memory-list">
             ${recipeMemories.map((recipe) => renderRecipeFeedback(recipe)).join("")}
@@ -1334,9 +1420,16 @@ function renderLockedSummary(day) {
   `;
 }
 
+function getDayStatusLabel(day) {
+  if (day.carriedFromPreviousWeek) return "Carried over";
+  if (day.noCook) return "No meals";
+  if (day.noDinner) return "No dinner";
+  return day.busy ? "Busy" : "Normal";
+}
+
 function renderReviewWeek(day, reviewItems) {
   return `
-    <details class="review-week">
+    <details class="review-week" data-plan-review-section="${escapeHtml(getPlanReviewSectionKey(day.label, "week"))}" ${state.openPlanReviewSections.has(getPlanReviewSectionKey(day.label, "week")) ? "open" : ""}>
       <summary>Review week</summary>
       <div class="review-week-list">
         ${reviewItems.map((item) => {
@@ -1359,6 +1452,16 @@ function renderReviewWeek(day, reviewItems) {
   `;
 }
 
+function getPlanReviewSectionKey(dayLabel, section) {
+  return `${dayLabel}:${section}`;
+}
+
+function openPlanRecipe(recipeId) {
+  const recipe = state.recipes.find((candidate) => candidate.id === recipeId);
+  if (!recipe) return;
+  openQuickRecipeOverlay(recipe);
+}
+
 function renderReviewButton(item, status, label, currentStatus) {
   return `
     <button
@@ -1377,20 +1480,21 @@ function getFinalDishes(day) {
 
   const dishes = [];
   if (day.customLunch) dishes.push({ role: "lunch", title: day.customLunch });
-  else if (day.lunch) dishes.push({ role: "lunch idea", title: getRecipeDisplayTitle(day.lunch) });
+  else if (day.lunch) dishes.push({ role: "lunch idea", title: getRecipeDisplayTitle(day.lunch), recipeId: day.lunch.id });
   (state.dayDishes[day.label] ?? [])
     .filter((dish) => dish.mealType === "lunch")
     .forEach((dish) => {
       dishes.push({
         role: `lunch ${dish.role}`,
         title: getDishTitle(dish),
+        recipeId: dish.source === "recipe" ? dish.recipeId : "",
       });
     });
   if (day.customSnackDessert) dishes.push({ role: "snack/dessert", title: day.customSnackDessert });
-  else if (day.snackDessert) dishes.push({ role: "snack/dessert idea", title: getRecipeDisplayTitle(day.snackDessert) });
+  else if (day.snackDessert) dishes.push({ role: "snack/dessert idea", title: getRecipeDisplayTitle(day.snackDessert), recipeId: day.snackDessert.id });
   if (day.customDinner) dishes.push({ role: "dinner", title: day.customDinner });
-  else if (day.dinner) dishes.push({ role: "dinner idea", title: getRecipeDisplayTitle(day.dinner) });
-  if (!day.customDinner && day.side) dishes.push({ role: "side", title: getRecipeDisplayTitle(day.side) });
+  else if (day.dinner) dishes.push({ role: "dinner idea", title: getRecipeDisplayTitle(day.dinner), recipeId: day.dinner.id });
+  if (!day.customDinner && day.side) dishes.push({ role: "side", title: getRecipeDisplayTitle(day.side), recipeId: day.side.id });
 
   (state.dayDishes[day.label] ?? [])
     .filter((dish) => (dish.mealType ?? "dinner") === "dinner")
@@ -1398,6 +1502,7 @@ function getFinalDishes(day) {
       dishes.push({
         role: dish.role,
         title: getDishTitle(dish),
+        recipeId: dish.source === "recipe" ? dish.recipeId : "",
       });
     });
 
@@ -1493,12 +1598,46 @@ function getPlannedDateObject(dayLabel) {
 }
 
 function getPlanningWeekStartDate() {
-  const today = new Date();
-  const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  return dateFromKey(state.selectedWeekStart || getDefaultPlanningWeekStartKey());
+}
+
+function getDefaultPlanningWeekStartKey() {
+  return formatDateKey(getNextMonday(new Date()));
+}
+
+function getCurrentWeekStartKey() {
+  return formatDateKey(getMondayForWeek(new Date()));
+}
+
+function getNextWeekStartKey() {
+  return formatDateKey(getNextMonday(new Date()));
+}
+
+function getMondayForWeek(value) {
+  const date = new Date(value.getFullYear(), value.getMonth(), value.getDate());
+  const dayOfWeek = date.getDay();
+  const daysSinceMonday = (dayOfWeek + 6) % 7;
+  date.setDate(date.getDate() - daysSinceMonday);
+  return date;
+}
+
+function getNextMonday(value) {
+  const date = new Date(value.getFullYear(), value.getMonth(), value.getDate());
   const dayOfWeek = date.getDay();
   const daysUntilMonday = (8 - dayOfWeek) % 7 || 7;
   date.setDate(date.getDate() + daysUntilMonday);
   return date;
+}
+
+function dateFromKey(key) {
+  const [year, month, day] = String(key).split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
+
+function addDaysToKey(key, days) {
+  const date = dateFromKey(key);
+  date.setDate(date.getDate() + days);
+  return formatDateKey(date);
 }
 
 function formatDateKey(date) {
@@ -1524,6 +1663,28 @@ function renderPlanningWeekLabel() {
   if (!controls.planningWeekLabel) return;
 
   controls.planningWeekLabel.textContent = `Planning week: ${getPlanningWeekRangeLabel()}`;
+}
+
+function renderPlanningWeekSwitcher() {
+  if (!controls.planningWeekName || !controls.planningWeekRange) return;
+  const currentWeek = getCurrentWeekStartKey();
+  const nextWeek = getNextWeekStartKey();
+  controls.planningWeekName.textContent = getWeekSwitcherName(state.selectedWeekStart, currentWeek, nextWeek);
+  controls.planningWeekRange.textContent = getWeekRangeLabel(state.selectedWeekStart);
+  if (controls.currentWeekButton) controls.currentWeekButton.disabled = state.selectedWeekStart === currentWeek;
+}
+
+function getWeekSwitcherName(weekStart, currentWeek, nextWeek) {
+  if (weekStart === currentWeek) return "Current week";
+  if (weekStart === nextWeek) return "Next week";
+  if (weekStart === addDaysToKey(nextWeek, 7)) return "Week after next";
+  return "Planning week";
+}
+
+function getWeekRangeLabel(weekStart) {
+  const start = dateFromKey(weekStart);
+  const end = dateFromKey(addDaysToKey(weekStart, 7));
+  return `${formatShortDate(start)} - ${formatShortDate(end)}`;
 }
 
 function getFinalRecipeMemories(day) {
@@ -2238,7 +2399,6 @@ let currentShoppingGroups = [];
 
 function renderShopping(groups) {
   currentShoppingGroups = groups;
-  renderShoppingCopyPanel(groups);
   controls.shoppingList.innerHTML = "";
 
   if (!groups.length) {
@@ -2313,96 +2473,32 @@ function renderShopping(groups) {
       openShoppingRecipe(button.dataset.openShoppingRecipe, button.dataset.openShoppingSource, button.dataset.openShoppingTitle);
     });
   });
-}
 
-function renderShoppingCopyPanel(groups) {
-  if (!controls.shoppingCopyPanel || !controls.copyShoppingListButton) return;
+  controls.shoppingList.querySelectorAll("[data-toggle-bring-item]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.activeBringItemId = state.activeBringItemId === button.dataset.toggleBringItem
+        ? ""
+        : button.dataset.toggleBringItem;
+      renderCurrentShoppingList();
+    });
+  });
 
-  const hasItems = groups.some((group) => group.items.length);
-  controls.shoppingCopyPanel.classList.toggle("is-hidden", !hasItems);
-  controls.copyShoppingListButton.disabled = !hasItems;
-  updateShoppingCopyText();
-}
-
-function formatShoppingListForCopy(groups, format) {
-  const checkbox = format === "checklist" ? "- [ ] " : "";
-
-  return groups
-    .filter((group) => group.items.length)
-    .map((group) => {
-      const items = group.items.map((item) => `${checkbox}${item.name}`).join("\n");
-      return `${formatShoppingDayLabel(group.day)}\n${items}`;
-    })
-    .join("\n\n");
-}
-
-function updateShoppingCopyText() {
-  if (!controls.shoppingCopyText) return;
-
-  const format = controls.shoppingCopyFormat?.value ?? "checklist";
-  controls.shoppingCopyText.value = formatShoppingListForCopy(currentShoppingGroups, format);
-  clearShoppingCopyStatus();
-}
-
-async function copyShoppingList() {
-  if (!controls.copyShoppingListButton) return;
-
-  updateShoppingCopyText();
-  const text = controls.shoppingCopyText?.value ?? "";
-  if (!text.trim()) return;
-
-  try {
-    await navigator.clipboard.writeText(text);
-    selectShoppingCopyText(text);
-    showTemporaryButtonText(controls.copyShoppingListButton, "Copied");
-    showShoppingCopyStatus("Copied to clipboard");
-  } catch {
-    selectShoppingCopyText(text);
-    const copiedSelection = document.execCommand("copy");
-    if (copiedSelection) {
-      showTemporaryButtonText(controls.copyShoppingListButton, "Copied");
-      showShoppingCopyStatus("Copied to clipboard");
-    } else {
-      showTemporaryButtonText(controls.copyShoppingListButton, "Select + copy");
-      showShoppingCopyStatus("List selected. Press Command-C to copy.", "needs-copy");
-    }
-  }
-}
-
-function selectShoppingCopyText(text) {
-  if (controls.shoppingCopyText) {
-    controls.shoppingCopyText.value = text;
-    controls.shoppingCopyText.focus();
-    controls.shoppingCopyText.select();
-    controls.shoppingCopyText.setSelectionRange(0, text.length);
-  }
-}
-
-function clearShoppingCopyStatus() {
-  if (!controls.shoppingCopyStatus) return;
-
-  controls.shoppingCopyStatus.textContent = "";
-  controls.shoppingCopyStatus.classList.remove("is-visible", "needs-copy");
-  if (controls.shoppingCopyStatus.dataset.feedbackTimer) {
-    clearTimeout(Number(controls.shoppingCopyStatus.dataset.feedbackTimer));
-    delete controls.shoppingCopyStatus.dataset.feedbackTimer;
-  }
-}
-
-function showShoppingCopyStatus(message, status = "copied") {
-  if (!controls.shoppingCopyStatus) return;
-
-  clearShoppingCopyStatus();
-  controls.shoppingCopyStatus.textContent = message;
-  controls.shoppingCopyStatus.classList.add("is-visible");
-  controls.shoppingCopyStatus.classList.toggle("needs-copy", status === "needs-copy");
-  const timer = setTimeout(() => {
-    clearShoppingCopyStatus();
-  }, 3000);
-  controls.shoppingCopyStatus.dataset.feedbackTimer = String(timer);
+  controls.shoppingList.querySelectorAll("[data-add-bring-item]").forEach((button) => {
+    button.addEventListener("click", () => {
+      addShoppingItemToBring(button);
+    });
+  });
 }
 
 function renderShoppingItem(item, { showSources = false } = {}) {
+  const bringDefaults = state.bringItemDrafts[item.id] ?? getBringItemDefaults(item);
+  const isBringOpen = state.activeBringItemId === item.id;
+  const bringStatus = state.bringItemStatus[item.id];
+  const bringButtonLabel = isBringOpen
+    ? "Hide Bring!"
+    : bringStatus?.kind === "success"
+      ? "Edit Bring!"
+      : "Bring!";
   const sourceRows = showSources
     ? `
       <ul class="shopping-source-list">
@@ -2453,13 +2549,92 @@ function renderShoppingItem(item, { showSources = false } = {}) {
       <div>
         <div class="shopping-item-heading">
           <strong>${escapeHtml(item.name)}</strong>
-          <button class="remove-button shopping-remove-button" type="button" data-remove-item="${escapeHtml(item.id)}" aria-label="Remove ${escapeHtml(item.name)}">×</button>
+          <div class="shopping-item-buttons">
+            <button class="small-button" type="button" data-toggle-bring-item="${escapeHtml(item.id)}">${bringButtonLabel}</button>
+            <button class="remove-button shopping-remove-button" type="button" data-remove-item="${escapeHtml(item.id)}" aria-label="Remove ${escapeHtml(item.name)}">×</button>
+          </div>
         </div>
         ${sourceRows}
+        ${isBringOpen ? renderBringItemEditor(item, bringDefaults, bringStatus) : renderBringItemStatus(bringStatus)}
       </div>
       ${moveControl ? `<div class="shopping-actions">${moveControl}</div>` : ""}
     </li>
   `;
+}
+
+function getBringItemDefaults(item) {
+  const parts = item.combinableParts;
+  if (parts?.itemName) {
+    return {
+      name: parts.itemName,
+      specification: (parts.amounts ?? []).map((amount) => amount.label).filter(Boolean).join(" + "),
+    };
+  }
+  return {
+    name: item.name,
+    specification: "",
+  };
+}
+
+function renderBringItemEditor(item, defaults, status) {
+  return `
+    <div class="bring-editor">
+      <label>
+        <span>Bring item</span>
+        <input data-bring-name="${escapeHtml(item.id)}" value="${escapeHtml(defaults.name)}" />
+      </label>
+      <label>
+        <span>Specification</span>
+        <input data-bring-specification="${escapeHtml(item.id)}" value="${escapeHtml(defaults.specification)}" placeholder="Amount, size, note" />
+      </label>
+      <div class="bring-editor-actions">
+        <button class="small-button" type="button" data-add-bring-item="${escapeHtml(item.id)}">Add to Bring</button>
+        ${renderBringItemStatus(status)}
+      </div>
+    </div>
+  `;
+}
+
+function renderBringItemStatus(status) {
+  if (!status?.message) return "";
+  return `<span class="bring-status ${status.kind === "error" ? "is-error" : "is-success"}">${escapeHtml(status.message)}</span>`;
+}
+
+async function addShoppingItemToBring(button) {
+  const itemId = button.dataset.addBringItem;
+  const item = currentShoppingGroups.flatMap((group) => group.items).find((candidate) => candidate.id === itemId);
+  if (!item) return;
+
+  const editor = button.closest(".bring-editor");
+  const name = editor?.querySelector("[data-bring-name]")?.value.trim() ?? "";
+  const specification = editor?.querySelector("[data-bring-specification]")?.value.trim() ?? "";
+  state.bringItemDrafts[itemId] = { name, specification };
+  if (!name) {
+    state.bringItemStatus[itemId] = { kind: "error", message: "Add a name first" };
+    renderCurrentShoppingList();
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Adding...";
+
+  try {
+    const response = await fetch(`${apiBase}/bring/add`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, specification }),
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || result.ok === false) {
+      throw new Error(result.message || "Could not add to Bring");
+    }
+    state.bringItemStatus[itemId] = { kind: "success", message: `Added to ${result.listName || "Bring"}` };
+    if (state.activeBringItemId === itemId) state.activeBringItemId = "";
+  } catch (error) {
+    state.bringItemStatus[itemId] = { kind: "error", message: error.message || "Bring add failed" };
+  }
+
+  renderCurrentShoppingList();
 }
 
 function openShoppingRecipe(recipeId, sourceUrl, title) {
@@ -2495,7 +2670,7 @@ function closeQuickRecipeOverlay() {
   controls.quickRecipeContent.innerHTML = "";
 }
 
-function generate({ keepShoppingEdits = false, preserveDays = new Set(), randomness = 0 } = {}) {
+function generate({ keepShoppingEdits = false, preserveDays = new Set(), randomness = 0, carryPreviousMonday = false } = {}) {
   if (!keepShoppingEdits) {
     state.removedShoppingItemIds.clear();
     state.shoppingItemAssignments.clear();
@@ -2517,6 +2692,7 @@ function generate({ keepShoppingEdits = false, preserveDays = new Set(), randomn
   });
 
   state.plan = applyPlanOverrides(plan, preserveDays);
+  if (carryPreviousMonday) applyPriorNextMondayCarryover();
 
   renderPlan(state.plan);
   renderCurrentShoppingList();
@@ -2537,6 +2713,7 @@ function startFreshWeek() {
   state.activeAdders = {};
   state.activeMealChoosers.clear();
   state.visibleMealOptions.clear();
+  state.openPlanReviewSections.clear();
   state.dayNotes = {};
   state.dayDishes = {};
   state.manualShoppingItems = {};
@@ -2548,7 +2725,127 @@ function startFreshWeek() {
   saveObject(storageKeys.manualShoppingItems, state.manualShoppingItems);
   renderPlanningToggles();
   renderSavedWeeksList();
-  generate({ randomness: 8 });
+  generate({ randomness: 8, carryPreviousMonday: true });
+}
+
+function switchPlanningWeek(weekStart) {
+  if (!weekStart || weekStart === state.selectedWeekStart) return;
+
+  saveCurrentWeekDraft();
+  state.selectedWeekStart = weekStart;
+  localStorage.setItem(storageKeys.selectedWeekStart, state.selectedWeekStart);
+  loadSelectedWeekDraft();
+}
+
+function shiftPlanningWeek(weeks) {
+  switchPlanningWeek(addDaysToKey(state.selectedWeekStart, weeks * 7));
+}
+
+function loadSelectedWeekDraft() {
+  const draft = state.weekDrafts[state.selectedWeekStart];
+  clearTransientPlanState();
+
+  if (!draft) {
+    startFreshWeek();
+    return;
+  }
+
+  state.savedPlan = draft.plan ?? null;
+  state.plan = hydratePlan(draft.plan);
+  state.dayDishes = cloneJson(draft.dayDishes) ?? {};
+  state.dayNotes = cloneJson(draft.dayNotes) ?? {};
+  state.manualShoppingItems = cloneJson(draft.manualShoppingItems) ?? {};
+  state.lockedDays = new Set(draft.lockedDays ?? []);
+  state.busyDays = new Set(draft.busyDays ?? ["Monday", "Tuesday", "Wednesday"]);
+  state.noCookDays = new Set(draft.noCookDays ?? []);
+  state.lunchDays = new Set(draft.lunchDays ?? []);
+  state.snackDessertDays = new Set(draft.snackDessertDays ?? ["Friday", "Saturday", "Sunday"]);
+  state.inspiration = draft.inspiration ?? "none";
+  state.weekMood = draft.weekMood ?? "balanced";
+  controls.inspiration.value = state.inspiration;
+  controls.weekMood.value = state.weekMood;
+  persistActiveWeekStateLocally();
+  renderPlanningToggles();
+  renderSavedWeeksList();
+
+  if (state.plan) {
+    renderPlan(state.plan);
+    renderCurrentShoppingList();
+  } else {
+    generate({ carryPreviousMonday: true });
+  }
+}
+
+function clearTransientPlanState() {
+  state.excludedRecipeIdsBySlot.clear();
+  state.excludedAddOnSuggestionIdsBySlot.clear();
+  state.addOnSuggestionIdsBySlot.clear();
+  state.activeAdders = {};
+  state.activeMealChoosers.clear();
+  state.visibleMealOptions.clear();
+  state.openPlanReviewSections.clear();
+}
+
+function persistActiveWeekStateLocally() {
+  localStorage.setItem(storageKeys.currentPlan, JSON.stringify(state.savedPlan));
+  localStorage.setItem(storageKeys.dayDishes, JSON.stringify(state.dayDishes));
+  localStorage.setItem(storageKeys.dayNotes, JSON.stringify(state.dayNotes));
+  localStorage.setItem(storageKeys.manualShoppingItems, JSON.stringify(state.manualShoppingItems));
+  localStorage.setItem(storageKeys.lockedDays, JSON.stringify([...state.lockedDays]));
+  localStorage.setItem(storageKeys.selectedWeekStart, state.selectedWeekStart);
+}
+
+function applyPriorNextMondayCarryover() {
+  if (!state.plan || !state.selectedWeekStart) return;
+
+  const previousWeekStart = addDaysToKey(state.selectedWeekStart, -7);
+  const previousDraft = state.weekDrafts[previousWeekStart];
+  if (!previousDraft?.plan) return;
+
+  const previousPlan = hydratePlan(previousDraft.plan);
+  const sourceDay = previousPlan?.days?.find((day) => day.label === "Next Monday");
+  if (!sourceDay || !hasPlannedDayContent(sourceDay, previousDraft, "Next Monday")) return;
+
+  const mondayIndex = state.plan.days.findIndex((day) => day.label === "Monday");
+  if (mondayIndex < 0) return;
+
+  state.plan.days[mondayIndex] = {
+    ...sourceDay,
+    label: "Monday",
+    reason: "Carried over from previous week",
+    carriedFromPreviousWeek: true,
+  };
+
+  copyDraftDayExtras(previousDraft, "Next Monday", "Monday");
+  state.lockedDays.add("Monday");
+}
+
+function hasPlannedDayContent(day, draft, dayLabel) {
+  if (day.lunch || day.dinner || day.side || day.snackDessert) return true;
+  if (day.customLunch || day.customDinner || day.customSnackDessert) return true;
+  if ((draft.dayDishes?.[dayLabel] ?? []).length) return true;
+  return ["lunch", "dinner", "snackDessert"].some((mealType) =>
+    Boolean(draft.dayNotes?.[getMealKey(dayLabel, mealType)] || draft.manualShoppingItems?.[getMealKey(dayLabel, mealType)]),
+  );
+}
+
+function copyDraftDayExtras(draft, sourceLabel, targetLabel) {
+  const sourceDishes = draft.dayDishes?.[sourceLabel];
+  if (sourceDishes?.length) {
+    state.dayDishes[targetLabel] = cloneJson(sourceDishes).map((dish) => ({
+      ...dish,
+      id: dish.id ? dish.id.replace(sourceLabel, targetLabel) : `dish-${targetLabel}-${Date.now()}`,
+    }));
+  }
+
+  ["lunch", "dinner", "snackDessert"].forEach((mealType) => {
+    const sourceKey = getMealKey(sourceLabel, mealType);
+    const targetKey = getMealKey(targetLabel, mealType);
+    if (draft.dayNotes?.[sourceKey]) state.dayNotes[targetKey] = draft.dayNotes[sourceKey];
+    if (draft.manualShoppingItems?.[sourceKey]) state.manualShoppingItems[targetKey] = draft.manualShoppingItems[sourceKey];
+  });
+
+  if (draft.dayNotes?.[sourceLabel]) state.dayNotes[targetLabel] = draft.dayNotes[sourceLabel];
 }
 
 function getFreshWeekExclusions() {
@@ -3218,6 +3515,18 @@ controls.weekMood.addEventListener("change", () => {
   generate();
 });
 
+controls.previousWeekButton?.addEventListener("click", () => {
+  shiftPlanningWeek(-1);
+});
+
+controls.nextWeekButton?.addEventListener("click", () => {
+  shiftPlanningWeek(1);
+});
+
+controls.currentWeekButton?.addEventListener("click", () => {
+  switchPlanningWeek(getCurrentWeekStartKey());
+});
+
 controls.startFreshWeekButton?.addEventListener("click", () => {
   startFreshWeek();
 });
@@ -3225,14 +3534,6 @@ controls.startFreshWeekButton?.addEventListener("click", () => {
 controls.saveWeekButton?.addEventListener("click", () => {
   saveWeekSnapshot();
   showTemporaryButtonText(controls.saveWeekButton, "Saved");
-});
-
-controls.copyShoppingListButton?.addEventListener("click", () => {
-  copyShoppingList();
-});
-
-controls.shoppingCopyFormat?.addEventListener("change", () => {
-  updateShoppingCopyText();
 });
 
 controls.viewTabs.forEach((button) => {
@@ -3309,23 +3610,28 @@ loadRecipes().then(async () => {
   await loadSharedState();
   await loadImportFiles();
   if (!state.selectedRecipeId && state.recipes.length) state.selectedRecipeId = state.recipes[0].id;
-  renderPlanningToggles();
+  renderPlanningWeekSwitcher();
   renderSavedWeeksList();
-  const restoredPlan = hydratePlan(state.savedPlan);
-  if (restoredPlan) {
-    state.plan = restoredPlan;
-    if (isEmptyNoCookPlan(state.plan)) {
-      startFreshWeek();
-    } else {
-      renderPlan(state.plan);
-      renderCurrentShoppingList();
-    }
+  if (state.weekDrafts[state.selectedWeekStart]) {
+    loadSelectedWeekDraft();
   } else {
-    if (state.lockedDays.size) {
-      state.lockedDays.clear();
-      localStorage.setItem(storageKeys.lockedDays, JSON.stringify([]));
+    renderPlanningToggles();
+    const restoredPlan = hydratePlan(state.savedPlan);
+    if (restoredPlan) {
+      state.plan = restoredPlan;
+      if (isEmptyNoCookPlan(state.plan)) {
+        startFreshWeek();
+      } else {
+        renderPlan(state.plan);
+        renderCurrentShoppingList();
+      }
+    } else {
+      if (state.lockedDays.size) {
+        state.lockedDays.clear();
+        localStorage.setItem(storageKeys.lockedDays, JSON.stringify([]));
+      }
+      generate({ carryPreviousMonday: true });
     }
-    generate();
   }
   renderActiveView();
 });

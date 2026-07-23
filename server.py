@@ -7,6 +7,9 @@ import json
 import os
 import shutil
 import sys
+import urllib.error
+import urllib.parse
+import urllib.request
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
@@ -20,6 +23,10 @@ RECIPES_PATH = DATA_PATH / "recipes.json"
 IMPORTS_PATH = DATA_PATH / "imports"
 HOST = os.environ.get("MENU_HOST", "127.0.0.1")
 PORT = int(os.environ.get("MENU_PORT", "5178"))
+BRING_API_URL = "https://api.getbring.com/rest/v2/"
+BRING_LIST_NAME = os.environ.get("BRING_LIST_NAME", "Pantry Test")
+BRING_LIST_UUID = os.environ.get("BRING_LIST_UUID", "")
+BRING_API_KEY = "cof4Nc6D8saplXjE3h3HXqHH8m7VU2i1Gs0g85Sp"
 
 sys.path.insert(0, str(ROOT / "scripts"))
 from import_paprika import update_recipe_file  # noqa: E402
@@ -70,6 +77,16 @@ class MenuHandler(SimpleHTTPRequestHandler):
                 self.send_json(summary)
             except ValueError as error:
                 self.send_json({"message": str(error)}, status=400)
+            return
+        if self.path == "/api/bring/add":
+            payload = self.read_json()
+            try:
+                result = add_bring_item(payload if isinstance(payload, dict) else {})
+                self.send_json(result)
+            except ValueError as error:
+                self.send_json({"message": str(error)}, status=400)
+            except BringError as error:
+                self.send_json({"message": str(error)}, status=502)
             return
         self.send_error(404)
 
@@ -182,6 +199,143 @@ def select_import_files(payload: dict[str, Any]) -> list[Path]:
     if not paths:
         raise ValueError("No .paprikarecipes files were found in the imports folder.")
     return paths
+
+
+class BringError(Exception):
+    """Raised when Bring's unofficial API rejects or cannot complete a request."""
+
+
+def bring_base_headers() -> dict[str, str]:
+    return {
+        "X-BRING-API-KEY": BRING_API_KEY,
+        "X-BRING-CLIENT": "webApp",
+        "X-BRING-CLIENT-SOURCE": "webApp",
+        "X-BRING-COUNTRY": "CH",
+    }
+
+
+def bring_auth_headers(uuid: str, access_token: str) -> dict[str, str]:
+    return {
+        **bring_base_headers(),
+        "X-BRING-USER-UUID": uuid,
+        "Authorization": f"Bearer {access_token}",
+    }
+
+
+def bring_request(
+    method: str,
+    path: str,
+    *,
+    headers: dict[str, str] | None = None,
+    data: str | bytes | None = None,
+) -> Any:
+    body = data
+    if isinstance(data, str):
+        body = data.encode("utf-8")
+    request = urllib.request.Request(
+        f"{BRING_API_URL}{path}",
+        data=body,
+        headers=headers or {},
+        method=method,
+    )
+
+    try:
+        with urllib.request.urlopen(request, timeout=20) as response:
+            raw = response.read().decode("utf-8")
+    except urllib.error.HTTPError as error:
+        detail = error.read().decode("utf-8", errors="replace")
+        raise BringError(f"Bring request failed ({error.code}): {detail or error.reason}") from error
+    except urllib.error.URLError as error:
+        raise BringError(f"Could not reach Bring: {error.reason}") from error
+
+    if not raw.strip():
+        return {}
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        return {"raw": raw}
+
+
+def login_to_bring() -> tuple[str, str]:
+    email = os.environ.get("BRING_EMAIL", "")
+    password = os.environ.get("BRING_PASSWORD", "")
+    if not email or not password:
+        raise ValueError("Bring credentials are not configured on the server.")
+
+    payload = urllib.parse.urlencode({"email": email, "password": password})
+    response = bring_request(
+        "POST",
+        "bringauth",
+        headers={
+            **bring_base_headers(),
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        data=payload,
+    )
+    uuid = response.get("uuid")
+    access_token = response.get("access_token")
+    if not uuid or not access_token:
+        raise BringError("Bring login did not return the expected auth data.")
+    return str(uuid), str(access_token)
+
+
+def find_bring_list_uuid(uuid: str, access_token: str) -> str:
+    if BRING_LIST_UUID:
+        return BRING_LIST_UUID
+
+    response = bring_request(
+        "GET",
+        f"bringusers/{urllib.parse.quote(uuid)}/lists",
+        headers=bring_auth_headers(uuid, access_token),
+    )
+    lists = response.get("lists")
+    if not isinstance(lists, list):
+        raise BringError("Bring list lookup did not return a list.")
+
+    exact_match = next((item for item in lists if item.get("name") == BRING_LIST_NAME), None)
+    fallback_match = next(
+        (item for item in lists if str(item.get("name", "")).lower() == BRING_LIST_NAME.lower()),
+        None,
+    )
+    selected = exact_match or fallback_match
+    list_uuid = selected.get("listUuid") if selected else ""
+    if not list_uuid:
+        raise BringError(f'Bring list "{BRING_LIST_NAME}" was not found.')
+    return str(list_uuid)
+
+
+def add_bring_item(payload: dict[str, Any]) -> dict[str, Any]:
+    name = str(payload.get("name", "")).strip()
+    specification = str(payload.get("specification", "")).strip()
+    if not name:
+        raise ValueError("Item name is required.")
+
+    uuid, access_token = login_to_bring()
+    list_uuid = find_bring_list_uuid(uuid, access_token)
+    form = urllib.parse.urlencode(
+        {
+            "purchase": name,
+            "recently": "",
+            "specification": specification,
+            "remove": "",
+            "sender": "null",
+        }
+    )
+    bring_request(
+        "PUT",
+        f"bringlists/{urllib.parse.quote(list_uuid)}",
+        headers={
+            **bring_auth_headers(uuid, access_token),
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        data=form,
+    )
+    return {
+        "ok": True,
+        "name": name,
+        "specification": specification,
+        "listName": BRING_LIST_NAME,
+    }
 
 
 def main() -> None:
